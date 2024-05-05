@@ -1,0 +1,1105 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: gfx/
+:: map/
+:: sfx/
+:: vgfx/
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCIscmV2aXNpb249MTEyOF1dbHo0AK8AAADcMQAA8xR7WzBdPXtibXA9cHh1
+AEMgEBAE8PAsZmxhZ3M9MCxwYW5feAgAynk9MCx6b29tPTl9LDEAL-8VMgAdpxAPEwAOAA6QDgAC
+AD8QDgAQAAk_HgAOHgAPLAAECxAAPjAOABwADw4AAg9YACcQcAQADwcBHC-w8DEA------------
+----------------------------------------------------dVBtPTl9fQ==
+:: gfx/characters.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjMwOjU3Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCIscmV2aXNpb249MTE0MF1dbHo0AKYAAABDMQAA8hZ7WzBdPXtibXA9cHh1
+AEMgEBAEQBY3cBZ3QAY3BScFFzAGJwUHAgAwMAanDgD3BmdAFhcVN3BXgCZHYBZ3UBZ3QBaXMAMA
+8wAQLGZsYWdzPTAscGFuX3gIAMp5PTAsem9vbT04fSxvAC-w8DEA------------------------
+----------------------------------------11BtPTh9fQ==
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCJdXWx6NAAEAAAAAwAAADBuaWw=
+:: map/0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCIscmV2aXNpb249MTEzM11dbHo0ALoAAACvIAAA8Ah7e2JtcD11c2VyZGF0
+YSgiaTE2IiwzMgMALyIwAQD-------_9HjIEAA8BAFYfMgQABg8BAFMfMgQAAg8BAE8fMgQACg8B
+AFMfMgQAAg8BAF8XMgQADwEA--------nPEIIiksaGlkZGVuPWZhbHNlLHBhbl94PTAIANJ5PTAs
+dGlsZV9oPTE2CgAQdwoAj3pvb209MX0sVxALHzEEAP--------------------gPVxAkUG09MX19
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCJdXWx6NAAEAAAAAwAAADBuaWw=
+:: sfx/0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCIscmV2aXNpb249MTEzMF1dbHo0ABUBAACiDAAA8CdweHUAAygAAAQABA9A
+EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8QAPAADQ8RDxIPEw8UDxUP
+Fg8XEwDxAQ8YDxkPGg8bDxwPHQ8eDx8UAPEAIA8hDyIPIw8kDyUPJg8nFADxACgPKQ8qDysPLA8t
+Dy4PLxQA8QAwDzEPMg8zDzQPNQ82DzcUAP8FOA85DzoPOw88Dz0PPg8-AA--8P8BAOv-J1oBEAYP
+IBABIAEgAfAAAhACDBABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDDAA------_9
+H-8BAKy-yA9AAA1A--_w8HAKAP--ZB--AQD-mVD-----IA==
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCJdXWx6NAAEAAAAAwAAADBuaWw=
+:: vgfx/0.vgfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIyOjMwOjQ5Iixtb2RpZmllZD0iMjAyNC0w
+NC0yOSAyMzowMTo0NSIscmV2aXNpb249MjJdXWx6NAAhAQAAXQEAALB7e3tjb2xfYT0xLAgA8CRi
+PTE2LGZpbGw9NDM2OTAsbmFtZT0iIixvdXRsaW5lPS0xLHBvaW50cz17ezQ4LDQ4fSwIABEtCQAV
+MAgA8ww0OH19LHNob3c9dHJ1ZSx0eXBlPSJlYXIifSxvABM4bwASOG4ADmoAJjEyagDxNS0xMTYu
+ODE4NTgxNDY3ODYsLTQyLjQwNDM2NzMzNTEwNX0sey04MC4zNTMxODc0NDUyMDgsLTYzLjMzOTM4
+Njc3MDc5JADwETUwLjYxODk2NjUzMTIwMiwtMzcuMjQ1NzgzOTc5MzYyJADwEDQwLjAyOTQ0NzU1
+OTA2OSwzLjQ1ODc4Njg2ODg3MTMjAEA4OCw3CABfMTIxLDbrAANQciJ9fX0=
+:: vgfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIyOjMwOjQ5Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCJdXWx6NAAEAAAAAwAAADBuaWw=
+:: behaviors.lua
+--[[pod_format="raw",created="2024-05-05 05:54:19",modified="2024-05-05 18:05:08",revision=665]]
+--[[----------- TODO -----------))--
+
+- Have an event system that propogates through entities and behaviors
+- Better way for default values for variables a behavior might use, instead of having
+  all the defaults on the prototype
+
+--((--------- END TODO ---------]]--
+
+include "protos.lua"
+
+-- List of Behaviors
+beh_velocity = behavior_proto:new()
+beh_acceleration = behavior_proto:new()
+beh_bounce = behavior_proto:new()
+beh_flip_with_velocity = behavior_proto:new()
+beh_display_sprite = behavior_proto:new()
+
+
+------------------
+-- beh_velocity --
+------------------
+function beh_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.x += parent.vx / 30.0
+	parent.y += parent.vy / 30.0
+end
+
+
+----------------------
+-- beh_acceleration --
+----------------------
+function beh_acceleration._update(self, parent)
+	if parent.ax == nil or parent.ay == nil
+	or parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.vx += parent.ax / 30.0
+	parent.vy += parent.ay / 30.0
+end
+
+
+----------------
+-- beh_bounce --
+----------------
+function beh_bounce._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	
+	if (parent.x < 0 and parent.vx < 0)
+	or (parent.x > width and parent.vx > 0) then
+		parent.vx = -parent.vx
+	end
+	if (parent.y < 0 and parent.vy < 0)
+	or (parent.y > height and parent.vy > 0) then
+		parent.vy = -parent.vy
+	end
+end
+
+
+---------------------------
+-- beh_flip_with_velocity --
+---------------------------
+function beh_flip_with_velocity.setup(self, parent)
+	parent.flip = parent.flip or {}
+	
+	parent.flip.with_vel_x = true
+	parent.flip.with_vel_y = true
+	parent.flip.invert_x = false
+	parent.flip.invert_y = false
+	
+	return self
+end
+
+function beh_flip_with_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil
+	or parent.flip.x == nil or parent.flip.y == nil then
+		return nil
+	end
+	
+	if parent.flip.with_vel_x then
+		if parent.flip.invert_x then
+			parent.flip.x = parent.vx > 0
+		else
+			parent.flip.x = parent.vx < 0
+		end
+	end
+	if parent.flip.with_vel_y then
+		if parent.flip.invert_y then
+			parent.flip.y = parent.vy > 0
+		else
+			parent.flip.y = parent.vy < 0
+		end
+	end
+end
+
+
+---------------------------
+-- beh_display_sprite --
+---------------------------
+function beh_display_sprite.setup(self, parent)
+	parent.sprite = parent.sprite or {}
+	parent.flip = parent.flip or {}
+	
+	parent.sprite.sheet = fetch("./gfx/0.gfx")
+	parent.sprite.i = 0
+	
+	parent.flip.x = false
+	parent.flip.y = false
+	
+	return self
+end
+
+	
+function beh_display_sprite._draw(self, parent)
+	spr(parent.sprite.sheet[parent.sprite.i].bmp, parent.x, parent.y, parent.flip.x, parent.flip.y)
+end
+:: entities.lua
+--[[pod_format="raw",created="2024-04-29 21:34:20",modified="2024-05-05 18:05:08",revision=1356]]
+include "protos.lua"
+include "behaviors.lua"
+
+-- List of Entities --
+ent_player = entity_proto:new()
+
+
+----------------
+-- ent_player --
+----------------
+ent_player.behaviors = {
+	beh_display_sprite:setup(ent_player),
+	beh_flip_with_velocity:setup(ent_player),
+	
+	beh_acceleration,
+	beh_velocity,
+	beh_bounce,
+}
+
+ent_player.sprite.sheet = fetch("./gfx/characters.gfx")
+ent_player.sprite.i = 0
+
+ent_player.flip.with_vel_y = false
+:: entity_definitions.lua
+--[[pod_format="raw",created="2024-04-29 21:34:20",modified="2024-05-05 05:12:41",revision=567]]
+include "protos.lua"
+
+-- List of Entity Names --
+ent_player = entity_proto:new()
+
+
+-- ent_player
+ent_player.sheet = fetch("./gfx/characters.gfx")
+:: main.lua
+--[[pod_format="raw",created="2024-04-29 20:25:15",modified="2024-05-05 18:05:08",revision=1299]]
+include "util.lua"
+include "scenes.lua"
+
+-- Game Settings --
+game = {
+	name = "Test RPG",
+	author = "kay",
+	version = "0.0.1",
+	
+	starting_scene = sce_sandbox
+}
+
+width=480
+height=270
+
+--[[-------------- DOCUMENTATION --------------))--
+
+### Order of Operations ###
+This order is the same for init, draw, and update
+
+- scene function
+- for all scene ents
+   - ent function
+   - for all ent behaviors
+      - behavior function
+- for all persistet ents
+   - for all ent behaviors
+      - behavior function
+
+### Random Lua Notes ###
+when doing for loops use
+- ipairs for array
+- pairs for table
+
+--((------------ END DOCUMENTATION ------------]]--
+
+
+-- Main Functions --
+function _init()
+	world:set_active_scene(game.starting_scene)
+end
+
+function _draw()
+	cls()
+	world.active_scene:_draw()
+	for i,ent in ipairs(world.scene_ents) do
+		ent:_draw()
+		ent:draw_behaviors()
+	end
+	for i,ent in pairs(world.pers_ents)	 do
+		ent:_draw()
+		ent:draw_behaviors()
+	end
+	if debug.enable_draw then
+		debug:_draw()
+	end
+end
+
+function _update()
+	world.active_scene:_update()
+	for i,ent in ipairs(world.scene_ents) do
+		ent:_update()
+		ent:update_behaviors()
+	end
+	for i,ent in pairs(world.pers_ents)	 do
+		ent:_update()
+		ent:update_behaviors()
+	end
+end
+
+
+-- World --
+world = {
+	active_scene = {}, -- currently active scene
+
+	scene_ents = {}, -- ents from the active scene will go in here
+	pers_ents = {} -- put ents in here that should persist between scene change
+	-- these are added with an id as a key so we can easily access them and check
+	-- for existing ones before adding an entity
+}
+
+function world:set_active_scene(scene)
+	self.active_scene = scene
+	world.scene_ents = scene:create_ents()
+	scene:_init()
+	for i,ent in ipairs(world.scene_ents) do
+		ent:_init()
+		ent:init_behaviors()
+	end
+	print_info("Loaded scene " .. scene.name)
+end
+
+function world:reload_scene()
+	self:set_active_scene(self.active_scene)
+end
+
+function world:add_pers_ent(id, ent)
+	if ent == nil then
+		print_err("Tried to add_pers_ent with no ent")
+		return
+	end
+	world.pers_ents[id] = ent
+	ent:_init()
+	ent:init_behaviors()
+end
+
+function world:has_pers_ent(id)
+	return world.pers_ents[id] ~= nil
+end
+:: protos.lua
+--[[pod_format="raw",created="2024-05-05 04:59:35",modified="2024-05-05 18:05:08",revision=850]]
+include "util.lua"
+
+-- List of Protos --
+entity_proto = {}
+scene_proto = {}
+behavior_proto = {}
+
+
+-----------------
+-- scene_proto --
+-----------------
+scene_proto.name = ""
+
+function scene_proto.new(self, o)
+	o = o or {}
+	setmetatable(o,self)
+	self.__index = self
+	return o
+end
+
+function scene_proto.new_named(self, n)
+	o = {name = n}
+	return scene_proto:new(o)
+end
+
+-- should be overriden to return the default state of entities in this scene
+function scene_proto.create_ents()
+	return {}
+end
+
+function scene_proto._init(self)
+end
+
+function scene_proto._draw(self)
+end
+
+function scene_proto._update(self)
+end
+
+--[[
+In prototypes we define functions with . instead of : bc defining with : prevents us
+from overriding the self argument by calling with . notation
+We want to be able to override the self argument for a prototypes methods so we can
+call the 'super' version of a function in the overriding function if necessary
+
+Basically
+- defined with : = only callable with :
+- define with . = callable with both : and .
+]]--
+
+
+------------------
+-- entity_proto --
+------------------
+entity_proto.behaviors = {}
+-- dont need to use :new() because behaviors never store values
+
+entity_proto.x = 0
+entity_proto.y = 0
+entity_proto.vx = 0
+entity_proto.vy = 0
+entity_proto.ax = 0
+entity_proto.ay = 0
+
+entity_proto.flip = {
+	x = false,
+	y = false,
+}
+
+function entity_proto.new(self, o)
+	o = o or {}
+	setmetatable(o,self)
+	self.__index = self
+	return o
+end
+
+function entity_proto._init(self)
+end
+
+function entity_proto.init_behaviors(self)
+	for i,beh in ipairs(self.behaviors) do
+		beh:_init(self) -- pass in self as parent
+	end
+end
+	
+function entity_proto._draw(self)
+end
+
+-- do NOT override
+function entity_proto.draw_behaviors(self)
+	for i,beh in ipairs(self.behaviors) do
+		beh:_draw(self) -- pass in self as parent
+	end
+end
+
+function entity_proto._update(self)
+end
+
+-- do NOT override
+function entity_proto.update_behaviors(self)
+	for i,beh in ipairs(self.behaviors) do
+		beh:_update(self) -- pass in self as parent
+	end
+end
+
+
+--------------------
+-- behavior_proto --
+--------------------
+--[[
+Behaviors should NEVER have per-entity values stored within them, they should
+get data from their parent if the parent has it.
+If the parent NEEDS data for the behavior to work properly, you can initialize that
+data in the behavior's _init.
+The only values that can be stored on the component are 'static' ones that you
+understand will be shared for that behavior across all entities that utilize it.
+]]--
+function behavior_proto.new(self, o)
+	o = o or {}
+	setmetatable(o,self)
+	self.__index = self
+	return o
+end
+
+-- can be overriden to initialize variables in parent
+-- this function is used when adding behaviors to an entity
+-- this allows it to run before additional variables are set on the entity
+function behavior_proto.setup(self, parent)
+	return self
+end
+
+function behavior_proto._init(self, parent)
+end
+
+function behavior_proto._draw(self, parent)
+end
+
+function behavior_proto._update(self,parent)
+end
+
+
+:: scene_base.lua
+--[[pod_format="raw",created="2024-05-05 04:07:42",modified="2024-05-05 05:12:28",revision=350]]
+include "util.lua"
+
+scene_base = {
+	name = "",
+	ents = {},
+}
+
+-- we define functions with . instead of : bc defining with : prevents us from
+-- providing an argument for self when calling with . notation
+-- basically
+-- defined with : = only callable with :
+-- define with . = callable with both : and .
+
+-- we want to be able to override the self argument for cases like inheritance
+-- where we want to call the 'super' version of a function in the overriding function
+
+function scene_base.new(self, o)
+	o = o or {}
+	setmetatable(o,self)
+	self.__index = self
+	return o
+end
+
+function scene_base.new_named(self, n)
+	o = {name = n}
+	return scene_base:new(o)
+end
+
+function scene_base._init(self)
+	ents = self.ents
+	print_info("Loaded scene " .. self.name)
+end
+
+function scene_base._update(self, delta)
+end
+:: scene_definitions.lua
+--[[pod_format="raw",created="2024-05-05 04:37:49",modified="2024-05-05 05:12:41",revision=142]]
+-- definition for what map file and part of it to use
+-- initialization of all entities in the scene
+include "protos.lua"
+include "entity_definitions.lua"
+
+-- List of Scene Names --
+scene_1 = scene_proto:new_named("Sandbox Scene")
+scene_2 = scene_proto:new()
+
+
+-- scene_1 -----------------------------------------
+scene_1.ents = {
+	ent_player:new({x=5,y=25})
+}
+
+function scene_1._init(self)
+	print("RVME special init example")
+	scene_proto._init(self)
+end
+
+:: scenes.lua
+--[[pod_format="raw",created="2024-05-05 04:37:49",modified="2024-05-05 18:05:08",revision=859]]
+--[[----------- TODO -----------))--
+
+- Have scenes able to define a .map file and a section of that .map file to serve as
+  the scene.
+
+--((--------- END TODO ---------]]--
+
+include "protos.lua"
+include "entities.lua"
+
+-- List of Scene Names --
+sce_sandbox = scene_proto:new_named("Sandbox Scene")
+
+
+-----------------
+-- sce_sandbox --
+-----------------
+function sce_sandbox.create_ents(self)
+	return {
+		
+	}
+end
+
+function sce_sandbox._init(self)
+	if not world.has_pers_ent("player") then
+		world:add_pers_ent("player",
+			ent_player:new({
+				x=0,y=height/2,
+				vx=30,vy=0,
+				ax=0,ay=9.8
+			}))
+	end
+end
+
+:: util.lua
+--[[pod_format="raw",created="2024-05-05 04:43:06",modified="2024-05-05 18:05:08",revision=798]]
+debug = {
+	enable_draw = true,
+	
+	enable_print_info = true,
+	enable_print_warn = true,
+	enable_print_err = true,
+	
+	string = "",
+}
+
+function debug:_draw()
+	print("|> " .. self.string,0,height-16,10)
+end
+
+function print_info(text)
+	if debug.enable_print_info then
+		print("[INFO] " .. text,12)
+	end
+end
+
+function print_warn(text)
+	if debug.enable_print_warn then
+		print("[WARN] " .. text,10)
+	end
+end
+
+function print_err(text)
+	if debug.enable_print_err then
+		print("[ERR] " .. text,8)
+	end
+end
+:: vgfx.lua
+--[[pod_format="raw",created="2024-03-22 09:38:38",modified="2024-04-29 22:30:11",revision=9552]]
+--[[ vgfx.lua
+0.3
+vector graphics drawing
+
+=== usage: ===
+if loading vector sprite in a .vgfx file:
+	load_vgfx("pathToMyFile.vgfx")
+	sprv(index, x,y, [rotation, scale, color])
+	
+if generating vector sprites at runtime:
+	my_vsprite = {
+	make_polygon(vars),
+	make_polygon(vars),
+	make_polygon(vars),
+	...	}
+make sure vertices you pass to make_polygon() are triangulated
+there are several functions included for this purpose
+
+for simple triangle drawing, just call tri(x0,y0, x1,y1, x2,y2)
+but make sure you call vgfx_vclip() ahead so it is properly clipped!
+
+=== todo: ===
+-polygon outline generation
+-tween/interpolate between two vector sprites/polygons
+-animation playback
+-compression for vector data
+-maybe try writing directly to graphics memory if it's faster
+-reset color() to what it was before drawing a vector sprite
+-fix outline drawing not matching triangle edges
+
+
+=== docs: ===
+"vector sprite": an array of polygons
+"polygon": a table with the elements: 
+ - col (color)
+ - ocol (outline color)
+ - pts (points/vertices for triangle drawing)
+   - 1D f64 userdata numbers (x0,y0, y1,y2, ...etc)
+   - SHOULD BE TRIANGULATED before being sent to sprv()
+ - lpts (points/vertices for line drawing (happens after triangles))
+   - same format expected as pts, or nil
+ - fill (fill pattern)
+
+
+
+=== changes: ===
+0.2
+- polygon vertices now use userdata
+- wire rendering uses same colour rules as filled triangles
+- basic polygon outlining
+0.3
+- polygons now have a single colour and specified fill pattern
+- graphics fill pattern is returned to its state from before drawing a vector sprite
+- doesn't crash for polygons with nil vertices anymore
+- tri raster now follows clipping rect (vertically) for better performace when 
+	polygons go beyond the screen edges
+- support for loading .vgfx files and drawing their sprites
+- replaced vgfx_precise with vgfx_subpixel
+- 
+]]
+
+--enable for debug view of polygon triangles
+vgfx_wire=false
+
+--disable to make all tri point positions floored
+--  Disabling subpixel positions adds to the render time and makes
+--  animated transformations appear a little less smooth, but
+--  it should prevent edge seams between polygon triangles
+vgfx_subpixel=true
+
+
+vgfx_vsprites={}
+function load_vgfx(path)
+	vgfx_vsprites={}
+	local loadfile = fetch(path)
+	for s=1,#loadfile do
+		local vs={}
+		for l=1,#loadfile[s] do
+			local layer = loadfile[s][l]
+			if layer.show then
+				local ol = false
+				if layer.triangulation=="line" or layer.triangulation=="line_closed" then
+					--its a lines-only layer
+					ol=true
+					layer.points_triangulated = {}
+				elseif layer.triangulation=="fan" then
+					layer.points_triangulated = fan_triangulate(layer.points)
+				elseif layer.triangulation=="strip" then
+					layer.points_triangulated = strip_triangulate(layer.points)
+				else
+					layer.points_triangulated = earclip_triangulate(layer.points)
+				end
+				
+				
+				local olcol = layer.outline
+				if (#layer.points>1 and (layer.outline!=-1 or ol)) then
+					ol = convert_point_list(layer.points)
+					if layer.triangulation!="line" and layer.triangulation!="strip" then
+						--we close the outline
+						add(ol,ol[1])
+					end
+				end
+				if (olcol<0) olcol = layer.col_a
+				
+				add(vs, make_polygon(
+					layer.points_triangulated,
+					(layer.col_b<<8)+layer.col_a,
+					layer.fill,
+					ol,
+					olcol
+				) )
+			end
+	---
+		end
+		add(vgfx_vsprites, vs)
+	end
+end
+
+function make_polygon(vertices, c1, pattern, outline, c2)
+	local polygon={
+		col=c1,
+		ocol=c2,
+		pts=userdata("f64",#vertices),
+		lpts=nil,
+		fill=0b0000000000000000,
+	}
+	
+	for i=1,#vertices do
+		set(polygon.pts, i-1, vertices[i])
+	end
+	
+	if outline==true then
+		--generate outline
+		--this doesn't work yet!
+		outline=nil
+	elseif outline then
+		--polygon.lpts = one_d_point_list(outline)
+		polygon.lpts = one_d_point_list(convert_point_list(outline))
+		
+	end
+	if pattern and pattern!=false then
+		if pattern==true then
+			--set pattern to checkered dither
+			polygon.fill = 0b1010010110100101
+		else
+			--use specified pattern
+			polygon.fill = pattern
+		end
+	end
+
+	return polygon
+end
+
+
+vgfx_clipt=0
+vgfx_clipb=0
+--sets top/bottom clip 
+function vgfx_vclip()
+	vgfx_clipt = peek4(0x5514)
+	vgfx_clipb = peek4(0x5514)+peek2(0x552e)
+end
+--draw a vector sprite
+function sprv(v, x,y, rot,scale, col)
+	if #vgfx_vsprites>=1 and type(v)!="table" then
+		v = vgfx_vsprites[v+1]
+	end
+	vgfx_vclip()
+	
+
+	local oldfill = peek(0x5500,8)
+	--local oldcol = peek(?????,?????)
+
+	local s, cs = 0,0
+	if rot and rot!=0 then
+		s = sin(rot)
+		cs = cos(rot)
+	end
+	
+	local sinxy = vec(0,0,0,0,0,0)
+	local cosxy = vec(0,0,0,0,0,0)
+	local triv = userdata("f64",6)
+	local tpos = vec(x,y,x,y,x,y)
+	if (not scale) scale = 1
+	
+	if (col) color(col)
+	local b=0
+	local polys = 0
+	for p=1,#v do
+		b=0
+		polys = 0
+		if v[p].pts then
+			polys=#v[p].pts
+			if not col then
+				fillp(v[p].fill)
+				color(v[p].col)
+			end
+		end
+		while b<polys do
+			set(triv, 0, v[p].pts:get(b,6))
+			b+=6
+			
+			triv *= scale
+			
+			if rot and rot!=0 then
+				sinxy = triv*s
+				cosxy = triv*cs
+				
+				set(triv, 0,
+				cosxy[0]-sinxy[1], sinxy[0]+cosxy[1],
+				cosxy[2]-sinxy[3], sinxy[2]+cosxy[3],
+				cosxy[4]-sinxy[5], sinxy[4]+cosxy[5])
+			end
+			triv += tpos
+			tri(triv[0],triv[1],triv[2],triv[3],triv[4],triv[5])
+		end
+		if (v[p].lpts) then
+			local b=0
+			local oline=vec(0,0,0,0)
+			if (not col) color((v[p].ocol<<8)+v[p].ocol)
+			while b<#v[p].lpts-2 do
+				set(oline, 0, v[p].lpts:get(b,4))
+				b+=2
+				oline *= scale
+				if rot and rot!=0 then
+					sinxy = oline*s
+					cosxy = oline*cs
+					
+					set(oline, 0,
+					cosxy[0]-sinxy[1], sinxy[0]+cosxy[1],
+					cosxy[2]-sinxy[3], sinxy[2]+cosxy[3])
+				end
+				oline += tpos
+				line(oline[0],oline[1],oline[2],oline[3])
+			end
+		end
+	end
+	
+	
+	--this poke is weird???
+	--poke4(0x5500,oldfill)
+	--poke4(0x5504,oldfill>>4)
+	poke8(0x5500,oldfill)
+	--color(oldcol)
+end
+
+
+vgfx_trisdrawn=0
+function tri(x0,y0, x1,y1, x2,y2)
+	vgfx_trisdrawn += 1
+	
+	if (not vgfx_subpixel)	x0,y0,x1,y1,x2,y2 = flr(x0),flr(y0),flr(x1),flr(y1),flr(x2),flr(y2)
+
+	if vgfx_wire then
+		line(x0,y0, x1,y1)
+		line(x1,y1, x2,y2)
+		line(x2,y2, x0,y0)
+		return
+	end
+	
+	--order the vertices so they are descending from top to bottom
+	--we need this since we are drawing it as two triangles:
+	--one with a flat base, one with a flat top
+	if (y1<y0) x0,x1=x1,x0; y0,y1=y1,y0
+	if (y2<y1) x1,x2=x2,x1; y1,y2=y2,y1
+	if (y1<y0) x0,x1=x1,x0; y0,y1=y1,y0
+	
+	--draw the top half
+	local hh=y1-y0--height of the half
+	local x3=x0+hh*(x2-x0)/(y2-y0)--slicing the tri in two makes another vertex
+	if (y0!=y1) triraster(y0,y1, (x3-x0)/hh,(x1-x0)/hh, x0,x0)
+	
+	--draw the bottom half
+	hh=y2-y1
+	if (y1!=y2) triraster(y1,y2, (x2-x1)/hh,(x2-x3)/hh, x1,x3)
+end
+
+--draws a filled triangle line-by-line, top-to-bottom
+--args: top, bottom, step left, step right, left pixel, right pixel
+--requires clipping values be set first to work properly
+function triraster(t,b, sl,sr, pl,pr)
+	if t<vgfx_clipt then
+		pl+=sl*(vgfx_clipt-t)
+		pr+=sr*(vgfx_clipt-t)
+		t=vgfx_clipt
+	end
+	b=min(b,vgfx_clipb)
+
+	for y=t,b do
+		rectfill(pl,y,pr,y)
+		pl+=sl
+		pr+=sr
+	end
+end
+
+--triangulation stuff
+function earclip_triangulate(points)
+	points=convert_point_list(points)
+	if (#points<3) return {}
+	local pindices = {}
+	for p=1,#points do
+		add(pindices, p)
+	end
+	
+	if clockwise(points) then
+		points = reverselist(points)
+	end
+
+	local tris = {}
+	while #pindices>3 do
+		local earIndex = GetEarIndex(points,pindices)
+		local earLeftIndex = wrapIndex(earIndex-1, #pindices)
+		local earRightIndex = wrapIndex(earIndex+1, #pindices)
+
+		add(tris, points[pindices[earLeftIndex]].x)
+		add(tris, points[pindices[earLeftIndex]].y)
+		add(tris, points[pindices[earIndex]].x)
+		add(tris, points[pindices[earIndex]].y)
+		add(tris, points[pindices[earRightIndex]].x)
+		add(tris, points[pindices[earRightIndex]].y)
+		
+		deli(pindices, earIndex)
+	end
+
+	add(tris, points[pindices[1]].x)
+	add(tris, points[pindices[1]].y)
+	add(tris, points[pindices[2]].x)
+	add(tris, points[pindices[2]].y)
+	add(tris, points[pindices[3]].x)
+	add(tris, points[pindices[3]].y)
+	
+	return tris
+end
+function clockwise(p)
+	local sum=0.0
+	local i_next = 0
+	for i=1,#p do
+		i_next=i+1
+		if (i_next>#p) i_next=1
+		sum += (p[i_next].x-p[i].x)*(p[i_next].y+p[i].y)
+	end
+	return sum>0
+end
+function reverselist(l)
+	local r = {}
+	for i=#l, 1, -1 do
+		r[#r+1] = l[i]
+	end
+	return r
+end
+function wrapIndex(index, size)
+	while (index<1) index+=size
+	while (index>size) index-=size
+	return index
+end
+function GetEarIndex(points,indices)
+	local i=1
+	local i_l
+	local i_r
+	
+	while true do
+		if i>=#indices then
+			return 1-- #couldn't find an ear :/
+		end
+		
+		i_l = wrapIndex(i-1, #indices)
+		i_r = wrapIndex(i+1, #indices)
+		
+		if VertIsConvex(points[indices[i_l]],points[indices[i]],points[indices[i_r]]) then
+			if NoVertsInTriangle(i_l,i,i_r, indices, points) then
+				return i
+			end
+		end
+		
+		i+=1
+	end
+end
+function VertIsConvex(prev, v, next)
+	return CrossProd(prev-v, next-v) <= 0
+end
+function CrossProd(a,b)
+	return a.x*b.y - a.y*b.x
+end
+function NoVertsInTriangle(a, b, c, polyIndices, P)
+	
+	for k=1,#polyIndices do
+		if k!=a and k!=b and k!=c then
+			--check if this point is within the tri
+			if point_in_triangle(P[polyIndices[k]],P[polyIndices[a]],P[polyIndices[b]],P[polyIndices[c]]) then
+				return false
+			end
+		end
+	end
+	return true
+end
+function orient(a,b,c)
+	local ab=vec(b.x-a.x,b.y-a.y)
+	local ac=vec(c.x-a.x,c.y-a.y)
+	if CrossProd(ab,ac)>0 then
+		return 1
+	end
+	return -1
+end
+function point_in_triangle(p, a,b,c)
+	local turns = orient(a,b,p) + orient(b,c,p) + orient(c,a,p)
+	return turns==3
+end
+
+function fan_triangulate(points)
+	points=convert_point_list(points)
+	local v,i={},3
+	while i<=#points do
+		add(v,points[i].x)
+		add(v,points[i].y)
+		add(v,points[i-1].x)
+		add(v,points[i-1].y)
+		add(v,points[1].x)
+		add(v,points[1].y)
+		i+=1
+	end
+	return v
+end
+
+function strip_triangulate(points)
+	points=convert_point_list(points)
+	if (#points<=3) then
+		local v={}
+		for i=1,#points do
+			add(v,points[i].x)
+			add(v,points[i].y)
+		end
+		return v
+	end
+	
+	local v,i={},4
+	add(v,points[1].x)
+	add(v,points[1].y)
+	add(v,points[2].x)
+	add(v,points[2].y)
+	add(v,points[3].x)
+	add(v,points[3].y)
+	while i<=#points do
+		add(v,points[i].x)
+		add(v,points[i].y)
+		add(v,points[i-1].x)
+		add(v,points[i-1].y)
+		add(v,points[i-2].x)
+		add(v,points[i-2].y)
+		i+=1
+	end
+	return v
+end
+
+function convert_point_list(t)
+	--converts a list of points from various formats to {vec,vec,vec...}
+	--this is used for various operations when loading or making polygons
+	--but not for storing/rendering the vector sprites themselves
+	if #t>0 and type(t[1])=="userdata" then
+		if t[1]:width()==2 then
+			--already correct vector format
+			return t
+		end
+	end
+	local l = {}
+	if type(t)=="userdata" then
+		--assume its a userdata list of [x0,y0,x1,y1,...]
+		for i=0,t:width()-1,2 do
+			add(l, vec(t[i],t[i+1]) )
+		end
+		return l
+	end
+	
+	if #t>0 
+	and type(t[1])=="table" and #t[1]==2 then
+		--assume it's a list of tables, each table describing a point
+		for i=1,#t do
+			if t[i].x then
+				add(l, vec(t[i].x,t[i].y) )
+			else
+				add(l, vec(t[i][1],t[i][2]) )
+			end
+		end
+	else
+		--assume its a list of {x0,y0,x1,y1,...}
+		for i=1,#t,2 do
+			add(l, vec(t[i],t[i+1]) )
+		end
+	end
+	return l
+end
+function one_d_point_list(t)
+	--converts table {vec,vec,...} to userdata [x0,y0,x1,y1,...]
+	local l = userdata("f64", #t*2)
+	local udi=0
+	for i=1,#t do
+		l[udi]=t[i].x
+		l[udi+1]=t[i].y
+		udi+=2
+	end
+	return l
+end
+:: .info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI4OjE1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAxODowNTowOCIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+NTUiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249InV0aWwubHVhIzEiLHdvcmtzcGFjZV9p
+bmRleD0xfSx7bG9jYXRpb249InByb3Rvcy5sdWEjNjgiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9j
+YXRpb249ImJlaGF2aW9ycy5sdWEjNzIiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImVu
+dGl0aWVzLmx1YSMxNiIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0ic2NlbmVzLmx1YSMy
+MCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5k
+ZXg9Mn0se2xvY2F0aW9uPSJnZngvY2hhcmFjdGVycy5nZngiLHdvcmtzcGFjZV9pbmRleD0yfSx7
+bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlvbj0ic2Z4LzAu
+c2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV1sejQABAAAAAMAAAAwbmls
+:: [eoc]

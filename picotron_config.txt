@@ -1,0 +1,3 @@
+# picotron config
+
+mount / C:/Users/kay/AppData/Roaming/Picotron/drive
