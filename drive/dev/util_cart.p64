@@ -1,0 +1,295 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: .info.pod
+b64$LS1bW3BvZCxpY29uPXVzZXJkYXRhKCJ1OCIsMTYsMTYsIjAwMDAwMDAxMDEwMTAxMDEwMTAx
+MDEwMTAxMDAwMDAwMDAwMDAxMDcwNzA3MDcwNzA3MDcwNzA3MDcwMTAwMDAwMDAxMDcwZDBkMGQw
+ZDBkMGQwZDBkMGQwZDA3MDEwMDAxMDcwZDBkMGQwZDBkMDYwNjBkMGQwZDBkMGQwNzAxMDEwNzBk
+MGQwZDBkMGQwNjA2MGQwZDBkMGQwZDA3MDEwMTA3MGQwZDBkMGQwZDA2MDYwZDBkMGQwZDBkMDcw
+MTAxMDcwZDBkMGQwZDBkMDYwNjBkMGQwZDBkMGQwNzAxMDEwNzBkMGQwZDA2MDYwNjA2MDYwNjBk
+MGQwZDA3MDEwMTA3MGQwZDBkMGQwNjA2MDYwNjBkMGQwZDBkMDcwMTAxMDcwZDBkMGQwZDBkMDYw
+NjBkMGQwZDBkMGQwNzAxMDEwNzBkMGQwNzA3MDcwNzA3MDcwNzA3MGQwZDA3MDEwMTA2MDcwZDBk
+MGQwZDBkMGQwZDBkMGQwZDA3MDYwMTAxMDYwNjA3MDcwNzA3MDcwNzA3MDcwNzA3MDYwNjAxMDAw
+MTA2MDYwNjA2MDYwNjA2MDYwNjA2MDYwNjAxMDAwMDAwMDEwNjA2MDYwNjA2MDYwNjA2MDYwNjAx
+MDAwMDAwMDAwMDAxMDEwMTAxMDEwMTAxMDEwMTAxMDAwMDAwIiksY3JlYXRlZD0iMjAyNC0wMy0x
+NSAwNDo0Mzo0MSIsYXV0aG9yPSJsaWx5a3AgPGxpbHlrcEBwbS5tZT4iLG1vZGlmaWVkPSIyMDI0
+LTA1LTA2IDAwOjAyOjM2Iixub3Rlcz0iSW5zdGFsbGF0aW9uIGNhcnQgYW5kIHlvdHRhXG5ieSBh
+aHJvdGFobiIscnVudGltZT03LHN0b3JlZD0iMjAyNC0wMy0yMSAyMjoxNDo1NiIsdGl0bGU9IlVU
+SUw6IHBsYWNlaG9sZGVyIix2ZXJzaW9uPSIiLHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5s
+dWEjNiIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3b3Jrc3BhY2Vf
+aW5kZXg9Mn0se2xvY2F0aW9uPSJtYXAvbWFwMC5tYXAiLHdvcmtzcGFjZV9pbmRleD0zfSx7bG9j
+YXRpb249InNmeC9zZngwLnNmeCIsd29ya3NwYWNlX2luZGV4PTR9fV1dbHo0AAQAAAADAAAAMG5p
+bA==
+:: exports/
+:: exports/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTAzLTE3IDA1OjQ4OjExIixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMjozNiIsc3RvcmVkPSIyMDI0LTAzLTE3IDA1OjQ4OjExIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: gfx/
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMjozNiIsc3RvcmVkPSIyMDI0LTMxLTAzIDA5OjMxOjAxIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMTo1NToxNyIscmV2aXNpb249NjQ1XV1sejQAbQAAAAUxAADzFHtbMF09e2JtcD1weHUA
+QyAQEATw8CxmbGFncz0wLHBhbl94CADPeT0wLHpvb209OH0sMQD-------------------------
+---------------------------------------nUG09OH19
+:: lib/
+:: lib/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTAzLTE3IDIzOjUwOjM1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMjozNiIsc3RvcmVkPSIyMDI0LTAzLTE3IDIzOjUwOjM1Il1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: lib/lib_utilinst/
+:: lib/lib_utilinst/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA1IDIxOjU1OjEyIixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMjozNiJdXWx6NAAEAAAAAwAAADBuaWw=
+:: lib/lib_utilinst/main.lua
+--[[pod_format="raw",created="2024-03-17 06:56:29",modified="2024-05-05 21:52:44",revision=120]]
+-- LIBRARY: Utility Stub
+--   by ahrotahn <reh@ahrotahn.net>
+--   Provides a generic utility & library cart interface
+--   Can install and uninstall libraries manually
+-- v1: inception
+
+local installable = false
+local installed = false
+
+function util_init_installable()
+	installed = verify("/ram/cart/exports", "")
+	installable = true
+end
+
+function util_init_library()
+	installable = false
+end
+
+function util_draw()
+	cls(5)
+	print("UTILITY CARTRIDGE", 85, 80, 23)
+	if installable then
+		print("This cartridge is just an installer.")
+		print("The files intended for installation are in /ram/cart/exports/")
+		print("These files will be recursively overlaid over the root filesystem.")
+		print("Current installation status: "..(installed and "INSTALLED" or "NOT INSTALLED"))
+	else
+		print("This cartridge is just a code library.")
+		print("The files intended for import are in /ram/cart/exports/")
+	end
+	print("")
+	print("Press O to open the exports folder in filenav")
+	if installable then
+		if installed then
+			print("Press X to UNinstall all exports from system storage")	
+		else
+			print("Press X to install all exports to system storage")
+		end
+	end
+end
+
+function util_update()
+	if installable and (keyp("x")) then -- or btnp(5)
+		if installed then
+			-- perform uninstallation
+			for export in all(exports) do
+				local dst = "/appdata/system/util/"..export
+				rm(dst)
+			end
+			
+			unmerge("/ram/cart/exports", "")
+			installed = false
+		else
+			-- perform installation
+			merge("/ram/cart/exports", "")
+			installed = true
+		end
+	end
+	if keyp("o") then -- or btnp(4)
+		create_process("/system/apps/filenav.p64", {
+			argv = {"/ram/cart/exports/"},
+			window_attribs = {show_in_workspace = true}
+		})
+		exit(0)
+	end
+end
+
+function verify(src, dst, dir)
+	dir = dir or "/"
+	
+	for entry in all(ls(src..dir)) do
+		local type = fstat(src..dir..entry)
+		local rpath = dir..entry
+		if type == "folder" then
+			local inner = verify(src, dst, dir..entry.."/")
+			if not inner then
+				return false
+			end
+		elseif type == "file" then
+			if fstat(dst..dir..entry) != "file" then
+				return false
+			end
+		end
+	end
+	
+	return true
+end
+
+function merge(src, dst, dir)
+	dir = dir or "/"
+		
+	local dirs = {}
+	local files = {}
+	
+	for entry in all(ls(src..dir)) do
+		local type = fstat(src..dir..entry)
+		local rpath = dir..entry
+		if type == "folder" then
+			if fstat(dst..rpath) != "folder" then
+				mkdir(dst..rpath)
+				add(dirs, dst..rpath)
+			end
+
+			local inner = merge(src, dst, dir..entry.."/")
+			foreach(inner["dirs"], function(v) add(dirs, v) end)
+			foreach(inner["files"], function(v) add(files, v) end)
+		elseif type == "file" then
+			if (fstat(dst..rpath) == "file") then
+				cp(dst..rpath, dst..rpath..".bak")
+			end
+		
+			add(files, dst..rpath)
+			cp(src..rpath, dst..rpath)
+		end
+	end
+	
+	return {
+		dirs = dirs,
+		files = files
+	}
+end
+
+function unmerge(src, dst, dir)
+	dir = dir or "/"
+	
+	-- remove all files first by drilling all the way in
+	-- then removing files on the way out
+	for entry in all(ls(src..dir)) do
+		if fstat(src..dir..entry) == "folder" then
+			unmerge(src, dst, dir..entry.."/")
+		end
+	end
+	
+	for entry in all(ls(src..dir)) do
+		local rpath = dir..entry
+		if fstat(src..dir..entry) != "folder" then
+			rm(dst..rpath)
+		end
+	end
+	
+	-- then check all dirs for emptiness and rm those
+	if fstat(dst..dir) == "folder" and #ls(dst..dir) == 0 then
+		rm(dst..dir)
+	end
+end
+:: lib/yottafile.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTAzLTE3IDIzOjUwOjM1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMTo1NToxMiIscmV2aXNpb249MjRdXWx6NACmAAAA9gAAAPAPe195Zl92ZXJzaW9uPTEs
+ZGVwcz17Ii9kZXYvbGliBADwJ191dGlsaW5zdC5wNjQucG5nIn0sdGFncz17Y3JlYXRlZD0iMjAy
+NC0wMy0xNyAyMzo1MDozNSUA2HJhY2tlZD17X2Jic19KAK9fMD17fSxfcmVmbQARCBcATT17Ii4s
+AC8iLBUAAMEvbWFpbi5sdWEifSwUAMB0eV9zdHViPXt9fX0=
+:: map/
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMjozNiIsc3RvcmVkPSIyMDI0LTMxLTAzIDA5OjMxOjAxIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: map/map0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMTo1NToxNyIscmV2aXNpb249NjQyXV1sejQAaAAAAFgQAADwCHt7Ym1wPXVzZXJkYXRh
+KCJpMTYiLDMyAwAvIjABAP--------------------vxCCIpLGhpZGRlbj1mYWxzZSxwYW5feD0w
+CADSeT0wLHRpbGVfaD0xNgoAEHcKAIB6b29tPTF9fQ==
+:: sfx/
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMjozNiIsc3RvcmVkPSIyMDI0LTMxLTAzIDA5OjMxOjAxIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: sfx/sfx0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMTo1NToxNyIscmV2aXNpb249NjE5XV1sejQAEQEAAFIIAADwJ3B4dQADKAAABAAED0AQ
+Ag4AAaABIAKgDgAPEAAN8MoBAgMEBQYHAQ--kAgJCgsPDA8NDw4PDxAA8AANDxEPEg8TDxQPFQ8W
+DxcTAPEBDxgPGQ8aDxsPHA8dDx4PHxQA8QAgDyEPIg8jDyQPJQ8mDycUAPEAKA8pDyoPKw8sDy0P
+Lg8vFADxADAPMQ8yDzMPNA81DzYPNxQA-wU4DzkPOg87DzwPPQ8_Dz8BD--w-wEA6-8nWgEQBg8g
+EAEgASAB8AACEAIMEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYMMAD-OR--AQDc
+v-gPQAANQP--sPBwCgD--2Qf-wEA-5lQ-----yA=
+:: label.png
+b64$iVBORw0KGgoAAAANSUhEUgAAAeAAAAEOCAYAAABRmsRnAAANrklEQVR4Ae3dPW7rPBYG4CRI
+MUtLmdKll_EleAlTuvQyvnKWMOUsJMXgXkAXvAxJHUqU-JPnAYLYskQeHkl829fD58fXCwCwqzct
+AAABDAACGAAQwAAggAEAAQwAAhgAEMAAIIABAAEMAAIYAAQwACCAAUAAAwACGAAEMAAggAFAAAMA
+AhgABDAACGAAQAADgAAGAAQwAAhgAEAAA4AABgAEMAAIYAAQwACAAAYAAQwACGAAEMAAgAAGAAEM
+AAhgABDAACCAAQABDAACGAAQwAAggAEAAQwAAhgAEMAAIIABQAADAAIYAAQwACCAAUAAAwACGAAE
+MAAggAFAAAOAAAYABDAACGAAQAADgAAGAAQwAAhgAEAAA4AABgABDAAIYAAQwACAAAYAAQwACGAA
+EMAAgAAGAAEMAAIYABDAACCAAQABDAACGABY5l0LxrscTi-H6-mvz5fD6dt5_fHp_3RtOl7tmtq1
+pXFKY6bn5MfyefNjrXXM1V2at7a_1joABDBNtWCshW4rXKMh2wrffIxaeOfHWnOXzi2ttzav0AV_
+kjct_NkEHcBtvGvBc4Xp5XBafH3p2ulYJKh7zp27ds1YAAKYm4RwLUyXXJsemwvDnnNL15bmBXhW
+b1rwsy0JagDWe9eC8Y7XczjYpvMuh9PL8Xr_ForpWOk5c2HaOi8ds3XeqHAvrW36XutVdC0Aj_r1
+8PnxpQ0AsK83LQAAAQwAAhgAEMAP43I4ffubjtfOv0WNa84bVfPacZZcv0e-l84RuS59pkrfAQH8
+Yx2v55fj9fztc_v8e17LPY9-r73bsq587Ht_fgABfDcuh9PL5XCqfk_P5cdrY7XGmz6nx3uO1Wrr
+rSPSi5611_ovfZ5bZ__9GnVdtLZoP_ZqWDoWsI13LdjX8Xr_sxEer_fff-lGOZ0zt8GWzsvHL507
+zZlfXzuv9Hu6oc8dq61n6dpr10d6VFt75F7VjkXqyq-rqS0yZ23d0XsBCGABnWzeSzbLUiBFxxm5
+ObeCcau179HLW9znJXWseQ4AAfyjQ3jaRHs2zfT8LcOjFiQjNvula3-EXkZqW1qHsAUBTGCjTzfa
+dJNtbaKlc2thOHd9a-NPa5sL23S8yDqWrr0UWKXaauNF1t7Ty7l1tc6Zq61VRz5_7T719hLYx_vh
+8_NLG1hjLsyeZU6Akd61gLVuEYKCF3h0b1oAAAIYAAQwy1wOp29-0-FRY6ffa7_NmGvEOaPGiNYz
+qgdLx1lSZ7Tu0jkj7-kW78Izv_dqQQDfmeP1-HK8nr99HvGS5ePVPo9ax6NtiCP7veX687HXzHXP
+92lNbVuEyh5Bde9hKKwF8I-1KyTyF6B0bOlYPfO1rs1-L10zfa6dOzffmmNLe1Srecn6S8ejPRlV
+e6Rfkfvd268lz15PHbXQiD5r0aCpPdeRvq-pQ23syL2M1rKm3_zjXQv2dbye-7wcx_v5z--02NwG
+NI0zXd968VvzzdWZj52PVRqvtp65dUfqnVtr3p9aLZEeRNZfGqd1PDp3T7-zOqP9j85Zuibay0gP
+I89u61htrZH3q1ZDpAe1_7y0Vz17Q6SW2lw9zx8C_EdoBcvcC987dropbvUiRtYz_tqe-oxad08v
+l6xrTR9H9r_2ke9trzqiPbjVOxh9xrd_zxHAT2HLF6Q09nRsSaBvvZ5H2ywivUx-iwbGkmtGBE90
+zi3vU-S5bNWbXz9izKV1t2opzTeqt-kcW73vCOCHDt-0Re95Qabr8hdr_l4aOzpXbexW-bU5I_uu
+1Vc6b0lvezeeyPpr65zrSWvTrt272th5nWvWHO119B5Hn6FR786Id69nzEive965-Leee1l7LkYG
+OuO9Hj4-vrQB4HYuh5Og-IHetADgtoSvAAYABDAACGA6XA6nb3-T8b1rSL-XftuyhlY9czXs2a_t
+1r30ft362V26xntZw73U1DP3rd-ZR33fBDB-OV7PL8fr_dvnPV-6fN7a5637UJtz757sff-3uOaW
+tT-z-btVUN-DO4sAfvoX7XI4hY_lx0vnLZ2zp67WtaVr1tS6tF_1uiI9zNeZnx8Zr-V77XO0r733
+Ljpn9F719LD3fm5R68ia14y35l0Y9c7O9Tf6fJe_j3i-f7p3LdjX8Xr_8-Aer_c--2vH0gc-P29u
+w5jmm8ZsvciRGnrXOeIFjfQrsq4R62yN17PunjX01DT3XJTOi8yfn5uvMR-v1rXW7stez1Hep7ma
+935nW8-t3Drzc9c_vwKYm8tftPTly1_IaPD1vhTRGnpe6r36NRccS66NjNfbo1F1jOxb9N4_Sq17
+PUcj7f3O9jy3t7j3AphdlV6C6Vj6Ym65EURruNd_7XFta7y5HuW-z9WRbpJrAqZnzrkxttyMR9R6
+62fhHveN2nMUfW5rvz167wQwxY229L11PLq5lV622kvaM9d0bvo-Mmfte632EX0oXRs5NldbvqGV
+gisPl9oa0nMjwZeO1eprb99aG3i_xmi-tqo1Os-cs7Bm-NqckVq2fmdLz2btvLTWpc8Mca_Hz48v
+bYD7s2TjBs-R43jXArhPNkw8R8-tTQsAQAADgABmucvh9HI5nG4y78jzllyXrz3ai9I5W-dw6371
+Pi-TPHn-5nqbX187N9rzUj23eqZBANO1mR6v599-97phHa-n3cZeM9eWdd7j-UjXmz87pedq_p5-
+XvsMTtem9dz7Mw0CmOLGmm5a0_f0f_tY63tt3NYmGRmrdDxaW0Sk9lZNc7W35lzS69p9Kn1e0o-a
+s1MbJw1G4DG9a8Ft-dqs8800P5Z_Tz-nx6YNe25zLm3s_VilcVrHa2tp1TBXe15ntA-RPkfXE_1r
+7ZyevrTuVf458myteS4FPQjgp1ba4Gqb_N51RTfhJbU923pac4wMsWmsSKin5454LoGx3rRgW6OC
+5tfmPv3tGVppqNTW11vXkmvueT1zc4x6BkaNA9yHdy3YZqOfNstpI5-b_KPjpWNG565t5FPYzG32
+6Tn5_K115eOn4Va6Jh87rzOytkh4LVlP5LzWHNH6WvdkzfpbNfYeWzo38LfXw_fHlzYAwL7etAAA
+BDAACGAAQAADgAAGAAQwAAhgAEAAA4AABgAEMAAIYAAQwACAAAYAAQwACOB7czmc-vzdau7Ieffe
+w0eqd0SNc-eu9fuo-qwZJ68v--wI9xAE8BM4Xs_---bcdH5tcreYl7H3rvVM7fHcjqq-9hkQwLtv
+sNP-NBzz7_mx0nkjgrWnltr1kdqWrmFJr5bUXJsvso78_FzNS_5btFdL6l1zX7eqvbf-_Wd4NO9a
+sG3gHq-nv47Vvk_f83NK161VmqdUS21dpfNa62idF62vZ45ozbW5I3Pk48z1NPKspM9MpOb8nFaN
+kVqmeVv9iNZfGmvJcxStAQQw3zauuWOlDS8P79KxR9DagPeeI9Lntfe3FWhzoT8yXEo92fK5WVr-
+0nsHApjNgzrd1ErH7jFs09r2qDM6R35e2sf888jab3Hf7vH5WFpn6d6UfgMBTPcGlG4qpe-5xtPa
+cNLr5zam-NzotbXz8mtqa1nSm9q10Tl6ammto7enW61-Cp58jrXzTteNCLbaWLXao-dO_PJMXg_f
+H1-awNrN9hk2Q5s6sKc3LWCtZwkt4QsIYAAQwACAAH4Al8Ppz9-e85Y_z527do7avCPmmOtx7Xvv
+vVo7ztb3c81zeM-vyTPNAwL4Thyv599-P_XlL63zeD1v2t8Rc40a5x7vx-QMAgL4R5sC6tfGmIZV
+-j09VjpvRKD31NITZK2xavXnx7eorTTf6HFKn_fW3Lofc33oXUO0r6UaIn0oXdOqe_96IvOMeD_h
+x7sWbBu4x_v5r2O179Pn-JzSdZEQbJ1fmqdUy5oQzgM5ram11tbxNbWNHKenV601t8aZu0fRsG2t
+uTZ-Ondrzp56Ivd5i3p65ok8d-n5o94dBDADlV7C0rFSSOUbZzRYH20jiK6r1KelthqnZy3R52Vp
+v2pBNfp56K1n6-u8xT2I1jPquUIAcydBnW6ijxSsS9bfWlf625qNbtQ4pfuWj53PM_qe7fUcRMfO
+60lDcEndtd_W1rNG7T621gcC_IHCJ32ZS9-zsBi5kaebSv49WnNr84oEa2ldrdpam_TcfFuN0xMo
+0T6Xzh39HPTU0nv-8mdgyX3urWnJPEue9blQFsZEvR4_P760AcZrhfizr-uZg_jZ14cABoCn9qYF
+ACCAAUAAAwACGAAEMAAggAFAAAMAAhgABDAAIIABQAADgAAGAAQwAAhgAEAAA4AABgAEMAAIYABA
+AAOAAAYAAQwACGAAEMAAgAAGAAEMAAhgABDAAIAABgABDAACGAAQwAAggAEAAQwAAhgAEMAAIIAB
+AAEMAAIYAAQwACCAAUAAAwACGAAEMAAggAFAAAMAAhgABDAACGAAQAADgAAGAAQwAAhgAEAAA4AA
+BgAEMAAIYAAQwACAAAYAAQwACGAAEMAAgAAGAAEMAAhgABDAACCAAQABDAACGAAQwAAggAEAAQwA
+AhgAEMAAIIABQAADAAIYAAQwACCAAUAAAwACGAAEMAAggAFAAAOAAAYABDAACGAAQAADgAAGAAQw
+AAhgAEAAA4AABgAEMAAIYAAQwACAAAYAAQwACGAAEMAAgAAGAAEMAAhgALiBf-77LwEMAHuH7--_
+828BDAC38H8V0yP_krBN4AAAABB0RVh0TG9kZVBORwAyMDExMDIyMeNZtsEAAAAASUVORK5CYII=
+:: main.lua
+--[[pod_format="raw",created="2024-03-15 03:42:26",modified="2024-05-05 21:55:17",revision=518]]
+-- Skeleton Installer Cart
+
+include "./lib/lib_utilinst/main.lua"
+_init = util_init_installable
+_draw = util_draw
+_update = util_update
+:: [eoc]

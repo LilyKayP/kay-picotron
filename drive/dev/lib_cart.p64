@@ -1,0 +1,263 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: .info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTAzLTE1IDA0OjQzOjQxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNiAwMDowMTowMiIsbm90ZXM9Ikluc3RhbGxhdGlvbiBjYXJ0IGFuZCB5b3R0YSBcbmJ5IGFo
+cm90YWhuIixhdXRob3I9ImxpbHlrcCA8bGlseWtwQHBtLm1lPiIscnVudGltZT03LHN0b3JlZD0i
+MjAyNC0wMy0xNyAyMzozODoxMSIsdGl0bGU9IkxJQjogcGxhY2Vob2xkZXIiLHZlcnNpb249IiIs
+d29ya3NwYWNlcz17e2xvY2F0aW9uPSJtYWluLmx1YSM3Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xv
+Y2F0aW9uPSJnZngvMC5nZngiLHdvcmtzcGFjZV9pbmRleD0yfSx7bG9jYXRpb249Im1hcC9tYXAw
+Lm1hcCIsd29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlvbj0ic2Z4L3NmeDAuc2Z4Iix3b3Jrc3Bh
+Y2VfaW5kZXg9NH19XV1sejQABAAAAAMAAAAwbmls
+:: exports/
+:: exports/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTAzLTE3IDA2OjU2OjEwIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNSIsc3RvcmVkPSIyMDI0LTAzLTE3IDA2OjU2OjEwIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: gfx/
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNSIsc3RvcmVkPSIyMDI0LTMxLTAzIDA5OjMxOjAxIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNCIscmV2aXNpb249MzQ5XV1sejQAbQAAAAUxAADzFHtbMF09e2JtcD1weHUA
+QyAQEATw8CxmbGFncz0wLHBhbl94CADPeT0wLHpvb209OH0sMQD-------------------------
+---------------------------------------nUG09OH19
+:: lib/
+:: lib/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA1IDIzOjUwOjQ5Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: lib/lib_utilinst/
+:: lib/lib_utilinst/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA1IDIzOjUxOjU0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: lib/lib_utilinst/main.lua
+--[[pod_format="raw",created="2024-03-17 06:56:29",modified="2024-05-05 21:52:44",revision=120]]
+-- LIBRARY: Utility Stub
+--   by ahrotahn <reh@ahrotahn.net>
+--   Provides a generic utility & library cart interface
+--   Can install and uninstall libraries manually
+-- v1: inception
+
+local installable = false
+local installed = false
+
+function util_init_installable()
+	installed = verify("/ram/cart/exports", "")
+	installable = true
+end
+
+function util_init_library()
+	installable = false
+end
+
+function util_draw()
+	cls(5)
+	print("UTILITY CARTRIDGE", 85, 80, 23)
+	if installable then
+		print("This cartridge is just an installer.")
+		print("The files intended for installation are in /ram/cart/exports/")
+		print("These files will be recursively overlaid over the root filesystem.")
+		print("Current installation status: "..(installed and "INSTALLED" or "NOT INSTALLED"))
+	else
+		print("This cartridge is just a code library.")
+		print("The files intended for import are in /ram/cart/exports/")
+	end
+	print("")
+	print("Press O to open the exports folder in filenav")
+	if installable then
+		if installed then
+			print("Press X to UNinstall all exports from system storage")	
+		else
+			print("Press X to install all exports to system storage")
+		end
+	end
+end
+
+function util_update()
+	if installable and (keyp("x")) then -- or btnp(5)
+		if installed then
+			-- perform uninstallation
+			for export in all(exports) do
+				local dst = "/appdata/system/util/"..export
+				rm(dst)
+			end
+			
+			unmerge("/ram/cart/exports", "")
+			installed = false
+		else
+			-- perform installation
+			merge("/ram/cart/exports", "")
+			installed = true
+		end
+	end
+	if keyp("o") then -- or btnp(4)
+		create_process("/system/apps/filenav.p64", {
+			argv = {"/ram/cart/exports/"},
+			window_attribs = {show_in_workspace = true}
+		})
+		exit(0)
+	end
+end
+
+function verify(src, dst, dir)
+	dir = dir or "/"
+	
+	for entry in all(ls(src..dir)) do
+		local type = fstat(src..dir..entry)
+		local rpath = dir..entry
+		if type == "folder" then
+			local inner = verify(src, dst, dir..entry.."/")
+			if not inner then
+				return false
+			end
+		elseif type == "file" then
+			if fstat(dst..dir..entry) != "file" then
+				return false
+			end
+		end
+	end
+	
+	return true
+end
+
+function merge(src, dst, dir)
+	dir = dir or "/"
+		
+	local dirs = {}
+	local files = {}
+	
+	for entry in all(ls(src..dir)) do
+		local type = fstat(src..dir..entry)
+		local rpath = dir..entry
+		if type == "folder" then
+			if fstat(dst..rpath) != "folder" then
+				mkdir(dst..rpath)
+				add(dirs, dst..rpath)
+			end
+
+			local inner = merge(src, dst, dir..entry.."/")
+			foreach(inner["dirs"], function(v) add(dirs, v) end)
+			foreach(inner["files"], function(v) add(files, v) end)
+		elseif type == "file" then
+			if (fstat(dst..rpath) == "file") then
+				cp(dst..rpath, dst..rpath..".bak")
+			end
+		
+			add(files, dst..rpath)
+			cp(src..rpath, dst..rpath)
+		end
+	end
+	
+	return {
+		dirs = dirs,
+		files = files
+	}
+end
+
+function unmerge(src, dst, dir)
+	dir = dir or "/"
+	
+	-- remove all files first by drilling all the way in
+	-- then removing files on the way out
+	for entry in all(ls(src..dir)) do
+		if fstat(src..dir..entry) == "folder" then
+			unmerge(src, dst, dir..entry.."/")
+		end
+	end
+	
+	for entry in all(ls(src..dir)) do
+		local rpath = dir..entry
+		if fstat(src..dir..entry) != "folder" then
+			rm(dst..rpath)
+		end
+	end
+	
+	-- then check all dirs for emptiness and rm those
+	if fstat(dst..dir) == "folder" and #ls(dst..dir) == 0 then
+		rm(dst..dir)
+	end
+end
+:: lib/yottafile.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA1IDIzOjUwOjQ5Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1MTo1NCIscmV2aXNpb249M11dbHo0AIoAAADPAAAA8A97X3lmX3ZlcnNpb249MSxk
+ZXBzPXsiL2Rldi9saWIEAPAnX3V0aWxpbnN0LnA2NC5wbmcifSx0YWdzPXtjcmVhdGVkPSIyMDI0
+LTA1LTA1IDIzOjUwOjQ5JQDPcmFja2VkPXtfcmVmVgARCBcATT17Ii4sAC8iLBUAANAvbWFpbi5s
+dWEifX19
+:: map/
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNSIsc3RvcmVkPSIyMDI0LTMxLTAzIDA5OjMxOjAxIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: map/map0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNCIscmV2aXNpb249MzQ0XV1sejQAaAAAAFgQAADwCHt7Ym1wPXVzZXJkYXRh
+KCJpMTYiLDMyAwAvIjABAP--------------------vxCCIpLGhpZGRlbj1mYWxzZSxwYW5feD0w
+CADSeT0wLHRpbGVfaD0xNgoAEHcKAIB6b29tPTF9fQ==
+:: sfx/
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNSIsc3RvcmVkPSIyMDI0LTMxLTAzIDA5OjMxOjAxIl1dbHo0AAQAAAADAAAA
+MG5pbA==
+:: sfx/sfx0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTEwLTAzIDA5OjMxOjAxIixtb2RpZmllZD0iMjAyNC0w
+NS0wNSAyMzo1NTowNCIscmV2aXNpb249MzI4XV1sejQAEQEAAFIIAADwJ3B4dQADKAAABAAED0AQ
+Ag4AAaABIAKgDgAPEAAN8MoBAgMEBQYHAQ--kAgJCgsPDA8NDw4PDxAA8AANDxEPEg8TDxQPFQ8W
+DxcTAPEBDxgPGQ8aDxsPHA8dDx4PHxQA8QAgDyEPIg8jDyQPJQ8mDycUAPEAKA8pDyoPKw8sDy0P
+Lg8vFADxADAPMQ8yDzMPNA81DzYPNxQA-wU4DzkPOg87DzwPPQ8_Dz8BD--w-wEA6-8nWgEQBg8g
+EAEgASAB8AACEAIMEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYMMAD-OR--AQDc
+v-gPQAANQP--sPBwCgD--2Qf-wEA-5lQ-----yA=
+:: label.png
+b64$iVBORw0KGgoAAAANSUhEUgAAAeAAAAEOCAYAAABRmsRnAAAIvUlEQVR4Ae3dO3LjOB7AYVvl
+YI7m0KFCHcNH0BEmdKhjbLhHmHAP4mCre4ouNgyAf4Ag9fD3VU2NzOYDACX80ufj2_vnEwCwq4Ml
+AAABBgABBgAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYAAQYABBgABBgAEGAAEGAAQIABQIABAAEG
+AAEGAAEGAAQYAAQYABBgABBgAECAAUCAAQABBgABBgABBgAEGAAEGAAQYAAQYABAgAFAgAEAAQYA
+AQYAAQYABBgABBgAEGAAEGAAQIABQIABAAEGAAEGAAEGAAQYAAQYABBgABBgAECAAUCAAQABBgAB
+BgABBgAEGAAEGAAQYAAQYABAgAFAgAEAAQYAAQYAAQYABBgABBgAEGAAEGAAQIABQIABAAEGAAEG
+AAEGAAQYAAQYABBgABBgAKDPiyUY7_P4-nS6nP-4-HF8-3Zeenz6e7p2fr-SNaVrc-fJ3XN_Tnos
+fW56rDaPpXHnnluaX20eAAJMVSmMpejW4hqNbC2_6T1K8U6P1Z6dOzc339JzRRf4SQ6W4GcTOoDr
+eLEEjxXTj_N79-W5a6djkVC3nLt07Zp7AQgwV4lwKaY9186PLcWw5dzctbnnAjyqgyX42XpCDcB6
+L5ZgvNPlHA7bdN7H8f3pdDl-i_L8XvNzlmJaO29_z9p5o_Kem9v0d2mtonMBuFfPx7fXT8sAAPs6
+WAIAEGAAEGAAQIDvxsfx-dt-0-HS_dcY45rzRo157X16rr-Geq95-vw7lLvHtecD9HmxBOOdLuev
+jXH6HDn-ludyq-e-5bUbuUZpZH-CvOHRHSzBvn5Feb6Zpn-Pj6XHS-eq3W-6PD-ecqw0ttZxRNai
+Ze6l8ec_L82zZXy976HlWOt3KPreW78f6WdgrBdLsK-T5fy1sZ0u59--pRvedM7SJpw7L71-7tzp
+men1pfNy-z7frJeOlebTO-fS9ZE1Ks098q6iz8jNf806ReYdee8t5wEC-CMDPW2uPZtiLkgtG-so
+tTBuNfc91nK0LZ_Rm-Oa7wcgwD8iwtNm2bI5zs-fIx5p5EZs6r1zv9e13DN_0TmV3ikgwA9l2uim
+zXG_8dU259y5LRvn-NzSc9KxLcV2fr-IPHrnnotpbmyl_0XmHl3Lpfcw3T93v5Y559YpF9SW78zS
+vNI1zK070O-5_Pb6aRlYI7L5P8IzvVNAgAHgzh0sAQAIMAAIMH0_ju-f-puOj7r3-O-Sv4141ohz
+Rt0jOp5RazByLa-5jFt67k_b2yOvMwJ8k06X89Ppcv72ecSPOb1f6fOoedzbxjtyve9t-nvNbYuo
+7BGqW4_hWAswO-zI0h9a7ljvvVqeV7s2-ffcNdPn0rlLz1tzrHeNSmOOzj-dKKNzyz03OpaWefTe
+a813sOU7EA1N6fu2x5rm7jPy-a5Zbx7LiyXY1_ly-voRni7nr--Pjy1tdNN9putrG0zteUvjTO_d
+3it3v9J8luYdGe-SXNP1KY0lsgal_efGFX2n6XNb38fS-aJzjLzbyHeqdqz0HYh870tjWLOmvWs1
+_v2WnhX9HiDADFYLS89mXbv3fPPd6gcfmc-oa3titrc1z82tS2kjv4V5bTGO6Bpc67cR-e5t-ftD
+gNlpY_6593SsJ_hbz_fWN6VabLYa_-w9LYVty-WLfl9q402vH3HP3nHXxpJ73qi1TZ_x1e8QASbw
+Y5xvKC0-xOm69Ac8-Z27d-RZpXvXxl96ZmTepfHlzutZ29YNLjr-3L1bnhs5N7oG0bVvmduI7-SI
+30TLPXvWdOk7Pur99v7WeUzPx7fXT8sAfbaKGN4vj_9gCaCfzdn7BQEGAAEGAAQYAAQYABBgABBg
+ABBgAECAAUCAAQABBgABBgAEGAAEGAAQ4G18HN_--rvWsyPn3foa3tN4R4xx6d3V-n3U_qy5Tzq_
+9PM9vEMQ4Adwupx--7fnpvNrk7vGcxn77mrfqT2_t6PGX-oMCPDuG_z0-3kc07-nx3LnjQhry1hK
+10fG1juHnrXqGXPpeZF5pMeXxtzz3qJr1TPeNe91q7G3rn-6Ge7NiyXYNriny-mPY6W-p8-pObnr
+1so9JzeW0rxy59XmUTsvOr6WZ0THXHp25BnpfZbWNPJdmX9nImNOz6mNMTKW6bm19YiOP3evnu9R
+dAwgwHzbuJaO5Ta8NN65Y-egtgHv-YzIOq99v7WgLUV-ZFxya7Ll96Z3-L3vDgSYzUM939Ryx24x
+tvOx7THO6DPS8_brmH4eOfZrvLdb-H70jjP3bnL-BgJM8wY031Ryf6cbT23DmV_-tDGl50avLZ2X
+XlOaS8-alK6NPqNlLLV5tK7pVvOfwpM_Y_1zp_tGhK10r9LYo_9OfHkkz8e310-LwNrN9hE2Q5s6
+sKeDJWCtR4mW_AICDAACDAAIMAAIMAAgwAAgwACAAAOAAAOAAAMAAgwAAgwACDAACDAAIMAAIMAA
+gAADgAADgABbAgAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEG
+AAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYA
+BBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQYAAQYABBgABBgABBgAECAAUCAAQABBgABBgAE
+GAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAAEGAAQIABQIABAAEGAAEGAAQY
+AAQYABBgABBgABBgAECAAUCAAQABBgABBgAEGAAEGAAQYAAQYAAQYABAgAFAgAEAAQYAAQYABBgA
+BBgAEGAAEGAAQIABQIABQIABAAEGAAEGAAQYAAQYABBgABBgAECAAUCAAUCAAQABBgABBgAEGAAE
+GAAQYAAQYABAgAFAgAFAgAEAAQYAAQYABBgABBgAEGAAEGAA4F--_ecvAQaAveP7v--_-fR-R33U
+zVPvzNYAAAAQdEVYdExvZGVQTkcAMjAxMTAyMjHjWbbBAAAAAElFTkSuQmCC
+:: main.lua
+--[[pod_format="raw",created="2024-03-15 03:42:26",modified="2024-05-05 23:55:04",revision=152]]
+-- LIBRARY: vgfx
+
+include "lib/lib_utilinst/main.lua"
+_init = util_init_library
+_draw = util_draw
+_update = util_update
+
+:: [eoc]

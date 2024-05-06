@@ -1,0 +1,52 @@
+--[[pod_format="raw",created="2024-03-21 03:27:14",modified="2024-03-21 18:38:46",revision=15]]
+usage: crc32 [-s|-p] [-a <crcs>|-d <crcs>|-r <crcs>|-V] <input>
+ Calculate and output CRC32 hash of input file,
+ directory, or string
+Options:
+  -s|--string
+    Don't treat input as path, only as string
+    (default: auto)
+  -p|--path
+    Don't treat input as string, only as path
+    (default: auto)
+  -a|--append <crcs>
+    Append hash to .crcs file (if not present)
+    Does not accept an argument if used with -V
+  -d|--delete <crcs>
+    Delete hash from .crcs file (if present)
+    Does not accept an argument if used with -V
+  -r|--replace <crcs>
+    Empty .crcs file and add only this hash
+    Does not accept an argument if used with -V
+  -V|--version <new>
+    For every file that exists in input directory,
+    add the CRC32 for that file to the relevant
+    .crcs alongside the file path.
+    (Useful for yotta upgrade .crcs)
+    Overwriting the action with -d or -r works.
+    (Defaults to -a/--append)
+    
+If you give it a file, you'll get the file's hash back.
+If you give it a folder, it will hash every file within
+the folder then hash that output one more time. Yikes.
+If you give it neither a file nor a folder, you'll get
+the input string's hash back. Note that you are not
+expected to quote-encapsulate the input string.
+
+eg: > crc32 This is a test string
+    1800336237 This is a test string
+
+---
+  
+This utility file can be included in code as a
+library to expose the crc32() function:
+
+  crc32(input: string|path, is_file: boolean|nil = nil): string
+  
+This will give you just a hash number alone.
+It will attempt to autodetect if it's a file if you
+omit is_file, based on file presence.
+
+It will complain if you try to have it CRC a
+non-file non-folder filesystem object. You can
+silence it by setting __crc32_silent = true
