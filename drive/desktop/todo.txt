@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2024-05-05 18:48:26",modified="2024-05-06 04:45:43",revision=13]]
+--[[pod_format="raw",created="2024-05-05 18:48:26",modified="2024-05-06 07:42:50",revision=17]]
 - Figure out how to make the picotron_config.txt work
   with my computer profile name (and thus appdata
   path) being different
@@ -23,7 +23,11 @@
     to automatically use the icon and metadata of
     the destination)
 
--- Program Ideas
+-- Game Ideas -----------------------------------------
+- Idle game thats meant to be used as a wallpaper
+
+
+-- Program Ideas --------------------------------------
 - A cart manager for downloading from BBS and most
   importantly checking for updates
 
@@ -45,7 +49,17 @@
   what property = drawing property that should
   be used by the editor)
 
--- Enhancments for Picochat
+
+-- Enhancments for Picochat -----------------------------------------
 - Timestamps
 - Pod formatted images/embedding?
 - Pictochat like drawn messages
+
+-- Enhancements for desktop_pet -----------------------------------------
+- make gravity + jumping use acceleration to look
+  more natural
+- may have to use integrals or whatever since we
+  have to figure out correct velocity to get to
+  position with acceleration
+  if we know we want y=20 when t=30 then...
+- fix up desktop icon bounding boxes
