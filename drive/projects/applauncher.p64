@@ -4,9 +4,10 @@ version 2
 :: gfx/
 :: map/
 :: sfx/
+:: pal/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSIscmV2aXNpb249MTIwN11dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
+NS0wNyAwODowODozMSIscmV2aXNpb249MjAxM11dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
 AEMgEBAE8PAsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTR9LDEA8A4gIATwoXfwBdfwAPcCwPcE
 oPcGgPcHcPcIYEfdVwQAU1BX-QA3BQBzlh0XHTdAZwcANV03XQYAABIAF1YIACT9AAUAUBbdN1BX
 BQAhd9YEAM9g9wlg9wlw9wiA9wepABn-KRgYBPcobfcBffcARg0HDfcALRct9wANBw0XJvcAffcA
@@ -30,35 +31,75 @@ B0AHAAcQJWcAdwBXAAVngGUoADAFdzV0ABFAKAAxBUA3eAAwJ0BnggCfQAVXBXcAVRBnwAEeDzEA
 ------------------------------------------------vFBtPTJ9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0wNyAwODowODozMSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSIscmV2aXNpb249MTE2MV1dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
+NS0wNyAwODowODozMSIscmV2aXNpb249MTk2NF1dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMALyIwAQD--------------------78QgiKSxoaWRkZW49ZmFsc2UscGFuX3g9
 MAgA0nk9MCx0aWxlX2g9MTYKABB3CgCAem9vbT0xfX0=
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0wNyAwODowODozMSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: pal/0.pal
+b64$LS1bW3BvZCxiZ19jb2xvcj0wLGhpZGRlbj17WzBdPWZhbHNlLGZhbHNlLGZhbHNlLGZhbHNl
+LGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZh
+bHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNl
+LGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZh
+bHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNl
+LGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZh
+bHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNl
+LGZhbHNlLGZhbHNlLGZhbHNlfSxoaWRkZW5fdG9nZ2xlcz17WzBdPWZhbHNlLGZhbHNlLGZhbHNl
+LGZhbHNlfSxsb2NrZWQ9e1swXT10cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRy
+dWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVl
+LHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0
+cnVlLHRydWUsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2Us
+ZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFs
+c2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2Us
+ZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2UsZmFsc2V9LGJsYWNrZXN0X2NvbG9yPTAsb2twYWxfdmVy
+c2lvbj0iMC4wLjQiLG1vZGlmaWVkPSIyMDI0LTA1LTA3IDA3OjUzOjUzIixjcmVhdGVkPSIyMDI0
+LTA1LTA3IDA3OjUzOjUzIixyZXZpc2lvbj0wLHRlc3RfY3ViZV9jb2xvcnM9e1swXT17MTUsMzEs
+NH0sezMxLDQsMjB9LHs0LDIwLDIxfSx7MTAsOSwyNX0sezksMjUsMjR9LHs4LDI0LDJ9LHsyNiwx
+MSwyN30sezExLDI3LDN9LHsyNywzLDE5fSx7MjgsMTcsMTl9LHsyOCwxMiwxNn0sezEyLDE2LDF9
+LHs2LDI5LDEzfSx7MjksMTMsMTh9LHsxMywxOCwxfSx7NywyMywxNH0sezIzLDE0LDEzfSx7MTQs
+MzAsMTh9LHs3LDYsMjJ9LHs2LDIyLDV9LHsyMiw1LDIxfSx7MSwxLDF9LHsxLDEsMX0sezEsMSwx
+fX0sd2hpdGVzdF9jb2xvcj03XV1sejQACQEAABUCAAD1BXVzZXJkYXRhKCJpMzIiLDY0LCIwAQDA
+MWQyYjUzMDA3ZTI1CADwFzAwODc1MTAwYWI1MjM2MDA1ZjU3NGYwMGMyYzNjNzAwZmZmMWU4CABA
+MDA0ZAgAEWE2AGBmZmVjMjcKACBlNDgAQDI5YWQkAGA4Mzc2OWMgADE3N2E4AMBjY2FhMDAxYzVl
+YWMwAPAdYTVhMTAwNzU0ZTk3MDAxMjUzNTkwMDc0MmYyOTAwNDkyZDM4MDBhMjg4NzlAAPADYWNj
+NTAwYzMwMDRjMDBlYjZiRgBgOTBlYzQyCgAgYjLAAKA2NGRmZjYwMGJkiQAAlgBAMGRhYkAAXzg1
+NmQwAQDpUDAwMCIp
+:: pal/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA3IDA3OjUzOjUzIixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwODowODozMSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSIscmV2aXNpb249MTE0NV1dbHo0AKkAAACSFwAA-yxweHUAAygAAAQABA9A
+NS0wNyAwODowODozMSIscmV2aXNpb249MTk0NF1dbHo0ALoAAACCFAAA-yxweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8AD--w-wEA6-8n0gEQBg8g
 EAEgASAB8AACEAIMEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYMMAD------70f
--wEArL-ID0AADUD--7DwcAoA--------------------hFD-sPD-OQ==
+-wEArPEHyA9AAA1A--8TDy3--y8B-i8M-gzwcBUAX-6w8HADCAD---------------9cUP6w8P85
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0wNyAwODowODozMSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: bbox.lua
---[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-07 02:02:01",revision=691]]
+--[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-07 08:08:31",revision=1500]]
+-- TODO move to be a lib
 -- TODO change to use userdata for efficiency
 
 -- returns true if the point lies within the box
--- TODO toggle for inclusive
-function bbox_point(p, b)
-	return	 (
-		p[1] >= b[1] and p[1] <= b[3] and
-		p[2] >= b[2] and p[2] <= b[4]
-	)
+-- 'exclusive' is optional, defaults to false. if true, it wont detect at edges
+function bbox_point(p, b, exclusive)
+	exclusive = exclusive or false
+	if exclusive then
+		return	 (
+			p[1] > b[1] and p[1] < b[3] and
+			p[2] > b[2] and p[2] < b[4]
+		)
+	else
+		return	 (
+			p[1] >= b[1] and p[1] <= b[3] and
+			p[2] >= b[2] and p[2] <= b[4]
+		)
+	end
 end
 
 -- returns true if the boxes overlap
@@ -69,26 +110,114 @@ end
 function bbox_from_xywh(o)
 	return {o.x, o.y, o.x+o.w, o.y+o.h}
 end
+:: debug.lua
+--[[pod_format="raw",created="2024-05-07 03:54:57",modified="2024-05-07 08:08:31",revision=821]]
+-- TODO move to be a lib
+-- TODO make not dependent on a global height/width thing
+height = 270
+
+debug = {
+	enabled = true,
+	visible = true,
+	log_file = "/log.txt",
+	lines = {}, -- auto regenerated when log changes
+	
+	enable_print_info = true,
+	enable_print_warn = true,
+	enable_print_err = true,
+}
+
+store(debug.log_file, "") -- fresh log file on init
+
+function debug:_draw()	
+	if not self.visible then return end
+	for i=0, 9 do
+		if #self.lines-i <= 0 then
+			break
+		end
+		local newline = self.lines[#self.lines-i]
+		local pre = newline:sub(23,27)
+		local col = 7
+		if pre == "[INFO" then col = 12
+		elseif pre == "[WARN" then col = 10
+		elseif pre == "[ERR]" then col = 8 end
+		
+		print("\014"..self.lines[#self.lines-i], 3, (height-(8*i)), col)
+	end
+end
+
+function debug:_update()
+	if not self.enabled then return end
+	if keyp("`") then
+		self.visible = not self.visible
+	end 
+end
+
+function debug:info(text)
+	if debug.enable_print_info then
+		log_line("[INFO] " .. text)
+	end
+end
+
+function debug:warn(text)
+	if debug.enable_print_warn then
+		log_line("[WARN] " .. text)
+	end
+end
+
+function debug:err(text)
+	if debug.enable_print_err then
+		log_line("[ERR] " .. text)
+	end
+end
+
+-- info 12
+-- warn 10
+-- err 8
+function log_line(text)
+	local timestamp = date("%Y-%m-%d %H:%M:%S > ")
+	local newline = timestamp..text.."\n"
+	local t = fetch(debug.log_file)..newline
+	store(debug.log_file, t)
+	debug.lines = split(t, "\n", false)
+end
 :: main.lua
---[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-07 02:02:01",revision=1518]]
+--[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-07 08:08:31",revision=2618]]
+include "debug.lua"
 include "mouse.lua"
 include "bbox.lua"
+include "/system/apps/filenav.p64/open.lua"	-- TODO dont depend on this, could break w update
+														-- it also opens lua files in ed instead of running
+														-- so i need custom version to handle that correctly
 
--- pri 1
--- TODO generate app icons (should support .loc as well)
--- TODO handle starting app
--- TODO scrolling
--- pri 2
--- TODO app icon tooltips for name
--- TODO right click menu
--- pri 3
--- TODO click detection for icon based on px
--- TODO draw w desktop palette (toggle in main btn rclick menu)
--- TODO clip bar so it doenst have that weirdness behind the list icon
--- pri 'i dont think this is currently possible'
--- TODO figure out how to allow clickthru on empty space
+--[[
+------ TODOS ------
+- Priority 1
+all done (:
 
--- BUG position doenst change when hiding topbar
+- Priority 2
+TODO menuitem with shortcut to close process
+TODO change cursor on hover
+TODO ability to change vertical and horizontal spacing seperately, and ability to change list height(/width when hor. basically the shorter side length)
+TODO close menu on app launch (but have setting toggle to not) (also if it does, holding shift will make it not, or middle clicking)
+TODO right click menu
+TODO invert scroll direction for top vertical (horiz left/right i think are fine)
+
+- Priority 3
+TODO ensure .loc is supported properly (i dont see any reason why it wouldnt already work right)
+TODO make tooltip handle edge of screen
+TODO draw w desktop palette (toggle in main btn rclick menu)
+TODO add scroll momentum
+TODO click detection for icon based on px
+TODO clip bar so it doenst have that weirdness behind the list icon
+
+- Priority "i dont think this is currently possible"
+TODO figure out how to allow clickthru on empty space
+
+------ BUGS ------
+BUG position doenst change when hiding topbar
+BUG tooltip is shown for positions off screen (add a check that mouse is on screen)
+]]--
 
 win_w = 120 -- 1/4th of full screen
 win_h = 259 -- 270 - 11 for top bar
@@ -114,6 +243,7 @@ win = {
 }
 
 function _init()
+	load_filetype_icons()
 	win:initialize()
 	settings:apply_changes()
 end
@@ -123,7 +253,7 @@ function _draw()
 	--spr(0, 120-32, 259-32)
 	applist:_draw()
 	applist_btn:_draw()
-	
+	debug:_draw()
 	poke(0x547d,0xff) -- wm draw mask; colour 0 is transparent
 end
 
@@ -131,6 +261,7 @@ function _update()
 	update_mouse_info()
 	applist:_update()
 	applist_btn:_update()
+	debug:_update()
 end
 
 
@@ -144,8 +275,17 @@ settings = {
 		"/appdata/apps/",
 		"/apps/",
 	},
-	corner = 3, -- TODO implement -- 1 topleft, 2 topright, 3 botright, 4 botleft
-	horizontal = true, -- TODO implement
+	
+	list_minor_length = 16, -- TODO implement -- size of shorter end of list (height if horizontal, width if vertical)
+	spacing_major = 4, -- TODO implement -- icon spacing along longer length of list (x if horizontal, y if vertical)
+	spacing_minor = 4, -- TODO implement -- icon spacing along shorter length of list (y if horizontal, x if vertical)
+
+	corner = 3, -- 1 topleft, 2 topright, 3 botright, 4 botleft
+	horizontal = false, -- whether to open the bar horizontally
+	
+	open_speed = .2, -- seconds to fully open
+	scroll_sens = 4, -- num of pixels per scroll value
+	
 	btn_gfx = {
 		[1] = 8, -- bot right vert
 		[2] = 9, -- bot right hor
@@ -160,10 +300,10 @@ settings = {
 		w = 27,
 		h = 27,
 	}
+	
 }
 
 function settings:apply_changes()
-	-- TODO more
 	local corner = self.corner
 	
 	-- set win size based on horizontal
@@ -269,6 +409,14 @@ function settings:apply_changes()
 	-- update applist_btn size
 	applist_btn.w = self.btn_gfx_size.w
 	applist_btn.h = self.btn_gfx_size.h
+	-- update applist spacing
+	if self.horizontal then
+		applist.ico_sx = self.spacing_major
+		applist.ico_sy = self.spacing_minor
+	else
+		applist.ico_sx = self.spacing_minor
+		applist.ico_sy = self.spacing_major
+	end
 
 	-- reinitialize window so position is updated
 	win:initialize()
@@ -279,6 +427,9 @@ function settings:apply_changes()
 	
 	-- recalculate applist_btn bbox
 	applist_btn.bbox = bbox_from_xywh(applist_btn)
+	
+	-- create app entries
+	fill_apps()
 end
 
 
@@ -303,7 +454,7 @@ end
 
 function applist_btn:_update()
 	-- Clicking icon
-	if mbtnd(1) then
+	if mbtnp(1) then
 		if bbox_point({mx,my}, applist_btn.bbox) then
 			if applist.pull_dir == 0 then
 				if applist.pull_amt == applist.pull_max then
@@ -316,7 +467,7 @@ function applist_btn:_update()
 			end
 		end
 	end
-	if mbtnd(2) then
+	if mbtnp(2) then
 		if settings.corner == 4 then
 			settings.corner = 1
 		else
@@ -324,6 +475,10 @@ function applist_btn:_update()
 		end
 		settings:apply_changes()
 	end
+	
+	-- Handle Scroll
+	scroll.cur += wy * settings.scroll_sens
+	scroll.cur = mid(scroll.min, scroll.cur, scroll.max)
 end
 
 -------------
@@ -342,6 +497,8 @@ applist = {
 	ico_w = 16,
 	ico_h = 16,
 	ico_s = 4, -- icon spacing
+	ico_sx = 4, -- TODO implement, replace all instances of ico_s with ico_sx or ico_sy
+	ico_sy = 4, -- TODO implement
 	
 	pull_dir = -1, -- -1 to pull up, 1 to pull down, 0 to do nothing
 	pull_amt = 259, -- how far down the bar starts
@@ -350,13 +507,13 @@ applist = {
 	invert_pull = false,
 	
 	pull_speed = .2, -- sec to go from min to max or vice versa
-	
+	current_clip = {0,0,0,0},
+
 	app_buttons = {},
 }
 applist.x = win_w-applist.w
 applist.y = 0
 
-scroll = 0 -- TODO move to own thing -- scroll
 function applist:_draw()
 	if not self.visible then return end
 	
@@ -368,10 +525,10 @@ function applist:_draw()
 	local pull_amt, scr_amt
 	if inv then
 		pull_amt = self.pull_amt
-		scr_amt = pull_amt + scroll
+		scr_amt = pull_amt + scroll.cur
 	else 
 		pull_amt = -self.pull_amt
-		scr_amt = pull_amt - scroll
+		scr_amt = pull_amt - scroll.cur
 	end
 	
 	-- Draw BG
@@ -388,7 +545,7 @@ function applist:_draw()
 		-- TODO ^ horiz bg
 	else
 		camera(0,pull_amt) -- we use camera to 'animate' the list up and down
-				-- draw nubs
+		-- draw nubs
 		if top then
 			rectfill(self.x+1,self.y+self.h,self.x+self.w-2,self.y+self.h,self.bg_col)
 			rectfill(self.x+3,self.y+self.h+1,self.x+self.w-4,self.y+self.h+1,self.bg_col)
@@ -403,21 +560,37 @@ function applist:_draw()
 	-- Draw Icons
 	local st_x, st_y
 	local x1,y1,x2,y2
-		
+	
+	--clip(self.x,self.y-pull_amt-2,self.w,self.h)
 	if hor then
 		camera(scr_amt,0) -- we use camera to adjust based on scroll
-		if top then st_y = applist.y + self.ico_s
-		else st_y = applist.y + self.ico_s end -- FIXME redundant
-		if left then st_x = applist.x + applist_btn.w
-		else st_x = applist.w - applist_btn.w end
+		if top then
+			st_y = applist.y + self.ico_s
+		else
+			st_y = applist.y + self.ico_s
+		end -- FIXME redundant
+		if left then
+			st_x = applist.x + applist_btn.w
+			self.current_clip = {self.x,self.y,self.w-pull_amt+3,self.h}
+		else
+			st_x = applist.w - applist_btn.w
+			self.current_clip = {self.x-pull_amt-2,self.y,self.w,self.h}
+		end
 	else
 		camera(0,scr_amt)
 		st_x = applist.x + self.ico_s
-		if inv then st_y = applist.y + applist_btn.h
-		else st_y = applist.h - applist_btn.h end
+		if inv then
+			st_y = applist.y + applist_btn.h
+			self.current_clip = {self.x,self.y,self.w,self.h-pull_amt+3}
+		else
+			st_y = applist.h - applist_btn.h
+			self.current_clip = {self.x,self.y-pull_amt-2,self.w,self.h}
+		end
 	end
 	
-	for i = 1,5 do
+	clip(self.current_clip[1], self.current_clip[2], self.current_clip[3], self.current_clip[4])
+	local i = 1
+	for k,v in pairs(apps) do
 		if hor then
 			y1 = st_y
 			y2 = st_y + self.ico_h - 1
@@ -438,24 +611,35 @@ function applist:_draw()
 			y2 = y1 + self.ico_h - 1
 		end
 		
-		-- test icons, we should create icons instead
-		rectfill(
-			x1, y1,
-			x2, y2,
-			19)
+		--rectfill(x1, y1, x2, y2, 19) -- test icon
+		--debug:info("pre"..x1..","..y1)
+		v:draw_sprite(x1,y1,x2,y2)
+		-- TODO does matter btwn top/bot left/right?
+		if hor then
+			v:update_bbox(x1-scr_amt,y1,x2-scr_amt,y2)
+		else
+			v:update_bbox(x1,y1-scr_amt,x2,y2-scr_amt)
+		end
+		i += 1
 	end
+	clip()
 	--
-	
 	camera()
+	tooltip:_draw()
 end
 
 function applist:_update()
+	local inv = self.invert_pull
+	local hor = settings.horizontal
+	local left = (settings.corner == 1 or settings.corner == 4)
+	local top = (settings.corner == 1 or settings.corner == 2)
+
 	-- Up/Down animation
 	if not self.visible then return end
 	if self.pull_dir == -1 then
 		if self.pull_amt > self.pull_min then
 			local total = self.pull_max-self.pull_min
-			local a = total // self.pull_speed // 60
+			local a = total / settings.open_speed / 60
 			self.pull_amt -= a
 		end
 		if self.pull_amt <= self.pull_min then
@@ -466,7 +650,7 @@ function applist:_update()
 	if self.pull_dir == 1 then
 		if self.pull_amt < self.pull_max then
 			local total = self.pull_max-self.pull_min
-			local a = total // self.pull_speed // 60
+			local a = total / settings.open_speed / 60
 			self.pull_amt += a
 		end
 		if self.pull_amt >= self.pull_max then
@@ -474,21 +658,271 @@ function applist:_update()
 			self.pull_dir = 0
 		end
 	end
+	
+	-- Mouse over App	
+	local cl = applist.current_clip
+	local clbox = {cl[1],cl[2],cl[1]+cl[3],cl[2]+cl[4]}
+		
+	-- TODO also check that we're on screen
+	local in_clip = bbox_point({mx,my}, clbox) -- some jankness here but its contained within the area of the button so should be fine?
+	local in_btn = bbox_point({mx,my}, applist_btn.bbox)
+	local valid = in_clip and not in_btn
+
+	tooltip.visible = false
+	if valid then
+		for k,v in pairs(apps) do
+			if bbox_point({mx,my}, v.bbox) then
+				--debug:info(v.path)
+				tooltip:set_text(v.title)
+				if hor then
+					tooltip.x = v.bbox[1]+(v.bbox[3]-v.bbox[1])/2 - tooltip.w/2
+					if top then
+						tooltip.y = self.y+self.h+tooltip.spacing
+					else
+						tooltip.y = self.y-tooltip.spacing-tooltip.h-1
+					end
+				else
+					tooltip.y = v.bbox[2] + (v.bbox[4]-v.bbox[2])/2 - tooltip.h/2
+					if left then
+						tooltip.x = self.x+self.w+tooltip.spacing
+					else
+						tooltip.x = self.x-tooltip.spacing-tooltip.w-1
+					end	
+				end
+				tooltip.visible = true
+				-- set tooltip to active
+				-- set tooltip offset based on mouse pos and whether we're hor
+				
+				if mbtnp(1) then
+					click_on_file(v.path)
+				end
+			end
+		end
+	end
 end
 
 
+-------------
+-- Tooltip --
+-------------
+tooltip = {
+	visible = false,
+	x = 0,
+	y = 0,
+	w = 16, -- TODO should be calculated by text
+	h = 9, -- char height of 5 (when using \014) plus 2 * vert_pad
+	horiz_pad = 4,
+	vert_pad = 2,
+	spacing = 2, -- distance from edge of tooltip bg to edge of applist
+	text = "",
+	text_col = 18
+}
+
+function tooltip:_draw()
+	if self.visible then
+		rectfill(self.x,self.y,self.x+self.w,self.y+self.h)
+		print(self.text, self.x+self.horiz_pad,self.y+self.vert_pad,self.text_col)
+		-- TODO real draw
+	end
+end
+
+function tooltip:set_text(text)
+	self.text = "\014"..text
+	self.w = (4 * #text - 1) + (2 * self.horiz_pad) -- each char (when using \014) is 3px, plus 1px of spacing, minus 1 for last char
+	self.h = 5 + (2 * self.vert_pad)
+end
+
+----------
+-- Apps --
+----------
+apps = {}
+app_count = 0
+
+-- TODO save/load from pod in appdata
+-- TODO order entries by this, auto add and remove entries
+saved_data = {
+	order = {}
+}
+
+-- TODO handle folders n shi
+function fill_apps()
+	app_count = 0
+	for folder in all(settings.folders) do
+		for file in all(ls(folder)) do
+			local o = {}
+			local p = folder..file
+			local meta = fetch_metadata(p)
+
+			--debug:info(tostring(file:ext()).." "..tostring(#file:ext()))
+			o.title = meta.title or sub(file,1,-1 * #file:ext() - 2) -- -2, one bc thats just how it is, another to catch the . before the extension
+			o.path = p
+			o.icon = get_file_icon(file,p)
+			
+			apps[p] = app_entry:new(o)
+			app_count += 1
+			--debug:info(apps[p].title)
+		end
+	end
+	--debug:info(tostring(#apps))
+	debug:info("what the fuck")
+	scroll:calculate_max()
+end
+
+
+---------------
+-- App Entry --
+---------------
+app_entry = {
+	title = nil,
+	icon = nil,
+	bbox = {0,0,0,0}
+}
+
+function app_entry:new(o)
+	o = o or {}
+	setmetatable(o,self)
+	self.__index = self
+	return o
+end
+
+function app_entry:draw_sprite(x1, y1, x2, y2)
+	--debug:info(x1..","..y1)
+	
+	pal(7, theme"icon0")
+	pal(6,theme"icon1")
+	pal(13, theme"icon2")
+	pal(1, theme"icon3")
+	
+	--rectfill(x1, y1, x2, y2, 19)
+	spr(self.icon,x1,y1)
+	
+	pal()
+end
+
+function app_entry:update_bbox(x1, y1, x2, y2)
+	-- TODO how to check if clipped?
+	self.bbox = {x1, y1, x2, y2}
+end
+
+function app_entry:_update()
+	-- TODO handle clicking
+end
+
+
+----------
+-- Misc --
+----------
+local file_icon_by_type = {
+	lua = 8,
+	gfx = 9,
+	map = 10,
+	sfx = 11,
+	pos = 12,
+	txt = 13,
+	p64 = 16,
+	["p64.png"] = 16,
+	["p64.rom"] = 16,
+	loc = 3,
+	pod = 12
+}
+
+function get_file_icon(file, path)
+	local meta = fetch_metadata(path)
+
+	if meta.icon and meta.icon:width() == 16 then
+		return meta.icon
+	end
+	
+	local ext = file:ext()
+	
+	-- folder sprite for non-p64 folder
+	local kind, size, origin = fstat(path)
+	if kind == "folder" and ext ~= "p64" and ext ~= "p64.rom" and ext ~= "p64.png" then
+		if origin and origin:sub(1,5) == "host:" then
+			return get_filetype_icon(4)
+		else
+			return get_filetype_icon(2)
+		end
+	end
+	
+	return get_filetype_icon(file_icon_by_type[ext] or 1)
+end
+
+function get_filetype_icon(i)
+	debug:info("getting icon")
+	return filetype_icons[i][1]
+end
+
+function get_filetype_icon_flags(i)
+	return filetype_icons[i][2]
+end
+
+function load_filetype_icons()
+	filetype_icons = {}
+	path = "/system/apps/filenav.p64/gfx/0.gfx"
+	local gfx_dat = fetch(path)
+
+	if type(gfx_dat == "table") and gfx_dat[0] and gfx_dat[0].bmp then
+		for i=0,#gfx_dat do
+			filetype_icons[i] = {gfx_dat[i].bmp, gfx_dat[i].flags or 0}
+		end
+	end
+end
+
+scroll = {
+	cur = 0,
+	min = 0,
+	max = 1000
+}
+
+function scroll:calculate_max()
+	local inv = applist.invert_pull
+	local hor = settings.horizontal
+	local left = (settings.corner == 1 or settings.corner == 4)
+	local top = (settings.corner == 1 or settings.corner == 2)
+	--debug:info("calc scroll")
+	if hor then
+		if left then
+			scroll.max = (app_count * 20) - (applist.w - applist_btn.w) + applist.ico_s
+		else
+			scroll.max = (app_count * 20) - (applist.w - applist_btn.w) + applist.ico_s
+		end
+	else
+		scroll.max = (app_count * 20) - (applist.h - applist_btn.h) + applist.ico_s
+	end
+	--debug:info(scroll.max)
+end
+--[[
+2024-05-06 22:04:49 > [INFO] /system/apps/filenav.p64
+2024-05-06 22:04:49 > [INFO] version | 0.1f
+2024-05-06 22:04:49 > [INFO] modified | 2024-04-30 19:09:34
+2024-05-06 22:04:49 > [INFO] created | 2023-11-15 07:11:30
+2024-05-06 22:04:49 > [INFO] title | Picotron File Navigator
+2024-05-06 22:04:49 > [INFO] workspaces | table: 15c796d0
+2024-05-06 22:04:49 > [INFO] notes | (c) Lexaloffle Games LLP
+2024-05-06 22:04:49 > [INFO] stored | 2024-03-24 15:35:56
+2024-05-06 22:04:49 > [INFO] icon | userdata: 0x16c534a0
+2024-05-06 22:04:49 > [INFO] author | zep
+2024-05-06 22:04:49 > [INFO] runtime | 5
+]]--
 :: mouse.lua
---[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-07 02:02:01",revision=732]]
+--[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-07 08:08:31",revision=1537]]
+-- TODO move to be a lib
+-- TODO add hold repeat
+-- TODO add locked mouse shit (and make mx,my use it correctly)
+
 mx = 0
 my = 0
 wx = 0
 wy = 0
 
-mb = {
-	{false, false}, -- any mb, second value is last frame
+local mb = { -- first value is current frame, second value is previous frame
+	{false, false}, -- any mb,
 	{false, false}, -- lmb
-	{false, false}  -- rmb
+	{false, false}, -- rmb
+	{false, false}, -- mmb
 }
+
 function update_mouse_info()
 	-- set last frame
 	mb[1][2] = mb[1][1]
@@ -502,21 +936,23 @@ function update_mouse_info()
 	mb[3][1] = (mbraw & 0x2) != 0
 
 	mb[1][1] = mbraw > 0
+	mb[4][1] = mb[1][1] and not (mb[2][1] or mb[3][1]) -- detect mmb if any mb is true, but not lmb or mmb (might just be able to check flag 0x3 /shrug)
 end
 
-function mbtn(i) -- 0 = any, 1 = lmb, 2 = rmb, no mmb yet
+function mbtn(i) -- 0 = any, 1 = lmb, 2 = rmb, 3 = mmb
 	return mb[i+1][1]
 end
 
-function mbtnd(i)
+function mbtnp(i)
 	return (mb[i+1][1] and not mb[i+1][2])
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjQwOjI1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNyAwMjowMjowMSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
-NSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0ibW91c2UubHVhIzUiLHdvcmtzcGFjZV9p
-bmRleD0xfSx7bG9jYXRpb249ImJib3gubHVhIzEyIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0
-aW9uPSJnZngvMC5nZngiLHdvcmtzcGFjZV9pbmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIs
-d29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlvbj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9
-NH19XV1sejQABAAAAAMAAAAwbmls
+NS0wNyAwODowODozMSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+NCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0ibW91c2UubHVhIzUiLHdvcmtzcGFjZV9p
+bmRleD0xfSx7bG9jYXRpb249ImJib3gubHVhIzEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRp
+b249ImRlYnVnLmx1YSMxNCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4
+Iix3b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFjZV9pbmRl
+eD0zfSx7bG9jYXRpb249InNmeC8wLnNmeCIsd29ya3NwYWNlX2luZGV4PTR9fV1dbHo0AAQAAAAD
+AAAAMG5pbA==
 :: [eoc]
