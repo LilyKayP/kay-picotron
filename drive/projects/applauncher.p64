@@ -1,0 +1,522 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: gfx/
+:: map/
+:: sfx/
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSIscmV2aXNpb249MTIwN11dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
+AEMgEBAE8PAsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTR9LDEA8A4gIATwoXfwBdfwAPcCwPcE
+oPcGgPcHcPcIYEfdVwQAU1BX-QA3BQBzlh0XHTdAZwcANV03XQYAABIAF1YIACT9AAUAUBbdN1BX
+BQAhd9YEAM9g9wlg9wlw9wiA9wepABn-KRgYBPcobfcBffcARg0HDfcALRct9wANBw0XJvcAffcA
+Bm33AWZ3DQb3BAYNAB0G9wAGHTD9AvD7ZAAc9wCXDcCXBg2wpw2wpwYNoLcDALAXbScNoBd9Fw2g
+F4EAAAgAMC0XLQcAAYUAFBcdAIQGbRcNoCdmFzgAAgMAAE4AMKcNsFwAP5cNwJUAHPcCwA2XsA0G
+l7ANp6ANBqegDbcDAHAnbRegDRd9BQBADQcNRggAAJcAEaCTACUHDR0AIG0GBgAkZic4AAIDAFAG
+p7ANp1wAP8ANl5UADg9oAhsfNjEAXPAMGxsEsHfwANeg9wJw9wRQ9wYw9wcg9wgQR91XBAAQAMMC
+AwUAAMECEacFADFdN10EAAG4AgMGACD9AAMAQBbdNwC4AjEAd9YEAM8Q9wkQ9wkg9wgw9weXALMZ
+YJcAsUD3BzD3CCA33WcQBABC-QBXAAUAAJIAAwcAD5kACiCnFs8AEtYEAAGXAH8Q9wgg9wcwmAC0
+A7kBAUIAQgBX3VcEAAJmAA_7AQ0E4wEEvwExEGfWBAACuQH-AED3BlD3BHD3AqDX8AB3YJgAtAK5
+AQGXAFEQN913AAQAA78BD5kADhGnKQAjFt0FAEBX1kcQBAACuQEJlwAfsJcAsIIYGATw_-0CMLgG
+EgDGBh937gYNL-coZAALHzhIBoEfOPkAUQ-WB4EfOM8IUA-yAZMP_QAiD-IBrg7RCA8xAP--7Q-7
+BQGgHWdtdx1nfWcdZ5sDkWcdZy0XLWcdZ5kDEmcZAO8GbWcdd2ZnHfcGHfcGDaIAHg-IAf9W0F2H
+HWdtBmcdZzYNBw0IAEItBy0GywEzByZ3HACPBl0GZx13VnfNARIeNqcADzEA-w-wGyAgBLB-H-AF
+LnAu8AAe0B7ADvACDqAO8AQOgA7wBg5gDvAIDkAO8AoOMAUAZSAO8AwOEAUAXwAO8A4eAwABKg4A
+KQAVIEIAEEBRABBgWwAQgGUAEKBvAGDAHtAe8ACCAD8FfrBZAh7wDP8dAjAe-QIeAA79Bh5tV40e
+bWcFbR5tNQcNBwgAMCcNJwcAYwcNBw0lfRwA-wAFVwVtHn1VfR79Bh79Bg5zAAwPYQEdHzIxAFzA
+CAgEbQd9Rg0HPRc9BwVffQZtB2ZyABxg3RfdF-0Q1wyAlh0XfTe9N33PDAHUDK-9EBbdFt0X1hfW
+lQAc-wpXEGdFBwAHBScAJwUHAAcAJQBnFVcFAFUAnAAcgFcQZwBnAHcwRADxDUUHADcAJwAnEDcA
+B0AHAAcQJWcAdwBXAAVngGUoADAFdzV0ABFAKAAxBUA3eAAwJ0BnggCfQAVXBXcAVRBnwAEeDzEA
+------------------------------------------------vFBtPTJ9fQ==
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: map/0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSIscmV2aXNpb249MTE2MV1dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
+YSgiaTE2IiwzMgMALyIwAQD--------------------78QgiKSxoaWRkZW49ZmFsc2UscGFuX3g9
+MAgA0nk9MCx0aWxlX2g9MTYKABB3CgCAem9vbT0xfX0=
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: sfx/0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSIscmV2aXNpb249MTE0NV1dbHo0AKkAAACSFwAA-yxweHUAAygAAAQABA9A
+EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8AD--w-wEA6-8n0gEQBg8g
+EAEgASAB8AACEAIMEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYMMAD------70f
+-wEArL-ID0AADUD--7DwcAoA--------------------hFD-sPD-OQ==
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: bbox.lua
+--[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-07 02:02:01",revision=691]]
+-- TODO change to use userdata for efficiency
+
+-- returns true if the point lies within the box
+-- TODO toggle for inclusive
+function bbox_point(p, b)
+	return	 (
+		p[1] >= b[1] and p[1] <= b[3] and
+		p[2] >= b[2] and p[2] <= b[4]
+	)
+end
+
+-- returns true if the boxes overlap
+function bbox_overlap(b1, b2)
+	-- TODO unimplemented
+end
+
+function bbox_from_xywh(o)
+	return {o.x, o.y, o.x+o.w, o.y+o.h}
+end
+:: main.lua
+--[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-07 02:02:01",revision=1518]]
+include "mouse.lua"
+include "bbox.lua"
+
+-- pri 1
+-- TODO generate app icons (should support .loc as well)
+-- TODO handle starting app
+-- TODO scrolling
+-- pri 2
+-- TODO app icon tooltips for name
+-- TODO right click menu
+-- pri 3
+-- TODO click detection for icon based on px
+-- TODO draw w desktop palette (toggle in main btn rclick menu)
+-- TODO clip bar so it doenst have that weirdness behind the list icon
+-- pri 'i dont think this is currently possible'
+-- TODO figure out how to allow clickthru on empty space
+
+-- BUG position doenst change when hiding topbar
+
+win_w = 120 -- 1/4th of full screen
+win_h = 259 -- 270 - 11 for top bar
+
+win = {
+	title = "rpg",
+	
+	x = 480 - win_w,
+	y = 11, -- top par is 11px
+	width = win_w,
+	height = win_h,
+
+	workspace = "current",	
+	autoclose = true,
+
+	has_frame = false,
+	moveable = false,
+	resizeable = false,
+	
+	initialize = function(self)
+		window(self)
+	end
+}
+
+function _init()
+	win:initialize()
+	settings:apply_changes()
+end
+
+function _draw()
+	cls(0)
+	--spr(0, 120-32, 259-32)
+	applist:_draw()
+	applist_btn:_draw()
+	
+	poke(0x547d,0xff) -- wm draw mask; colour 0 is transparent
+end
+
+function _update()
+	update_mouse_info()
+	applist:_update()
+	applist_btn:_update()
+end
+
+
+-------------------
+-- User Settings --
+-------------------
+-- TODO save/load from pod in appdata
+settings = {
+	folders = {
+		"/system/apps/",
+		"/appdata/apps/",
+		"/apps/",
+	},
+	corner = 3, -- TODO implement -- 1 topleft, 2 topright, 3 botright, 4 botleft
+	horizontal = true, -- TODO implement
+	btn_gfx = {
+		[1] = 8, -- bot right vert
+		[2] = 9, -- bot right hor
+		[3] = 10, -- bot left vert
+		[4] = 11, -- bot left hor
+		[5] = 12, -- top right vert
+		[6] = 13, -- top right hor
+		[7] = 14, -- top left vert
+		[8] = 15, -- top left hor
+	},
+	btn_gfx_size = {
+		w = 27,
+		h = 27,
+	}
+}
+
+function settings:apply_changes()
+	-- TODO more
+	local corner = self.corner
+	
+	-- set win size based on horizontal
+	if self.horizontal then
+		win_w = 480
+		win_h = 120
+		applist.w = win_w
+		applist.h = 24
+	else
+		win_w = 120
+		win_h = 259
+		applist.w = 24
+		applist.h = win_h
+	end
+	win.width = win_w
+	win.height = win_h
+	-- set win x based on corner
+	-- set applist_btn x,y,gfx based on corner and horizontal
+	-- set applist x,y,pull_min,pull_max,invert_pull based on corner and horizontal
+	if corner == 1 then
+		-- top left
+		win.x = 0
+		win.y = 11
+		applist_btn.x = 0
+		applist_btn.y = 0
+		applist.x = 0
+		applist.y = 0
+		if self.horizontal then
+			applist_btn.gfx = self.btn_gfx[8]
+			applist.pull_min = 0 -- TODO prolly wonk
+			applist.pull_max = 480
+			applist.invert_pull = true
+		else
+			applist_btn.gfx = self.btn_gfx[7]
+			applist.pull_min = 0
+			applist.pull_max = 259
+			applist.invert_pull = true
+		end
+	elseif corner == 2 then
+		-- top right
+		win.x = 480 - win_w
+		win.y = 11
+		applist_btn.x = win_w - applist_btn.w
+		applist_btn.y = 0
+		applist.x = win_w - applist.w
+		applist.y = 0
+		if self.horizontal then
+			applist_btn.gfx = self.btn_gfx[6]
+			applist.pull_min = 0 -- TODO prolly wonk
+			applist.pull_max = 480
+			applist.invert_pull = false
+		else
+			applist.y = 0
+			applist_btn.gfx = self.btn_gfx[5]
+			applist.pull_min = 0
+			applist.pull_max = 259
+			applist.invert_pull = true
+		end
+	elseif corner == 3 then
+		-- bottom right
+		win.x = 480 - win_w
+		win.y = 270 - win_h
+		applist_btn.x = win_w - applist_btn.w
+		applist_btn.y = win_h - applist_btn.h
+		if self.horizontal then
+			applist.x = 0
+			applist_btn.gfx = self.btn_gfx[2]
+			applist.pull_min = 0 -- TODO prolly wonk
+			applist.pull_max = 480
+			applist.y = win_h - applist.h
+			applist.invert_pull = false
+		else
+			applist.x = win_w - applist.w
+			applist_btn.gfx = self.btn_gfx[1]
+			applist.pull_min = 0
+			applist.pull_max = 259
+			applist.invert_pull = false
+			applist.y = 0
+		end
+	elseif corner == 4 then
+		-- bottom left
+		win.x = 0
+		win.y = 270 - win_h
+		applist_btn.x = 0
+		applist_btn.y = win_h - applist_btn.h
+		applist.x = 0
+		 -- TODO i *think* this is right?
+		if self.horizontal then
+			applist_btn.gfx = self.btn_gfx[4]
+			applist.pull_min = 0 -- TODO prolly wonk
+			applist.pull_max = 480
+			applist.invert_pull = true
+			applist.y = win_h - applist.h
+		else
+			applist_btn.gfx = self.btn_gfx[3]
+			applist.pull_min = 0
+			applist.pull_max = 259
+			applist.invert_pull = false
+			applist.y = 0
+		end
+	end
+
+	-- update applist_btn size
+	applist_btn.w = self.btn_gfx_size.w
+	applist_btn.h = self.btn_gfx_size.h
+
+	-- reinitialize window so position is updated
+	win:initialize()
+		
+	-- reset pull
+	applist.pull_dir = 0 
+	applist.pull_amt = applist.pull_max
+	
+	-- recalculate applist_btn bbox
+	applist_btn.bbox = bbox_from_xywh(applist_btn)
+end
+
+
+--------------------
+-- Applist Button --
+--------------------
+
+applist_btn = {
+	gfx = 8,
+	w = 27,
+	h = 27,
+	x,y,
+	bbox
+}
+applist_btn.x = win_w - applist_btn.w -- bottom right corner
+applist_btn.y = win_h - applist_btn.h
+applist_btn.bbox = bbox_from_xywh(applist_btn)
+
+function applist_btn:_draw()
+	spr(self.gfx, self.x, self.y)
+end
+
+function applist_btn:_update()
+	-- Clicking icon
+	if mbtnd(1) then
+		if bbox_point({mx,my}, applist_btn.bbox) then
+			if applist.pull_dir == 0 then
+				if applist.pull_amt == applist.pull_max then
+					applist.pull_dir = -1
+				elseif applist.pull_amt == applist.pull_min then
+					applist.pull_dir = 1
+				end
+			else
+				applist.pull_dir = applist.pull_dir * -1
+			end
+		end
+	end
+	if mbtnd(2) then
+		if settings.corner == 4 then
+			settings.corner = 1
+		else
+			settings.corner += 1
+		end
+		settings:apply_changes()
+	end
+end
+
+-------------
+-- Applist --
+-------------
+
+applist = {
+	visible = true,
+	
+	w = 24,
+	h = win_h,
+	x,y,
+	
+	bg_col = 7,
+		
+	ico_w = 16,
+	ico_h = 16,
+	ico_s = 4, -- icon spacing
+	
+	pull_dir = -1, -- -1 to pull up, 1 to pull down, 0 to do nothing
+	pull_amt = 259, -- how far down the bar starts
+	pull_min = 0,
+	pull_max = 259,
+	invert_pull = false,
+	
+	pull_speed = .2, -- sec to go from min to max or vice versa
+	
+	app_buttons = {},
+}
+applist.x = win_w-applist.w
+applist.y = 0
+
+scroll = 0 -- TODO move to own thing -- scroll
+function applist:_draw()
+	if not self.visible then return end
+	
+	local inv = self.invert_pull
+	local hor = settings.horizontal
+	local left = (settings.corner == 1 or settings.corner == 4)
+	local top = (settings.corner == 1 or settings.corner == 2)
+	
+	local pull_amt, scr_amt
+	if inv then
+		pull_amt = self.pull_amt
+		scr_amt = pull_amt + scroll
+	else 
+		pull_amt = -self.pull_amt
+		scr_amt = pull_amt - scroll
+	end
+	
+	-- Draw BG
+	if hor then
+		camera(pull_amt,0) -- we use camera to 'animate' the list up and down
+		-- draw nubs
+		if left then
+			rectfill(self.x+self.w,self.y+1,self.x+self.w,self.y+self.h-2,self.bg_col)
+			rectfill(self.x+self.w+1,self.y+3,self.x+self.w+1,self.y+self.h-4,bg_col)
+		else
+			rectfill(self.x-1,self.y+1,self.x-1,self.y+self.h-2,self.bg_col)
+			rectfill(self.x-2,self.y+3,self.x-2,self.y+self.h-4,bg_col)
+		end
+		-- TODO ^ horiz bg
+	else
+		camera(0,pull_amt) -- we use camera to 'animate' the list up and down
+				-- draw nubs
+		if top then
+			rectfill(self.x+1,self.y+self.h,self.x+self.w-2,self.y+self.h,self.bg_col)
+			rectfill(self.x+3,self.y+self.h+1,self.x+self.w-4,self.y+self.h+1,self.bg_col)
+		else
+			rectfill(self.x+1,self.y-1,self.x+self.w-2,self.y-1,self.bg_col)
+			rectfill(self.x+3,self.y-2,self.x+self.w-4,self.y-2,self.bg_col)
+		end
+	end
+	rectfill(self.x,self.y,self.x+self.w-1,self.y+self.h-1,self.bg_col) -- bg
+	--
+	
+	-- Draw Icons
+	local st_x, st_y
+	local x1,y1,x2,y2
+		
+	if hor then
+		camera(scr_amt,0) -- we use camera to adjust based on scroll
+		if top then st_y = applist.y + self.ico_s
+		else st_y = applist.y + self.ico_s end -- FIXME redundant
+		if left then st_x = applist.x + applist_btn.w
+		else st_x = applist.w - applist_btn.w end
+	else
+		camera(0,scr_amt)
+		st_x = applist.x + self.ico_s
+		if inv then st_y = applist.y + applist_btn.h
+		else st_y = applist.h - applist_btn.h end
+	end
+	
+	for i = 1,5 do
+		if hor then
+			y1 = st_y
+			y2 = st_y + self.ico_h - 1
+			if left then
+				x1 = st_x + (i * self.ico_s) + ((i-1) * (self.ico_w))
+			else
+				x1 = st_x - (i * self.ico_s) - (i * self.ico_w)
+			end
+			x2 = x1 + self.ico_w - 1
+		else
+			x1 = st_x
+			x2 = st_x + self.ico_w - 1
+			if inv then
+				y1 = st_y + (i * self.ico_s) + ((i-1) * (self.ico_h))
+			else
+				y1 = st_y - ((i * self.ico_s) + (i * (self.ico_h)))
+			end
+			y2 = y1 + self.ico_h - 1
+		end
+		
+		-- test icons, we should create icons instead
+		rectfill(
+			x1, y1,
+			x2, y2,
+			19)
+	end
+	--
+	
+	camera()
+end
+
+function applist:_update()
+	-- Up/Down animation
+	if not self.visible then return end
+	if self.pull_dir == -1 then
+		if self.pull_amt > self.pull_min then
+			local total = self.pull_max-self.pull_min
+			local a = total // self.pull_speed // 60
+			self.pull_amt -= a
+		end
+		if self.pull_amt <= self.pull_min then
+			self.pull_amt = mid(self.pull_min, self.pull_amt, self.pull_max) -- clamp so we dont overshoot
+			self.pull_dir = 0
+		end
+	end
+	if self.pull_dir == 1 then
+		if self.pull_amt < self.pull_max then
+			local total = self.pull_max-self.pull_min
+			local a = total // self.pull_speed // 60
+			self.pull_amt += a
+		end
+		if self.pull_amt >= self.pull_max then
+			self.pull_amt = mid(self.pull_min, self.pull_amt, self.pull_max) -- clamp so we dont overshoot
+			self.pull_dir = 0
+		end
+	end
+end
+
+
+:: mouse.lua
+--[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-07 02:02:01",revision=732]]
+mx = 0
+my = 0
+wx = 0
+wy = 0
+
+mb = {
+	{false, false}, -- any mb, second value is last frame
+	{false, false}, -- lmb
+	{false, false}  -- rmb
+}
+function update_mouse_info()
+	-- set last frame
+	mb[1][2] = mb[1][1]
+	mb[2][2] = mb[2][1]
+	mb[3][2] = mb[3][1]
+	
+	local mbraw
+	mx, my, mbraw, wx, wy = mouse()
+
+	mb[2][1] = (mbraw & 0x1) != 0
+	mb[3][1] = (mbraw & 0x2) != 0
+
+	mb[1][1] = mbraw > 0
+end
+
+function mbtn(i) -- 0 = any, 1 = lmb, 2 = rmb, no mmb yet
+	return mb[i+1][1]
+end
+
+function mbtnd(i)
+	return (mb[i+1][1] and not mb[i+1][2])
+end
+:: .info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjQwOjI1Iixtb2RpZmllZD0iMjAyNC0w
+NS0wNyAwMjowMjowMSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+NSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0ibW91c2UubHVhIzUiLHdvcmtzcGFjZV9p
+bmRleD0xfSx7bG9jYXRpb249ImJib3gubHVhIzEyIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0
+aW9uPSJnZngvMC5nZngiLHdvcmtzcGFjZV9pbmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIs
+d29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlvbj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9
+NH19XV1sejQABAAAAAMAAAAwbmls
+:: [eoc]

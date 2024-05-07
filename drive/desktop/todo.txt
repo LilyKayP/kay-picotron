@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2024-05-05 18:48:26",modified="2024-05-06 07:42:50",revision=17]]
+--[[pod_format="raw",created="2024-05-05 18:48:26",modified="2024-05-06 19:36:22",revision=19]]
 - Figure out how to make the picotron_config.txt work
   with my computer profile name (and thus appdata
   path) being different
@@ -28,8 +28,8 @@
 
 
 -- Program Ideas --------------------------------------
-- A cart manager for downloading from BBS and most
-  importantly checking for updates
+- An app menu that lists carts in specified directory
+  for quick launching
 
 - Little ipod styled music player
   - It can play .sfx files
@@ -39,8 +39,13 @@
     - playlists (pod .pl file)
     - play/convert midi files
 
+- Dialogue library and editor
+
 - A video file compressor and player
 - Then use it to make a FMV game
+
+- A cart manager for downloading from BBS and most
+  importantly checking for updates
 
 - Animation editor and library
 - Create animations for objects that key object 
