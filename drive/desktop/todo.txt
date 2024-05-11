@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2024-05-05 18:48:26",modified="2024-05-06 19:36:22",revision=19]]
+--[[pod_format="raw",created="2024-05-05 18:48:26",modified="2024-05-07 19:44:18",revision=20]]
 - Figure out how to make the picotron_config.txt work
   with my computer profile name (and thus appdata
   path) being different
@@ -22,6 +22,8 @@
   - More quickly create shortcuts (also have option
     to automatically use the icon and metadata of
     the destination)
+
+- Look into subpixel rendering for the cursor
 
 -- Game Ideas -----------------------------------------
 - Idle game thats meant to be used as a wallpaper

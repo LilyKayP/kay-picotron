@@ -1,9 +1,15 @@
---[[pod_format="raw",created="2024-05-05 19:54:07",modified="2024-05-06 01:56:26",revision=16]]
+--[[pod_format="raw",created="2024-05-05 19:54:07",modified="2024-05-11 03:50:59",revision=20]]
 create_process("/appdata/369/picophone.p64.png", {window_attribs = {
 	workspace = "tooltray",
 	x=350, y=25,
 	width=127, height=205
 }})
+
+create_process("/projects/applauncher.p64", {
+	workspace = "tooltray",
+	corner=1,
+	horizontal=true,
+})
 
 --[[
 workspace can be
