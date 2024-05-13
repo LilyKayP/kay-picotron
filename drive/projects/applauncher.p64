@@ -182,7 +182,7 @@ function log_line(text)
 	debug.lines = split(t, "\n", false)
 end
 :: main.lua
---[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-11 03:53:10",revision=2638]]
+--[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-13 17:46:44",revision=2639]]
 include "debug.lua"
 include "mouse.lua"
 include "bbox.lua"
@@ -197,6 +197,7 @@ all done (:
 
 - Priority 2
 TODO menuitem with shortcut to close process
+TODO search bar :)
 TODO change cursor on hover
 TODO ability to change vertical and horizontal spacing seperately, and ability to change list height(/width when hor. basically the shorter side length)
 TODO close menu on app launch (but have setting toggle to not) (also if it does, holding shift will make it not, or middle clicking)

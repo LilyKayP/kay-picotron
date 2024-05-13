@@ -6,294 +6,1321 @@ version 2
 :: sfx/
 :: vgfx/
 :: lib/
+:: behaviors.lua
+--[[pod_format="raw",created="2024-05-05 05:54:19",modified="2024-05-13 22:14:44",revision=2509]]
+--[[----------- TODO -----------))--
+
+- Have an event system that propogates through entities and behaviors
+- Better way for default values for variables a behavior might use, instead of having
+  all the defaults on the prototype
+
+--((--------- END TODO ---------]]--
+include "protos.lua"
+
+-- List of Behaviors
+beh_velocity = behavior_proto:new()
+beh_acceleration = behavior_proto:new()
+beh_bounce = behavior_proto:new()
+beh_flip_with_velocity = behavior_proto:new()
+beh_display_sprite = behavior_proto:new()
+
+
+------------------
+-- beh_velocity --
+------------------
+function beh_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.x += parent.vx / 60.0
+	parent.y += parent.vy / 60.0
+end
+
+
+----------------------
+-- beh_acceleration --
+----------------------
+function beh_acceleration._update(self, parent)
+	if parent.ax == nil or parent.ay == nil
+	or parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.vx += parent.ax / 30.0
+	parent.vy += parent.ay / 30.0
+end
+
+
+----------------
+-- beh_bounce --
+----------------
+function beh_bounce._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	
+	if (parent.x < 0 and parent.vx < 0)
+	or (parent.x > width and parent.vx > 0) then
+		parent.vx = -parent.vx
+	end
+	if (parent.y < 0 and parent.vy < 0)
+	or (parent.y > height and parent.vy > 0) then
+		parent.vy = -parent.vy
+	end
+end
+
+
+---------------------------
+-- beh_flip_with_velocity --
+---------------------------
+function beh_flip_with_velocity.setup(self, parent)
+	parent.flip = parent.flip or {}
+	
+	parent.flip.with_vel_x = true
+	parent.flip.with_vel_y = true
+	parent.flip.invert_x = false
+	parent.flip.invert_y = false
+	
+	return self
+end
+
+function beh_flip_with_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil
+	or parent.flip.x == nil or parent.flip.y == nil then
+		return nil
+	end
+	
+	if with_vel_x then
+		if invert_x then
+			parent.flip.x = parent.vx > 0
+		else
+			parent.flip.x = parent.vx < 0
+		end
+	end
+	if with_vel_y then
+		if invert_y then
+			parent.flip.y = parent.vy > 0
+		else
+			parent.flip.y = parent.vy < 0
+		end
+	end
+end
+
+
+---------------------------
+-- beh_display_sprite --
+---------------------------
+function beh_display_sprite.setup(self, parent)
+	parent.sprite = parent.sprite or {}
+	parent.flip = parent.flip or {}
+	
+	parent.sprite.sheet = fetch("./gfx/0.gfx")
+	parent.sprite.i = 0
+	
+	parent.flip.x = false
+	parent.flip.y = false
+	
+	return self
+end
+
+	
+function beh_display_sprite._draw(self, parent)
+	spr(parent.sprite.sheet[parent.sprite.i].bmp, parent.x, parent.y, parent.flip.x, parent.flip.y)
+end
+:: entities.lua
+--[[pod_format="raw",created="2024-04-29 21:34:20",modified="2024-05-13 22:14:44",revision=3210]]
+include "protos.lua"
+include "behaviors.lua"
+
+-- List of Entities --
+ent_player = entity_proto:new()
+
+
+----------------
+-- ent_player --
+----------------
+ent_player.behaviors = {
+	beh_display_sprite:setup(ent_player),
+	beh_flip_with_velocity:setup(ent_player),
+	
+	beh_acceleration,
+	beh_velocity,
+	beh_bounce,
+}
+
+ent_player.sprite.sheet = fetch("./gfx/characters.gfx")
+ent_player.sprite.i = 0
+
+ent_player.flip.with_vel_y = false
+
+function ent_player._update(self)
+
+end
+:: scenes.lua
+--[[pod_format="raw",created="2024-05-05 04:37:49",modified="2024-05-13 22:14:44",revision=2757]]
+--[[----------- TODO -----------))--
+
+- Have scenes able to define a .map file and a section of that .map file to serve as
+  the scene.
+
+--((--------- END TODO ---------]]--
+include "protos.lua"
+include "entities.lua"
+include "debug.lua"
+
+-- List of Scene Names --
+sce_sandbox = scene_proto:quick("sce_sandbox", "Sandbox Scene")
+
+-----------------
+-- sce_sandbox --
+-----------------
+function sce_sandbox.create_ents(self)
+	return {
+	--[[
+		ent_player:new({
+			x=0,y=height/2,
+			vx=30,vy=0,
+			ax=0,ay=9.8
+		})
+	]]--
+		-- can do like conditional entity creation, for example if smthn shouldnt spawn
+		-- based on a bool in save data
+	}
+end
+
+function sce_sandbox._init(self, w)
+	debug:info("INITING WORLD "..w.name)
+	if not w:has_pers_ent("player") then
+		w:add_pers_ent("player",
+			ent_player:new({
+				x=0,y=height/2,
+				vx=30,vy=0,
+				ax=0,ay=9.8
+			}))
+	end
+end
+
+function sce_sandbox._draw(self)
+	map()
+end
+:: scenes_gui.lua
+--[[pod_format="raw",created="2024-05-13 20:23:21",modified="2024-05-13 22:14:44",revision=205]]
+include "protos.lua"
+include "entities.lua"
+
+-- List of Scene Names --
+gui_main = scene_proto:quick("gui_main", "GUI Main")
+
+--------------
+-- gui_main --
+--------------
+function gui_main.create_ents(self)
+	return {
+		entity_proto:new{
+			behaviors = {
+				-- TODO button proto
+			}
+		}
+	}
+end
+
+function gui_main._draw()
+	rectfill(0, 270-32, 480, 270, 11)
+end
+:: gui/
+:: world/
+:: world/behaviors.lua
+--[[pod_format="raw",created="2024-05-05 05:54:19",modified="2024-05-13 22:21:49",revision=2554]]
+--[[----------- TODO -----------))--
+
+- Have an event system that propogates through entities and behaviors
+- Better way for default values for variables a behavior might use, instead of having
+  all the defaults on the prototype
+
+--((--------- END TODO ---------]]--
+include "protos.lua"
+
+-- List of Behaviors
+beh_velocity = behavior_proto:new()
+beh_acceleration = behavior_proto:new()
+beh_bounce = behavior_proto:new()
+beh_flip_with_velocity = behavior_proto:new()
+beh_display_sprite = behavior_proto:new()
+
+
+------------------
+-- beh_velocity --
+------------------
+function beh_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.x += parent.vx / 60.0
+	parent.y += parent.vy / 60.0
+end
+
+
+----------------------
+-- beh_acceleration --
+----------------------
+function beh_acceleration._update(self, parent)
+	if parent.ax == nil or parent.ay == nil
+	or parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.vx += parent.ax / 30.0
+	parent.vy += parent.ay / 30.0
+end
+
+
+----------------
+-- beh_bounce --
+----------------
+function beh_bounce._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	
+	if (parent.x < 0 and parent.vx < 0)
+	or (parent.x > width and parent.vx > 0) then
+		parent.vx = -parent.vx
+	end
+	if (parent.y < 0 and parent.vy < 0)
+	or (parent.y > height and parent.vy > 0) then
+		parent.vy = -parent.vy
+	end
+end
+
+
+---------------------------
+-- beh_flip_with_velocity --
+---------------------------
+function beh_flip_with_velocity.setup(self, parent)
+	parent.flip = parent.flip or {}
+	
+	parent.flip.with_vel_x = true
+	parent.flip.with_vel_y = true
+	parent.flip.invert_x = false
+	parent.flip.invert_y = false
+	
+	return self
+end
+
+function beh_flip_with_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil
+	or parent.flip.x == nil or parent.flip.y == nil then
+		return nil
+	end
+	
+	if with_vel_x then
+		if invert_x then
+			parent.flip.x = parent.vx > 0
+		else
+			parent.flip.x = parent.vx < 0
+		end
+	end
+	if with_vel_y then
+		if invert_y then
+			parent.flip.y = parent.vy > 0
+		else
+			parent.flip.y = parent.vy < 0
+		end
+	end
+end
+
+
+---------------------------
+-- beh_display_sprite --
+---------------------------
+function beh_display_sprite.setup(self, parent)
+	parent.sprite = parent.sprite or {}
+	parent.flip = parent.flip or {}
+	
+	parent.sprite.sheet = fetch("./gfx/0.gfx")
+	parent.sprite.i = 0
+	
+	parent.flip.x = false
+	parent.flip.y = false
+	
+	return self
+end
+
+	
+function beh_display_sprite._draw(self, parent)
+	spr(parent.sprite.sheet[parent.sprite.i].bmp, parent.x, parent.y, parent.flip.x, parent.flip.y)
+end
+:: world/entities.lua
+--[[pod_format="raw",created="2024-04-29 21:34:20",modified="2024-05-13 22:21:49",revision=3255]]
+include "protos.lua"
+include "content/behaviors.lua"
+
+-- List of Entities --
+ent_player = entity_proto:new()
+
+
+----------------
+-- ent_player --
+----------------
+ent_player.behaviors = {
+	beh_display_sprite:setup(ent_player),
+	beh_flip_with_velocity:setup(ent_player),
+	
+	beh_acceleration,
+	beh_velocity,
+	beh_bounce,
+}
+
+ent_player.sprite.sheet = fetch("./gfx/characters.gfx")
+ent_player.sprite.i = 0
+
+ent_player.flip.with_vel_y = false
+
+function ent_player._update(self)
+
+end
+:: world/scenes.lua
+--[[pod_format="raw",created="2024-05-05 04:37:49",modified="2024-05-13 22:21:49",revision=2802]]
+--[[----------- TODO -----------))--
+
+- Have scenes able to define a .map file and a section of that .map file to serve as
+  the scene.
+
+--((--------- END TODO ---------]]--
+include "protos.lua"
+include "debug.lua"
+include "content/entities.lua"
+
+-- List of Scene Names --
+sce_sandbox = scene_proto:quick("sce_sandbox", "Sandbox Scene")
+
+-----------------
+-- sce_sandbox --
+-----------------
+function sce_sandbox.create_ents(self)
+	return {
+	--[[
+		ent_player:new({
+			x=0,y=height/2,
+			vx=30,vy=0,
+			ax=0,ay=9.8
+		})
+	]]--
+		-- can do like conditional entity creation, for example if smthn shouldnt spawn
+		-- based on a bool in save data
+	}
+end
+
+function sce_sandbox._init(self, w)
+	if not w:has_pers_ent("player") then
+		w:add_pers_ent("player",
+			ent_player:new({
+				x=0,y=height/2,
+				vx=30,vy=0,
+				ax=0,ay=9.8
+			}))
+	end
+end
+
+function sce_sandbox._draw(self)
+	map()
+end
+:: world/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTEzIDIyOjE2OjM3Iixtb2RpZmllZD0iMjAyNC0w
+NS0xMyAyMjoyMTo1MCJdXWx6NAAEAAAAAwAAADBuaWw=
+:: content/
+:: util.lua
+--[[pod_format="raw",created="2024-05-05 04:43:06",modified="2024-05-13 17:23:22",revision=1966]]
+debug = {
+	enabled = true,
+	visible = true,
+	log_file = "/log.txt",
+	lines = {}, -- auto regenerated when log changes
+	
+	enable_print_info = true,
+	enable_print_warn = true,
+	enable_print_err = true,
+}
+
+store(debug.log_file, "") -- fresh log file on init
+
+function debug:_draw()	
+	if not self.visible then return end
+	for i=0, 9 do
+		if #self.lines-i <= 0 then
+			break
+		end
+		local newline = self.lines[#self.lines-i]
+		local pre = newline:sub(23,27)
+		local col = 7
+		if pre == "[INFO" then col = 12
+		elseif pre == "[WARN" then col = 10
+		elseif pre == "[ERR]" then col = 8 end
+		
+		print("\014"..self.lines[#self.lines-i], 3, (height-(8*i)), col)
+	end
+end
+
+function debug:_update()
+	if not self.enabled then return end
+	if keyp("`") then
+		self.visible = not self.visible
+	end 
+end
+
+function debug:info(text)
+	if debug.enable_print_info then
+		debug:log_line("[INFO] " .. text)
+	end
+end
+
+function debug:warn(text)
+	if debug.enable_print_warn then
+		debug:log_line("[WARN] " .. text)
+	end
+end
+
+function debug:err(text)
+	if debug.enable_print_err then
+		debug:log_line("[ERR] " .. text)
+	end
+end
+
+-- info 12
+-- warn 10
+-- err 8
+function debug:log_line(text)
+	local timestamp = date("%Y-%m-%d %H:%M:%S > ")
+	local newline = timestamp..text.."\n"
+	local t = fetch(debug.log_file)..newline
+	store(debug.log_file, t)
+	debug.lines = split(t, "\n", false)
+end
+:: debug.lua
+--[[pod_format="raw",created="2024-05-05 04:43:06",modified="2024-05-13 22:25:03",revision=2893]]
+width = width or 480
+height = height or 270
+
+debug = {
+	enabled = true, -- if false, logging will not work
+	visible = true, -- whether to display logged lines on screen
+	
+	log_file = "/log.txt", -- default filepath to save log file to -- TODO make relative to cart?
+	save_when_logged = true, -- if true, save when log is made
+	save_every_x_tick = 0, -- if > 0, save after this many ticks
+	lines = {}, -- auto regenerated when log changes
+	
+	key_toggle_visible = "`",
+	key_save_log = "f11",
+
+	enable_print_info = true,
+	enable_print_warn = true,
+	enable_print_err = true,
+}
+
+store(debug.log_file, "") -- fresh log file on init
+
+function debug:_draw()	
+	if not self.visible then return end
+	for i = 0, 9 do
+		if #self.lines-i <= 0 then
+			break
+		end
+		local newline = self.lines[#self.lines-i]
+		local pre = newline:sub(23,27)
+		local col = 7
+		if pre == "[INFO" then col = 12
+		elseif pre == "[WARN" then col = 10
+		elseif pre == "[ERR!" then col = 8 end
+
+		local c = count(newline, "\n") or 1 -- TODO doesnt work ):
+
+		print("\014"..self.lines[#self.lines-i], 3, (height-((8*c)+8*i)), col)
+	end
+end
+
+local ticks_since_save = 0
+function debug:_update()
+	if not self.enabled then return end
+	if keyp(self.key_toggle_visible) then
+		self.visible = not self.visible
+	end
+	if keyp(self.key_save_log) then
+		self:info("Manually saved log file to "..self.log_file)
+		self:save_to_file(self.log_file)
+	end
+	if self.save_every_x_tick > 0 then
+		if ticks_since_save == debug.save_every_x_tick then
+			self:save_to_file(self.log_file)
+			ticks_since_save = 0
+		else
+			ticks_since_save += 1
+		end
+	end
+end
+
+function debug:info(text)
+	if debug.enable_print_info then
+		debug:log_line("[INFO] " .. text)
+	end
+end
+
+function debug:warn(text)
+	if debug.enable_print_warn then
+		debug:log_line("[WARN] " .. text)
+	end
+end
+
+function debug:err(text)
+	if debug.enable_print_err then
+		debug:log_line("[ERR!] " .. text)
+	end
+end
+
+-- info 12
+-- warn 10
+-- err 8
+function debug:log_line(text)
+	if not debug.enabled then return end
+	local timestamp = date("%Y-%m-%d %H:%M:%S > ")
+	local newline = timestamp..text.."\n"
+	add(debug.lines, newline)
+	if debug.save_when_logged then
+		self:save_to_file(self.log_file)
+	end
+	-- local t = fetch(debug.log_file)..newline
+	-- store(debug.log_file, t)
+	-- debug.lines = split(t, "\n", false)
+end
+
+function debug:save_to_file(file)
+	local lines = ""
+	for l in all(self.lines) do
+		lines = lines..l
+	end
+	store(file, lines)
+end	
+
+
+-- Misc Functions --
+function stringify_table(t,offset)
+	offset = offset or 0
+	local str = ""
+	if offset == 0 then
+		str = str.."{"
+	end
+	for k,v in pairs(t) do
+		newstr = "\n"
+		for i = 0, offset do
+			newstr = newstr.."\t"
+		end
+		newstr = newstr..k.." = "
+		if type(v) == "table" then
+			--newstr = newstr.."TABLE"
+			newstr = newstr.."{"..stringify_table(v,offset+1).."\n"
+			for i = 0, offset do
+				newstr = newstr.."\t"
+			end
+			newstr = newstr.."}"
+		else
+			newstr = newstr..tostring(v)
+		end
+		str = str..newstr..","
+	end
+	if offset == 0 then
+		str = str.."\n}"
+	end
+	return str
+end
+:: dialogue.lua
+--[[pod_format="raw",created="2024-05-13 17:14:41",modified="2024-05-13 22:25:03",revision=886]]
+
+dg_test01 = {
+	lines = {
+		"line of dialogue",
+		"auto line breaks thanks!",
+		{dialogue:wait, {0}},       -- to run func, first arg func, second is args
+		{dg:choice, {
+			{"choice 1", 12}, -- choice name, line num
+			{"choice 2", 16},
+		}
+	}
+}
+
+-- dg_obj - object containing dialogue data
+-- start  - line number of the dialogue to start on
+function dg:start(dg_obj, start)
+	if not dg_obj then return end
+	start = start or 0
+	
+	return "TODO UNIMPLEMENTED"
+end
+
+function dg:wait(ticks)
+	return "PASS"
+end
+
+function dg:sfx(sfx)
+	return "PASS"
+end
+
+function dg:choice(choices)
+	return "PASS"
+end
+:: saveload.lua
+--[[pod_format="raw",created="2024-05-13 17:53:44",modified="2024-05-13 20:29:04",revision=653]]
+include "debug.lua"
+
+save = {
+	appdata_folder = "dev", -- name of subfolder in /appdata to save to
+	version = 1, -- increment when migrations are needed
+	data = {
+		-- can put in defaults here
+	},
+	
+	file_ext = ".sav",
+	
+	quicksave_pre = "quick",
+	num_quicksaves = 3,
+	
+	presave_callback = function()
+	
+	end,
+	postload_callback = function() -- function called on load, it should reset state
+		debug:err("Load callback not implemented")
+	end,
+}
+-- TODO use revision metadata to track num of times save overwritten?
+
+-- Returns metadata of all save files
+function save:get_all_saves()
+	local path = "/appdata/"..self.appdata_folder.."/"
+	local files = ls(path)
+	local save_meta = {}
+	for file in all(files) do
+		if file:sub(-1 * #self.file_ext) == self.file_ext then
+			local m = fetch_metadata(path..file)
+			m.path = path..file
+			add(save_meta, m)
+		end
+	end	
+	return save_meta
+end
+
+function save:save(file_name)
+	-- trim file extension if provided one
+	if file_name:sub(-1 * #self.file_ext) == self.file_ext then
+		file_name = file_name:sub(1, -1 * #self.file_ext - 1)
+	end
+	local path = "/appdata/"..self.appdata_folder.."/"..file_name..self.file_ext
+	local folders = ls("/appdata/")	
+	
+	local make_dir = true
+	if folders ~= nil then
+		for i,v in pairs(folders) do
+			if v == self.appdata_folder then
+				make_dir = false
+				break
+			end
+		end
+	end
+	if make_dir then
+		mkdir("/appdata/"..self.appdata_folder)
+	end
+	self.presave_callback()
+	store(path,save.data,{save_version = save.version})
+	debug:info("Saved to "..path)
+end
+
+function save:quicksave()
+	local path = "/appdata/"..self.appdata_folder.."/"
+	local files = ls(path)
+	-- rename old quicksaves and delete oldest if at max
+	for i = self.num_quicksaves, 1, -1 do
+		f = self.quicksave_pre..tostring(i)..self.file_ext
+		if contains(files, f) then
+			if i == self.num_quicksaves then
+				rm(path..f)
+			else
+				mv(path..f,path..self.quicksave_pre..tostring(i+1)..self.file_ext)
+			end
+		end
+	end
+	self:save(self.quicksave_pre.."1")
+end
+
+function save:load(file_name)
+	-- trim file extension if provided one
+	if file_name:sub(-1 * #self.file_ext) == self.file_ext then
+		file_name = file_name:sub(1, -1 * #self.file_ext - 1)
+	end
+	local path = "/appdata/"..self.appdata_folder.."/"..file_name..self.file_ext
+	local files = ls("/appdata/"..self.appdata_folder.."/")
+
+	local d = nil
+	if files ~= nil then
+		for i,v in pairs(files) do
+			if v == file_name..self.file_ext then
+				d = fetch(path)
+				break
+			end
+		end
+	end
+
+	if d ~= nil then
+		for k,v in pairs(d) do
+			self.data[k] = v
+		end
+		debug:info("Loaded from "..path)
+	else
+		debug:warn("Unable to load. No file at "..path)
+	end
+	self.postload_callback()
+end
+
+function save:quickload()
+	local path = "/appdata/"..self.appdata_folder.."/"
+	local files = ls(path)
+	local file = self.quicksave_pre.."1"..self.file_ext
+	if contains(files, file) then 
+		self:load(file)
+	else
+		debug:info("No quicksave found.")
+	end
+end
+
+-- Misc Functions (move elsewhere) --
+
+function contains(t, v)
+	for f in all(t) do
+		if f == v then
+			return true
+		end
+	end
+	return false
+end
+:: content/behaviors.lua
+--[[pod_format="raw",created="2024-05-05 05:54:19",modified="2024-05-13 23:48:58",revision=2808]]
+--[[----------- TODO -----------))--
+
+- Have an event system that propogates through entities and behaviors
+- Better way for default values for variables a behavior might use, instead of having
+  all the defaults on the prototype
+
+--((--------- END TODO ---------]]--
+include "protos.lua"
+
+-- List of Behaviors
+beh_velocity = behavior_proto:new()
+beh_acceleration = behavior_proto:new()
+beh_bounce = behavior_proto:new()
+beh_flip_with_velocity = behavior_proto:new()
+beh_display_sprite = behavior_proto:new()
+beh_saveload = behavior_proto:new()
+
+------------------
+-- beh_velocity --
+------------------
+function beh_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.x += parent.vx / 60.0
+	parent.y += parent.vy / 60.0
+end
+
+
+----------------------
+-- beh_acceleration --
+----------------------
+function beh_acceleration._update(self, parent)
+	if parent.ax == nil or parent.ay == nil
+	or parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	parent.vx += parent.ax / 30.0
+	parent.vy += parent.ay / 30.0
+end
+
+
+----------------
+-- beh_bounce --
+----------------
+function beh_bounce._update(self, parent)
+	if parent.vx == nil or parent.vy == nil then
+		return nil
+	end
+	
+	if (parent.x < 0 and parent.vx < 0)
+	or (parent.x > width and parent.vx > 0) then
+		parent.vx = -parent.vx
+	end
+	if (parent.y < 0 and parent.vy < 0)
+	or (parent.y > height and parent.vy > 0) then
+		parent.vy = -parent.vy
+	end
+end
+
+
+---------------------------
+-- beh_flip_with_velocity --
+---------------------------
+function beh_flip_with_velocity.setup(self, parent)
+	parent.flip = parent.flip or {}
+	
+	parent.flip.with_vel_x = true
+	parent.flip.with_vel_y = true
+	parent.flip.invert_x = false
+	parent.flip.invert_y = false
+	
+	return self
+end
+
+function beh_flip_with_velocity._update(self, parent)
+	if parent.vx == nil or parent.vy == nil
+	or parent.flip.x == nil or parent.flip.y == nil then
+		return nil
+	end
+	
+	if with_vel_x then
+		if invert_x then
+			parent.flip.x = parent.vx > 0
+		else
+			parent.flip.x = parent.vx < 0
+		end
+	end
+	if with_vel_y then
+		if invert_y then
+			parent.flip.y = parent.vy > 0
+		else
+			parent.flip.y = parent.vy < 0
+		end
+	end
+end
+
+
+---------------------------
+-- beh_display_sprite --
+---------------------------
+function beh_display_sprite.setup(self, parent)
+	parent.sprite = parent.sprite or {}
+	parent.flip = parent.flip or {}
+	
+	parent.sprite.sheet = fetch("./gfx/0.gfx")
+	parent.sprite.i = 0
+	
+	parent.flip.x = false
+	parent.flip.y = false
+	
+	return self
+end
+
+	
+function beh_display_sprite._draw(self, parent)
+	spr(parent.sprite.sheet[parent.sprite.i].bmp, parent.x, parent.y, parent.flip.x, parent.flip.y)
+end
+
+
+------------------
+-- beh_saveload --
+------------------
+:: content/entities.lua
+--[[pod_format="raw",created="2024-04-29 21:34:20",modified="2024-05-13 23:48:58",revision=3521]]
+include "protos.lua"
+include "content/behaviors.lua"
+
+-- List of Entities --
+ent_player = entity_proto:new()
+
+
+----------------
+-- ent_player --
+----------------
+ent_player.behaviors = {
+	beh_display_sprite:setup(ent_player),
+	beh_flip_with_velocity:setup(ent_player),
+	
+	beh_acceleration,
+	beh_velocity,
+	beh_bounce,
+}
+
+ent_player.sprite.sheet = fetch("./gfx/characters.gfx")
+ent_player.sprite.i = 0
+
+ent_player.flip.with_vel_y = false
+
+function ent_player:_update()
+
+end
+
+function ent_player:_save()
+	save.data.player = write_props(self, {"x", "y", "vx", "vy", "ax", "ay"})
+end
+
+function ent_player:_load()
+	set_props(self, save.data.player)
+end
+:: content/scenes.lua
+--[[pod_format="raw",created="2024-05-05 04:37:49",modified="2024-05-13 23:48:58",revision=3053]]
+--[[----------- TODO -----------))--
+
+- Have scenes able to define a .map file and a section of that .map file to serve as
+  the scene.
+
+--((--------- END TODO ---------]]--
+include "protos.lua"
+include "lib/debug.lua"
+include "content/entities.lua"
+
+-- List of Scene Names --
+sce_sandbox = scene_proto:quick("sce_sandbox", "Sandbox Scene")
+
+-----------------
+-- sce_sandbox --
+-----------------
+function sce_sandbox.create_ents(self)
+	return {
+	--[[
+		ent_player:new({
+			x=0,y=height/2,
+			vx=30,vy=0,
+			ax=0,ay=9.8
+		})
+	]]--
+		-- can do like conditional entity creation, for example if smthn shouldnt spawn
+		-- based on a bool in save data
+	}
+end
+
+function sce_sandbox._init(self, w)
+	if not w:has_pers_ent("player") then
+		w:add_pers_ent("player",
+			ent_player:new({
+				x=0,y=height/2,
+				vx=30,vy=0,
+				ax=0,ay=9.8
+			}))
+	end
+end
+
+function sce_sandbox._draw(self)
+	map()
+end
+:: content/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTEzIDIyOjE2OjM3Iixtb2RpZmllZD0iMjAyNC0w
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSIscmV2aXNpb249MjA5OF1dbHo0AK8AAADcMQAA8xR7WzBdPXtibXA9cHh1
+NS0xMyAyMzo0ODo1OCIscmV2aXNpb249MzIxOF1dbHo0AK8AAADcMQAA8xR7WzBdPXtibXA9cHh1
 AEMgEBAE8PAsZmxhZ3M9MCxwYW5feAgAynk9MCx6b29tPTl9LDEAL-8VMgAdpxAPEwAOAA6QDgAC
 AD8QDgAQAAk_HgAOHgAPLAAECxAAPjAOABwADw4AAg9YACcQcAQADwcBHC-w8DEA------------
 ----------------------------------------------------dVBtPTl9fQ==
 :: gfx/characters.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjMwOjU3Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSIscmV2aXNpb249MjExNF1dbHo0AKYAAABDMQAA8hZ7WzBdPXtibXA9cHh1
+NS0xMyAyMzo0ODo1OCIscmV2aXNpb249MzIzNV1dbHo0AKYAAABDMQAA8hZ7WzBdPXtibXA9cHh1
 AEMgEBAEQBY3cBZ3QAY3BScFFzAGJwUHAgAwMAanDgD3BmdAFhcVN3BXgCZHYBZ3UBZ3QBaXMAMA
 8wAQLGZsYWdzPTAscGFuX3gIAMp5PTAsem9vbT04fSxvAC-w8DEA------------------------
 ----------------------------------------11BtPTh9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE0Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
+:: gui/scenes.lua
+--[[pod_format="raw",created="2024-05-13 20:23:21",modified="2024-05-13 22:23:31",revision=231]]
+include "protos.lua"
+
+-- List of Scene Names --
+gui_main = scene_proto:quick("gui_main", "GUI Main")
+
+--------------
+-- gui_main --
+--------------
+function gui_main.create_ents(self)
+	return {
+		entity_proto:new{
+			behaviors = {
+				-- TODO button proto
+			}
+		}
+	}
+end
+
+function gui_main._draw()
+	rectfill(0, 270-32, 480, 270, 11)
+end
+:: gui/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTEzIDIyOjE2OjQwIixtb2RpZmllZD0iMjAyNC0w
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: lib/error_explorer/
 :: lib/error_explorer/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDAxOjM4OjA2Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: lib/error_explorer/error_explorer.lua
-b64$LS1bW3BvZF9mb3JtYXQ9InJhdyIsY3JlYXRlZD0iMjAyNC0wNS0wNiAwMzoyNDo1NiIsbW9k
-aWZpZWQ9IjIwMjQtMDUtMDYgMDM6MjU6MzEiLHJldmlzaW9uPTddXQotLSAjIHBpY290cm9uIGVy
-cm9yIGV4cGxvcmVyCi0tCi0tIGJ5IGtpcmEKLS0KLS0gdmVyc2lvbiAwLjAuNAotLQotLSBhbiBp
-bnRlcmFjdGl2ZSBlcnJvciBzY3JlZW4gZm9yIHBpY290cm9uLgotLSBvbiBlcnJvciwgc2hvd3Mg
-dGhlIHN0YWNrLCBsb2NhbCB2YXJpYWJsZXMsCi0tIGFuZCB0aGUgc291cmNlIGNvZGUgd2hlbiBh
-dmFpbGFibGUuCi0tCi0tICMjIHVzYWdlCi0tCi0tIGBpbmNsdWRlYCBvciBgcmVxdWlyZWAgYGVy
-cm9yX2V4cGxvcmVyLmx1YWAKLS0gaW4geW91ciBwcm9ncmFtIF9hZnRlcl8gZGVmaW5pbmcgeW91
-ciBgX2luaXRgLAotLSBgX3VwZGF0ZWAsIGFuZCBgX2RyYXdgIGZ1bmN0aW9ucy4KLS0KLS0gcHJl
-c3MgYHVwYCBhbmQgYGRvd25gIHRvIG1vdmUgdXAgYW5kIGRvd24gb24KLS0gdGhlIHN0YWNrLCBw
-cmVzcyBgeGAgb3IgYHNwYWNlYCB0byB0b2dnbGUgZm9udAotLSBzaXplLiBjbGljayBvbiB0YWJs
-ZXMgaW4gdGhlIHZhcmlhYmxlIHZpZXcgdG8KLS0gZXhwYW5kIHRoZW0uCi0tCi0tICMjIGhvdyBp
-dCB3b3JrcwotLQotLSBpbiBvcmRlciB0byBjYXRjaCBlcnJvcnMgYW5kIGluc3BlY3QgcnVudGlt
-ZQotLSBzdGF0ZSwgdGhpcyBzY3JpcHQgcmVwbGFjZXMgYF9pbml0YCwgYF91cGRhdGVgCi0tIGFu
-ZCBgX2RyYXdgIGZ1bmN0aW9ucyB3aXRoIG9uZXMgdGhhdCBjYWxsIHRoZQotLSBvcmlnaW5hbCBv
-bmVzIGluc2lkZSBhIGNvcm91dGluZS4KLS0KLS0gd2hlbiB0aGVyZSdzIGFuIGVycm9yLCBpdCB1
-c2VzIGx1YSdzIGRlYnVnCi0tIGxpYnJhcnkgdG8gaW5zcGVjdCB0aGUgY29yb3V0aW5lLiBhIGNv
-cHkKLS0gb2YgdGhlIGVycm9yIGlzIGFsc28gcHJpbnRlZCB0byB0aGUgY29uc29sZQotLSB3aXRo
-IHByaW50aCBpZiB5b3UncmUgcnVubmluZyBwaWNvdHJvbiBmcm9tCi0tIHRoZSBjb21tYW5kIGxp
-bmUuCi0tCi0tIHRoZSBmb2xsb3dpbmcgZGVidWcgYXBpcyBhcmUgdXNlZDoKLS0KLS0gLSBgZGVi
-dWcuZ2V0aW5mb2AKLS0gLSBgZGVidWcuZ2V0bG9jYWxgCi0tIC0gYGRlYnVnLmdldHVwdmFsdWVg
-Ci0tIC0gYGRlYnVnLnRyYWNlYmFja2AKLS0KLS0gIyMgdmVyc2lvbiBoaXN0b3J5IAotLQotLSB2
-ZXJzaW9uIDAuMC40Ci0tCi0tIC0gYWxzbyBjYXRjaCBlcnJvcnMgaW4gYF9pbml0YAotLQotLSB2
-ZXJzaW9uIDAuMC4zCi0tCi0tIC0gYXV0b21hdGljYWxseSBjaG9vc2UgdGhlIHJpZ2h0IHN0YWNr
-IGZyYW1lCi0tICAgYmFzZWQgb24gdGhlIGVycm9yIG1lc3NhZ2UKLS0gLSBtb3JlIHRob3JvdWdo
-bHkgcHJvdGVjdCBmcm9tIGVycm9ycyBpbiBlcnJvcgotLSAgIGV4cGxvcmVyIGl0c2VsZgotLQot
-LSB2ZXJzaW9uIDAuMC4yCi0tCi0tIC0gZG9uJ3QgcmVnZW5lcmF0ZSBzdGFjayBpbmZvIGV2ZXJ5
-IGRyYXcKLS0gLSBzY3JvbGwgc3RhY2sgYW5kIHZhcmlhYmxlcyBsaXN0IHdpdGggbW91c2V3aGVl
-bAotLSAtIGNsaWNrIG9uIHN0YWNrIHRvIHN3aXRjaCBzdGFjayBmcmFtZXMKLS0gLSBjbGljayBv
-biB0YWJsZXMgaW4gdmFyaWFibGVzIHZpZXcgdG8gZXhwYW5kIHRoZW0KLS0gLSBlc2NhcGUgc3Ry
-aW5ncyB3aGVuIHByaW50aW5nIHRoZW0KLS0KLS0gdmVyc2lvbiAwLjAuMQotLQotLSAtIGFkanVz
-dCBjb2xvcnMKLS0gLSBjb2RlIGNsZWFudXAKLS0gLSB1c2UgYGJ0bnBgIGluc3RlYWQgb2YgYGtl
-eXBgCi0tIC0gc2xpZ2h0bHkgbW9yZSB0aG9yb3VnaCBgcmVzZXRgCi0tIC0gZG9uJ3Qgc2hvdyB0
-ZW1wb3JhcmllcwotLQotLSB2ZXJzaW9uIDAuMC4wIChwcmVyZWxlYXNlKQotLQotLSAtIGluaXRp
-YWwgZGlzY29yZCBiZXRhCgotLSAjIyBsaWNlbnNlCi0tCi0tIENvcHlyaWdodCAyMDI0IEtpcmEg
-Qm9vbQotLSAKLS0gUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2Us
-IHRvIGFueSBwZXJzb24gb2J0YWluaW5nIGEgY29weQotLSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBh
-c3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSDigJxTb2Z0d2FyZeKAnSksIHRvCi0t
-IGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRo
-b3V0IGxpbWl0YXRpb24gdGhlCi0tIHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2Us
-IHB1Ymxpc2gsIGRpc3RyaWJ1dGUsIHN1YmxpY2Vuc2UsIGFuZC9vcgotLSBzZWxsIGNvcGllcyBv
-ZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZSBTb2Z0d2Fy
-ZSBpcwotLSBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25k
-aXRpb25zOgotLQotLSBUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNz
-aW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZCBpbgotLSBhbGwgY29waWVzIG9yIHN1YnN0YW50
-aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KLS0gCi0tIFRIRSBTT0ZUV0FSRSBJUyBQUk9W
-SURFRCDigJxBUyBJU_KAnSwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwgRVhQUkVTUwot
-LSBPUiBJTVBMSUVELCBJTkNMVURJTkcgQlVUIE5PVCBMSU1JVEVEIFRPIFRIRSBXQVJSQU5USUVT
-IE9GIE1FUkNIQU5UQUJJTElUWSwKLS0gRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0Ug
-QU5EIE5PTklORlJJTkdFTUVOVC4gSU4gTk8gRVZFTlQgU0hBTEwKLS0gVEhFIEFVVEhPUlMgT1Ig
-Q09QWVJJR0hUIEhPTERFUlMgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IgT1RI
-RVIKLS0gTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBP
-UiBPVEhFUldJU0UsIEFSSVNJTkcKLS0gRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lU
-SCBUSEUgU09GVFdBUkUgT1IgVEhFIFVTRSBPUiBPVEhFUgotLSBERUFMSU5HUyBJTiBUSEUgU09G
-VFdBUkUuCgotLS0tIHV0aWwgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LQoKbG9jYWwgZnVuY3Rpb24gZmlsZW5hbWVfb2YgKHBhdGgpCiAgcmV0dXJuIHBhdGg6bWF0Y2gg
-KCdbXi9dKiQnKQplbmQKCmxvY2FsIGZ1bmN0aW9uIHNhZmVfdG9zdHJpbmcgKHZhbHVlKQogIGlm
-IHR5cGUgKHZhbHVlKSA9PSAnc3RyaW5nJyB0aGVuCiAgICByZXR1cm4gc3RyaW5nLmZvcm1hdCAo
-JyVxJywgdmFsdWUpCiAgZWxzZQogICAgbG9jYWwgc3VjY2VzcywgdmFsdWVfc3RyaW5nID0gcGNh
-bGwgKHRvc3RyaW5nLCB2YWx1ZSkKICAgIHJldHVybiBzdWNjZXNzIGFuZCB2YWx1ZV9zdHJpbmcK
-ICAgICAgICAgICAgICAgICAgIG9yICgnZXJyb3IgZHVyaW5nIHRvc3RyaW5nOiAnIC4uIHRvc3Ry
-aW5nICh2YWx1ZV9zdHJpbmcpKQogIGVuZAplbmQKCmxvY2FsIGZ1bmN0aW9uIGdldF9saW5lcyAo
-dGV4dCkKICBsb2NhbCBsaW5lcyA9IHt9CiAgZm9yIGxpbmUgaW4gdGV4dDpnbWF0Y2ggKCIoLi0p
-XHI-XG4iKSBkbwogICAgdGFibGUuaW5zZXJ0IChsaW5lcywgbGluZSkKICBlbmQKICBsb2NhbCBs
-YXN0X2xpbmUgPSB0ZXh0Om1hdGNoICgnKFteXG5dKikkJykKICBpZiBsYXN0X2xpbmUgYW5kIGxh
-c3RfbGluZSB_PSAnJyB0aGVuCiAgICB0YWJsZS5pbnNlcnQgKGxpbmVzLCBsYXN0X2xpbmUpCiAg
-ZW5kCiAgcmV0dXJuIGxpbmVzCmVuZAoKbG9jYWwgZnVuY3Rpb24gY29tcGFyZV9rZXlzIChhLCBi
-KQogIGxvY2FsIHRhID0gdHlwZSAoYS5rZXkpCiAgbG9jYWwgdGIgPSB0eXBlIChiLmtleSkKICBp
-ZiB0YSB_PSB0YiB0aGVuCiAgICByZXR1cm4gdGEgPCB0YgogIGVuZAogIGlmIHRhID09ICdudW1i
-ZXInIG9yIHRhID09ICdzdHJpbmcnIHRoZW4KICAgIHJldHVybiBhLmtleSA8IGIua2V5CiAgZWxz
-ZQogICAgcmV0dXJuIHNhZmVfdG9zdHJpbmcgKGEua2V5KSA8IHNhZmVfdG9zdHJpbmcgKGIua2V5
-KQogIGVuZAplbmQKCmxvY2FsIGZ1bmN0aW9uIHNvcnQgKHQsIGYpCiAgLS0gaW5zZXJ0aW9uIHNv
-cnQKICBmID0gZiBvciBmdW5jdGlvbiAoYSwgYikgcmV0dXJuIGEgPCBiIGVuZAogIGZvciBpID0g
-MSwgI3QtMSBkbwogICAgbG9jYWwgdmFsID0gdFtpKzFdCiAgICBsb2NhbCBqID0gaQogICAgd2hp
-bGUgaiA_PSAxIGFuZCBub3QgZih0W2pdLCB2YWwpIGRvCiAgICAgIHRbaisxXSA9IHRbal0KICAg
-ICAgaiA9IGogLSAxCiAgICBlbmQKICAgIHRbaisxXSA9IHZhbAogIGVuZAplbmQKCmxvY2FsIGZ1
-bmN0aW9uIGFwcHJvYWNoIChmcm9tLCB0bykKICByZXR1cm4gZnJvbSArICh0byAtIGZyb20pICog
-MC4yNQplbmQKCmxvY2FsIGZ1bmN0aW9uIHJvdW5kICh2YWx1ZSkKICByZXR1cm4gbWF0aC5mbG9v
-ciAodmFsdWUgKyAwLjUpCmVuZAoKbG9jYWwgZnVuY3Rpb24gcGFyc2VfbWVzc2FnZV9mb3JfbG9j
-YXRpb24gKG1zZykKICBsb2NhbCBwYXRoLCBsaW5lLCBlcnIgPSBtc2c6bWF0Y2ggKCdeKFteOl0r
-KTooJWQrKTooLiopJCcpCiAgcmV0dXJuIHBhdGgsIHRvbnVtYmVyIChsaW5lKSwgZXJyCmVuZAoK
-LS0tLSBzdGF0ZSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCmxvY2Fs
-IF9HID0gX0cKbG9jYWwgZXJyb3JfbWVzc2FnZQpsb2NhbCBlcnJvcl90aHJlYWQKbG9jYWwgZXJy
-b3JfdHJhY2ViYWNrCmxvY2FsIGluaXRfZG9uZSA9IGZhbHNlCmxvY2FsIHVzZV9zbWFsbF9mb250
-ID0gZmFsc2UKbG9jYWwgbW91c2Vfd2FzX2NsaWNrZWQgPSBmYWxzZQoKLS0gc3RhY2sgdmlldwps
-b2NhbCBzdGFja19mcmFtZXMgPSB7fQpsb2NhbCBjdXJyZW50X3N0YWNrX2luZGV4ID0gMQpsb2Nh
-bCBob3ZlcmVkX3N0YWNrX2luZGV4ID0gZmFsc2UKbG9jYWwgbW91c2Vfb3Zlcl9zdGFjayA9IGZh
-bHNlCmxvY2FsIHN0YWNrX21heF9zY3JvbGwgPSAwCmxvY2FsIHN0YWNrX3Njcm9sbCA9IDAKbG9j
-YWwgc3RhY2tfc2Nyb2xsX3Ntb290aCA9IDAKCi0tIHZhcmlhYmxlcyB2aWV3CmxvY2FsIHZhcmlh
-YmxlcyA9IHt9CmxvY2FsIGhvdmVyZWRfdmFyaWFibGUgPSBmYWxzZQpsb2NhbCB2YXJpYWJsZXNf
-bWF4X3Njcm9sbCA9IDAKbG9jYWwgdmFyaWFibGVzX3Njcm9sbCA9IDAKbG9jYWwgdmFyaWFibGVz
-X3Njcm9sbF9zbW9vdGggPSAwCmxvY2FsIG1vdXNlX292ZXJfdmFyaWFibGVzID0gZmFsc2UKCi0t
-IHNvdXJjZSB2aWV3CmxvY2FsIHNvdXJjZV9saW5lcyA9IHt9CgoKLS0tLSBtYWluIGV2ZW50cyAt
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCmxvY2FsIFcgPSA0ODAKbG9jYWwgSCA9
-IDI3MAoKbG9jYWwgZnVuY3Rpb24gcmVidWlsZCAoKQogIC0tIHJlYnVpbGQgc3RhY2sgZnJhbWUg
-aW5mbwogIHN0YWNrX2ZyYW1lcyA9IHt9CiAgdmFyaWFibGVzID0ge30KICBzb3VyY2VfbGluZXMg
-PSB7fQogIHZhcmlhYmxlc19zY3JvbGwgPSAwCiAgdmFyaWFibGVzX3Njcm9sbF9zbW9vdGggPSAw
-CgogIGZvciBpID0gMCwgMjAgZG8KICAgIGxvY2FsIGluZm8gPSBkZWJ1Zy5nZXRpbmZvIChlcnJv
-cl90aHJlYWQsIGkpCiAgICBpZiBub3QgaW5mbyB0aGVuCiAgICAgIGJyZWFrCiAgICBlbmQKCiAg
-ICBpZiBpbmZvLnNob3J0X3NyYyB0aGVuCiAgICAgIHRhYmxlLmluc2VydCAoc3RhY2tfZnJhbWVz
-LCB7CiAgICAgICAgZmlsZW5hbWUgPSBmaWxlbmFtZV9vZiAoaW5mby5zaG9ydF9zcmMpLAogICAg
-ICAgIHBhdGggPSBpbmZvLnNob3J0X3NyYywKICAgICAgICBsaW5lID0gaW5mby5jdXJyZW50bGlu
-ZSwKICAgICAgICBkZXB0aCA9IGksCiAgICAgICAgZm5fbmFtZSA9IChpbmZvLm5hbWUgb3IgKGZp
-bGVuYW1lX29mIChpbmZvLnNob3J0X3NyYykgLi4gJzonIC4uIHRvc3RyaW5nIChpbmZvLmxpbmVk
-ZWZpbmVkKSkpLAogICAgICAgIHNvdXJjZSA9IGluZm8uc291cmNlLAogICAgICB9KQogICAgZW5k
-CiAgZW5kCgogIGxvY2FsIGZyYW1lID0gc3RhY2tfZnJhbWVzIFtjdXJyZW50X3N0YWNrX2luZGV4
-XQoKICBpZiBub3QgZnJhbWUgdGhlbgogICAgcmV0dXJuCiAgZW5kCgogIC0tIHJlYnVpbGQgdmFy
-aWFibGVzCiAgZG8KICAgIGxvY2FsIGxvY2FsX2luZGV4ID0gMQogICAgcmVwZWF0CiAgICAgIGxv
-Y2FsIG5hbWUsIHZhbHVlID0gZGVidWcuZ2V0bG9jYWwgKGVycm9yX3RocmVhZCwgZnJhbWUuZGVw
-dGgsIGxvY2FsX2luZGV4KQogICAgICBpZiBuYW1lIHRoZW4KICAgICAgICBpZiBuYW1lIH49ICco
-dGVtcG9yYXJ5KScgdGhlbgogICAgICAgICAgdGFibGUuaW5zZXJ0ICh2YXJpYWJsZXMsIHsKICAg
-ICAgICAgICAga2V5ID0gbmFtZSwKICAgICAgICAgICAgdmFsdWUgPSB2YWx1ZSwKICAgICAgICAg
-IH0pCiAgICAgICAgZW5kCiAgICAgICAgbG9jYWxfaW5kZXggPSBsb2NhbF9pbmRleCArIDEKICAg
-ICAgZW5kCiAgICB1bnRpbCBub3QgbmFtZQoKICAgIGxvY2FsIGluZm8gPSBkZWJ1Zy5nZXRpbmZv
-IChlcnJvcl90aHJlYWQsIGZyYW1lLmRlcHRoKQogICAgaWYgaW5mbyBhbmQgaW5mby5mdW5jIHRo
-ZW4KICAgICAgbG9jYWwgdXB2YWx1ZV9pbmRleCA9IDEKICAgICAgcmVwZWF0CiAgICAgICAgbG9j
-YWwgbmFtZSwgdmFsdWUgPSBkZWJ1Zy5nZXR1cHZhbHVlIChpbmZvLmZ1bmMsIHVwdmFsdWVfaW5k
-ZXgpCiAgICAgICAgaWYgbmFtZSB0aGVuCiAgICAgICAgICB0YWJsZS5pbnNlcnQgKHZhcmlhYmxl
-cywgewogICAgICAgICAgICBrZXkgPSBuYW1lLAogICAgICAgICAgICB2YWx1ZSA9IHZhbHVlLAog
-ICAgICAgICAgfSkKICAgICAgICAgIHVwdmFsdWVfaW5kZXggPSB1cHZhbHVlX2luZGV4ICsgMQog
-ICAgICAgIGVuZAogICAgICB1bnRpbCBub3QgbmFtZQogICAgZW5kCiAgZW5kCgogIC0tIHJlYnVp
-bGQgc291cmNlIGxpbmVzCiAgbG9jYWwgc291cmNlID0gZnJhbWUuc291cmNlCiAgaWYgc291cmNl
-IHRoZW4KICAgIGlmIHN0cmluZy5zdWIgKHNvdXJjZSwgMSwgMSkgPT0gJ0AnIHRoZW4KICAgICAg
-bG9jYWwgZmlsZW5hbWUgPSBzdHJpbmcuc3ViIChzb3VyY2UsIDIsICNzb3VyY2UpCiAgICAgIHNv
-dXJjZSA9IGZldGNoIChmaWxlbmFtZSkKICAgIGVuZAogICAgaWYgc291cmNlIGFuZCB0eXBlIChz
-b3VyY2UpID09ICdzdHJpbmcnIHRoZW4KICAgICAgc291cmNlX2xpbmVzID0gZ2V0X2xpbmVzIChz
-b3VyY2UpCiAgICBlbmQKICBlbmQKZW5kCgpsb2NhbCBmdW5jdGlvbiBlcnJvcl91cGRhdGUgKCkK
-ICBsb2NhbCBsYXN0X2luZGV4ID0gY3VycmVudF9zdGFja19pbmRleAogIGlmIGJ0bnAgKDUpIG9y
-IGtleXAgJ3NwYWNlJyB0aGVuCiAgICB1c2Vfc21hbGxfZm9udCA9IG5vdCB1c2Vfc21hbGxfZm9u
-dAogIGVuZAogIGlmIGJ0bnAgKDIpIHRoZW4KICAgIGN1cnJlbnRfc3RhY2tfaW5kZXggPSBtYXRo
-Lm1heCAoMSwgY3VycmVudF9zdGFja19pbmRleCAtIDEpCiAgICBzdGFja19zY3JvbGwgPSBtYXRo
-Lm1pbiAoY3VycmVudF9zdGFja19pbmRleC0xLCBzdGFja19zY3JvbGwpCiAgZW5kCiAgaWYgYnRu
-cCAoMykgdGhlbgogICAgY3VycmVudF9zdGFja19pbmRleCA9IG1hdGgubWluICgjc3RhY2tfZnJh
-bWVzLCBjdXJyZW50X3N0YWNrX2luZGV4ICsgMSkKICAgIHN0YWNrX3Njcm9sbCA9IG1hdGgubWF4
-ICgoY3VycmVudF9zdGFja19pbmRleCkgLSAoI3N0YWNrX2ZyYW1lcyAtIHN0YWNrX21heF9zY3Jv
-bGwpLCBzdGFja19zY3JvbGwpCiAgZW5kCgogIGxvY2FsIF8sIF8sIGNsaWNrLCBfLCB3aGVlbCA9
-IG1vdXNlICgpCiAgaWYgbW91c2Vfb3Zlcl9zdGFjayB0aGVuCiAgICBzdGFja19zY3JvbGwgPSBt
-YXRoLm1heCAoMCwgbWF0aC5taW4gKHN0YWNrX3Njcm9sbCAtIHdoZWVsICogMiwgc3RhY2tfbWF4
-X3Njcm9sbCkpCiAgZW5kCiAgc3RhY2tfc2Nyb2xsX3Ntb290aCA9IGFwcHJvYWNoIChzdGFja19z
-Y3JvbGxfc21vb3RoLCBzdGFja19zY3JvbGwpCiAgaWYgbW91c2Vfb3Zlcl92YXJpYWJsZXMgdGhl
-bgogICAgdmFyaWFibGVzX3Njcm9sbCA9IG1hdGgubWF4ICgwLCBtYXRoLm1pbiAodmFyaWFibGVz
-X3Njcm9sbCAtIHdoZWVsICogMiwgdmFyaWFibGVzX21heF9zY3JvbGwpKQogIGVuZAogIHZhcmlh
-Ymxlc19zY3JvbGxfc21vb3RoID0gYXBwcm9hY2ggKHZhcmlhYmxlc19zY3JvbGxfc21vb3RoLCB2
-YXJpYWJsZXNfc2Nyb2xsKQoKICBjbGljayA9IGNsaWNrIH49IDAKICBpZiBjbGljayBhbmQgbm90
-IG1vdXNlX3dhc19jbGlja2VkIHRoZW4KICAgIGlmIGhvdmVyZWRfc3RhY2tfaW5kZXggdGhlbgog
-ICAgICBjdXJyZW50X3N0YWNrX2luZGV4ID0gaG92ZXJlZF9zdGFja19pbmRleAogICAgZW5kCiAg
-ICBpZiBob3ZlcmVkX3ZhcmlhYmxlIGFuZCB0eXBlIChob3ZlcmVkX3ZhcmlhYmxlLnZhbHVlKSA9
-PSAndGFibGUnIHRoZW4KICAgICAgaWYgaG92ZXJlZF92YXJpYWJsZS5jb250ZW50cyB0aGVuCiAg
-ICAgICAgaG92ZXJlZF92YXJpYWJsZS5jb250ZW50cyA9IG5pbAogICAgICBlbHNlCiAgICAgICAg
-bG9jYWwgY29udGVudHMgPSB7fQogICAgICAgIGhvdmVyZWRfdmFyaWFibGUuY29udGVudHMgPSBj
-b250ZW50cwogICAgICAgIGZvciBrLHYgaW4gcGFpcnMgKGhvdmVyZWRfdmFyaWFibGUudmFsdWUp
-IGRvCiAgICAgICAgICB0YWJsZS5pbnNlcnQgKGNvbnRlbnRzLCB7CiAgICAgICAgICAgIGtleSA9
-IGssCiAgICAgICAgICAgIHZhbHVlID0gdiwKICAgICAgICAgIH0pCiAgICAgICAgZW5kCiAgICAg
-ICAgc29ydCAoY29udGVudHMsIGNvbXBhcmVfa2V5cykKICAgICAgZW5kCiAgICBlbmQKICBlbmQK
-ICBtb3VzZV93YXNfY2xpY2tlZCA9IGNsaWNrCgogIGlmIGN1cnJlbnRfc3RhY2tfaW5kZXggfj0g
-bGFzdF9pbmRleCB0aGVuCiAgICByZWJ1aWxkKCkKICBlbmQKZW5kCgpsb2NhbCBmdW5jdGlvbiBl
-cnJvcl9kcmF3ICgpCiAgbG9jYWwgcHJlZml4ID0gdXNlX3NtYWxsX2ZvbnQgYW5kICdcMDE0JyBv
-ciAnJwogIGxvY2FsIGZvbnRfaGVpZ2h0ID0gKHVzZV9zbWFsbF9mb250IGFuZCA2IG9yIDExKQog
-IGxvY2FsIG14LCBteSA9IG1vdXNlKCkKICBsb2NhbCBvdmVyX3NlY3Rpb24gPSBmYWxzZQogIGxv
-Y2FsIHgwLCB5MCwgeCwgeQoKICBsb2NhbCBmdW5jdGlvbiBnb190byAobmV3X3gsIG5ld195KQog
-ICAgeDAsIHkwID0gbmV3X3gsIG5ld195CiAgICB4LCB5ID0geDAsIHkwCiAgZW5kCgogIGxvY2Fs
-IGZ1bmN0aW9uIHNlY3Rpb24gKHN4LCBzeSwgc3csIHNoKQogICAgb3Zlcl9zZWN0aW9uID0KICAg
-ICAgbXggPj0gc3ggYW5kIG14IDwgc3ggKyBzdyBhbmQKICAgICAgbXkgPj0gc3kgYW5kIG15IDwg
-c3kgKyBzaAogICAgY2xpcCAoc3gsIHN5LCBzdywgc2gpCiAgICBnb190byhzeCsyLCBzeSsyKQog
-IGVuZAoKICBsb2NhbCBmdW5jdGlvbiBwcmludF9ob3Jpem9udGFsICh0ZXh0LCBjb2xvcikKICAg
-IGxvY2FsIG5ld194LCBfbmV3X3kgPSBwcmludCAocHJlZml4IC4uIHRleHQsIHgsIHksIGNvbG9y
-KQogICAgeCA9IG5ld194CiAgZW5kCgogIGxvY2FsIGZ1bmN0aW9uIHByaW50X2xpbmUgKHRleHQs
-IGNvbG9yKQogICAgbG9jYWwgX25ld194LCBuZXdfeSA9IHByaW50IChwcmVmaXggLi4gdGV4dCwg
-eCwgeSwgY29sb3IpCiAgICB4ID0geDAKICAgIHkgPSBuZXdfeQogIGVuZAoKICAtLSBkcmF3IHNl
-dHVwCiAgY2xzICgwKQogIC0tIGxpZ2h0ZXIgZGFyayBncmF5IGZvciByZWFkYWJpbGl0eQogIHBh
-bCAoNSwgMHhmZjcwNzA3MCwgMikKICBjb2xvciAoNSkKCiAgLS0gZXJyb3IgbWVzc2FnZQogIHNl
-Y3Rpb24gKDAsIDAsIFcsIEgvMikKICBtb3VzZV9vdmVyX3N0YWNrID0gb3Zlcl9zZWN0aW9uCgog
-IGxvY2FsIGxvY19wYXRoLCBsb2NfbGluZSwgZXJyID0gcGFyc2VfbWVzc2FnZV9mb3JfbG9jYXRp
-b24gKGVycm9yX21lc3NhZ2UpCiAgaWYgbG9jX3BhdGggdGhlbgogICAgcHJpbnRfbGluZSAoJ2Vy
-cm9yIGF0ICcgLi4gbG9jX3BhdGggLi4gJzonIC4uIGxvY19saW5lIC4uICc6JywgNikKICAgIHBy
-aW50X2xpbmUgKCcgICcgLi4gZXJyLCA4KQogIGVsc2UKICAgIHByaW50X2xpbmUgKCdlcnJvcjon
-LCA2KQogICAgcHJpbnRfbGluZSAoJyAgJyAuLiBlcnJvcl9tZXNzYWdlLCA4KQogIGVuZAoKICAt
-LSBzdGFjayBmcmFtZXMKICBwcmludF9saW5lICgnc3RhY2s6JywgNikKICBzZWN0aW9uICgwLCB5
-LCBXLCBILzIteSkKICBsb2NhbCBzdGFja190b3BfeSA9IHkKICB5ID0geSAtIHJvdW5kIChzdGFj
-a19zY3JvbGxfc21vb3RoICogZm9udF9oZWlnaHQpCiAgbG9jYWwgbGFzdF9ob3ZlcmVkX3N0YWNr
-X2luZGV4ID0gaG92ZXJlZF9zdGFja19pbmRleAogIGhvdmVyZWRfc3RhY2tfaW5kZXggPSBmYWxz
-ZQogIGZvciBpLCBmcmFtZSBpbiBpcGFpcnMgKHN0YWNrX2ZyYW1lcykgZG8KICAgIGNvbG9yIChs
-YXN0X2hvdmVyZWRfc3RhY2tfaW5kZXggPT0gaSBhbmQgNyBvcgogICAgICAgICAgIGN1cnJlbnRf
-c3RhY2tfaW5kZXggPT0gaSBhbmQgNiBvciA1KQoKICAgbG9jYWwgeV9iZWZvcmUgPSB5CiAgICBw
-cmludF9saW5lIChzdHJpbmcuZm9ybWF0ICgnICAlczolZCBpbiBmdW5jdGlvbiAlcycsCiAgICAg
-IGZyYW1lLmZpbGVuYW1lLCBmcmFtZS5saW5lLCBmcmFtZS5mbl9uYW1lICkpCiAgICBpZiBvdmVy
-X3NlY3Rpb24gdGhlbgogICAgICBpZiBteSA_PSB5X2JlZm9yZSBhbmQgbXkgPCB5IHRoZW4KICAg
-ICAgICBob3ZlcmVkX3N0YWNrX2luZGV4ID0gaQogICAgICBlbmQKICAgIGVuZAogIGVuZAogIHN0
-YWNrX21heF9zY3JvbGwgPSAjc3RhY2tfZnJhbWVzIC0gKEgvMiAtIHN0YWNrX3RvcF95KSAvIGZv
-bnRfaGVpZ2h0CgogIGxvY2FsIGZyYW1lID0gc3RhY2tfZnJhbWVzIFtjdXJyZW50X3N0YWNrX2lu
-ZGV4XQogIGlmIG5vdCBmcmFtZSB0aGVuCiAgICByZXR1cm4KICBlbmQKCiAgLS0gdmFyaWFibGVz
-CiAgc2VjdGlvbiAoMCwgSC8yLCBXLzIsIEgvMikKICBtb3VzZV9vdmVyX3ZhcmlhYmxlcyA9IG92
-ZXJfc2VjdGlvbgogIHByaW50X2xpbmUgKCd2YXJpYWJsZXM6JywgNikKICBzZWN0aW9uICgwLCB5
-LCBXLzIsIEgteSkKICBsb2NhbCB2YXJpYWJsZXNfdG9wX3kgPSB5CiAgeSA9IHkgLSByb3VuZCAo
-dmFyaWFibGVzX3Njcm9sbF9zbW9vdGggKiBmb250X2hlaWdodCkKICBsb2NhbCBsYXN0X2hvdmVy
-ZWRfdmFyaWFibGUgPSBob3ZlcmVkX3ZhcmlhYmxlCiAgaG92ZXJlZF92YXJpYWJsZSA9IGZhbHNl
-CiAgbG9jYWwgdmFyaWFibGVfY291bnQgPSAwCiAgbG9jYWwgZnVuY3Rpb24gZHJhd192YXJpYWJs
-ZSAodmFyaWFibGUsIGluZGVudCkKICAgIHZhcmlhYmxlX2NvdW50ID0gdmFyaWFibGVfY291bnQg
-KyAxCiAgICBsb2NhbCBob3ZlcmVkID0gdmFyaWFibGUgPT0gbGFzdF9ob3ZlcmVkX3ZhcmlhYmxl
-CiAgICBsb2NhbCB5X2JlZm9yZSA9IHkKICAgIHByaW50X2hvcml6b250YWwgKGluZGVudCAuLiB2
-YXJpYWJsZS5rZXksIGhvdmVyZWQgYW5kIDcgb3IgNikKICAgIHByaW50X2hvcml6b250YWwgKCc6
-ICcsIHZhcmlhYmxlID09IGxhc3RfaG92ZXJlZF92YXJpYWJsZSBhbmQgNyBvciA1KQogICAgcHJp
-bnRfbGluZSAoc2FmZV90b3N0cmluZyh2YXJpYWJsZS52YWx1ZSkpCgogICAgaWYgb3Zlcl9zZWN0
-aW9uIGFuZCB0eXBlICh2YXJpYWJsZS52YWx1ZSkgPT0gJ3RhYmxlJyB0aGVuCiAgICAgIGlmIG14
-ID49IDAgYW5kIG14IDwgVy8yIGFuZCBteSA_PSB5X2JlZm9yZSBhbmQgbXkgPCB5IHRoZW4KICAg
-ICAgICBob3ZlcmVkX3ZhcmlhYmxlID0gdmFyaWFibGUKICAgICAgZW5kCiAgICBlbmQKCiAgICBp
-ZiB2YXJpYWJsZS5jb250ZW50cyB0aGVuCiAgICAgIGZvciBfLCB2IGluIGlwYWlycyAodmFyaWFi
-bGUuY29udGVudHMpIGRvCiAgICAgICAgZHJhd192YXJpYWJsZSAodiwgaW5kZW50IC4uICcgICcp
-CiAgICAgIGVuZAogICAgZW5kCiAgZW5kCiAgZm9yIF8sIHZhcmlhYmxlIGluIGlwYWlycyAodmFy
-aWFibGVzKSBkbwogICAgZHJhd192YXJpYWJsZSAodmFyaWFibGUsICcgICcpCiAgZW5kCiAgdmFy
-aWFibGVzX21heF9zY3JvbGwgPSB2YXJpYWJsZV9jb3VudCAtIChIIC0gdmFyaWFibGVzX3RvcF95
-KSAvIGZvbnRfaGVpZ2h0CgogIC0tIHNvdXJjZQogIHNlY3Rpb24gKFcvMiwgSC8yLCBXLzIsIEgv
-MikKICBwcmludF9saW5lICgnc291cmNlIG9mICcgLi4gZnJhbWUucGF0aCAuLiAnOicsIDYpCiAg
-bG9jYWwgY29udGV4dCA9IHVzZV9zbWFsbF9mb250IGFuZCAxMCBvciA1CiAgbG9jYWwgaV9taW4g
-PSBtYXRoLm1heCAoMSwgZnJhbWUubGluZSAtIGNvbnRleHQpCiAgbG9jYWwgaV9tYXggPSBtYXRo
-Lm1pbiAoI3NvdXJjZV9saW5lcywgZnJhbWUubGluZSArIGNvbnRleHQpCiAgZm9yIGkgPSBpX21p
-biwgaV9tYXggZG8KICAgIGNvbG9yIChpID09IGZyYW1lLmxpbmUgYW5kIDYgb3IgNSkKICAgIHBy
-aW50X2hvcml6b250YWwgKHN0cmluZy5mb3JtYXQgKCclNGQgJywgaSkpCiAgICBwcmludF9saW5l
-IChzb3VyY2VfbGluZXMgW2ldKQogIGVuZAoKICBjbGlwICgpCmVuZAoKLS0tLSB0YWtpbmcgb3Zl
-ciBkdXJpbmcgZXJyb3JzIC0tLS0tLS0tLS0tLS0tLS0tLS0KCmxvY2FsIGZ1bmN0aW9uIHJlc2V0
-ICgpCiAgLS0gYmFzZWQgb24gcmVzZXQoKSBmcm9tIC9zeXN0ZW0vbGliL2hlYWQubHVhCiAgLS0g
-c2VlIHRoYXQgZm4gZm9yIGluZm8KICBub3RlICgpCiAgLS0gcGljb3Ryb24gc2VnZmF1bHRzIGlm
-IHdlIGNhbGwgY2xpcCgpIGR1cmluZyBpbml0CiAgaWYgaW5pdF9kb25lIHRoZW4KICAgIGNsaXAg
-KCkKICBlbmQKICBjYW1lcmEgKCkKICBwYWwgKCkKICBwYWx0ICgpCiAgbWVtc2V0ICgweDU1MWYs
-IDAsIDkpCiAgcG9rZSAoMHg1NTA4LCAweDNmKQogIHBva2UgKDB4NTUwOSwgMHgzZikKICBwb2tl
-ICgweDU1MGEsIDB4M2YpCiAgcG9rZSAoMHg1NTBiLCAweDAwKQogIGNvbG9yICg2KQogIGZpbGxw
-ICgpCiAgcG9rZSAoMHg1ZjU2LCAweDQwKQogIHBva2UgKDB4NWY1NywgMHg1NikKICBwb2tlICgw
-eDQwMDAsIGdldCAoZmV0Y2giL3N5c3RlbS9mb250cy9saWwuZm9udCIpKQogIHBva2UgKDB4NTYw
-MCwgZ2V0IChmZXRjaCIvc3lzdGVtL2ZvbnRzL3A4LmZvbnQiKSkKICBwb2tlICgweDU2MDYsIHBl
-ZWsgKDB4NTYwMCkgKiA0KQogIHBva2UgKDB4NTYwNSwgMHgyKQogIHBva2UgKDB4NWYyOCwgNjQp
-CiAgcG9rZSAoMHg1ZjI5LCA2NCkKZW5kCgpsb2NhbCBmdW5jdGlvbiBvbl9lcnJvciAodGhyZWFk
-LCBtZXNzYWdlKQogIC0tIGRvIHRoaXMgZmlyc3QgaW4gY2FzZSB3ZSBoaXQgYW5vdGhlciBlcnJv
-cgogIGVycm9yX3RyYWNlYmFjayA9IGRlYnVnLnRyYWNlYmFjayAodGhyZWFkLCBtZXNzYWdlKQog
-IHByaW50aCAoZXJyb3JfdHJhY2ViYWNrKQoKICBlcnJvcl90aHJlYWQgPSB0aHJlYWQKICBlcnJv
-cl9tZXNzYWdlID0gdG9zdHJpbmcgKG1lc3NhZ2UpCiAgcmVzZXQgKCkKICByZWJ1aWxkICgpCiAg
-LS0ganVtcCB0byB0aGUgcHJvcGVyIHN0YWNrIGZyYW1lIGlmIHdlIGNhbgogIGxvY2FsIGxvY19w
-YXRoLCBsb2NfbGluZSA9IHBhcnNlX21lc3NhZ2VfZm9yX2xvY2F0aW9uIChlcnJvcl9tZXNzYWdl
-KQogIGZvciBpLCBmcmFtZSBpbiBpcGFpcnMgKHN0YWNrX2ZyYW1lcykgZG8KICAgIGlmIGZyYW1l
-LnBhdGggPT0gbG9jX3BhdGggYW5kIGZyYW1lLmxpbmUgPT0gbG9jX2xpbmUgdGhlbgogICAgICBj
-dXJyZW50X3N0YWNrX2luZGV4ID0gaQogICAgICByZWJ1aWxkICgpCiAgICAgIGJyZWFrCiAgICBl
-bmQKICBlbmQKZW5kCgotLS0tIGluc3RhbGwgbWFpbiBldmVudHMgdGhhdCBjYXRjaCBlcnJvcnMg
-LS0tLS0tLQoKbG9jYWwgdXNlcl9pbml0ID0gcmF3Z2V0IChfRywgJ19pbml0JykKbG9jYWwgdXNl
-cl91cGRhdGUgPSByYXdnZXQgKF9HLCAnX3VwZGF0ZScpCmxvY2FsIHVzZXJfZHJhdyA9IHJhd2dl
-dCAoX0csICdfZHJhdycpCgphc3NlcnQgKHVzZXJfZHJhdyBhbmQgdXNlcl91cGRhdGUsCiAgJ3Bs
-ZWFzZSBpbmNsdWRlIGluc3RhbGxfZXJyb3JfaGFuZGxlciBhZnRlciBkZWZpbmluZyBib3RoIF91
-cGRhdGUgYW5kIF9kcmF3JykKCmxvY2FsIGZ1bmN0aW9uIGNhbGxfZXJyb3JfZXZlbnQgKGZuLCAu
-Li4pCiAgLS0gaWYgdGhlcmUncyBhbiBlcnJvciBpbiBvdXIgdXBkYXRlIG9yIGRyYXcsIHRocm93
-IHRoZQogIC0tIG9yaWdpbmFsIGVycm9yIGFzIHdlbGwgYXMgdGhlIG5ldyBlcnJvcgogIGxvY2Fs
-IHN1Y2Nlc3MsIGVyciA9IHBjYWxsIChmbiwgLi4uKQogIGlmIG5vdCBzdWNjZXNzIHRoZW4KICAg
-IGVycm9yIChlcnJvcl90cmFjZWJhY2sgLi4gJ1xuXG5lcnJvciBkdXJpbmcgZXJyb3IgaGFuZGxp
-bmc6ICcgLi4gdG9zdHJpbmcgKGVycikpCiAgZW5kCmVuZAoKbG9jYWwgZnVuY3Rpb24gY2FsbF9w
-cm90ZWN0ZWQgKGZuKQogIC0tIG5lZWQgdG8gdXNlIGNvcmVzdW1lIGV0Yy4gYW5kIG5vdCBjb3Jv
-dXRpbmUucmVzdW1lIGV0Yy4KICAtLSBmb3IgcGljb3Ryb24gY29tcGF0aWJpbGl0eQogIGxvY2Fs
-IHRocmVhZCA9IGNvY3JlYXRlIChmbikKICBsb2NhbCBzdWNjZXNzLCBtZXNzYWdlID0gY29yZXN1
-bWUodGhyZWFkKQogIGlmIGNvc3RhdHVzICh0aHJlYWQpIH49ICdkZWFkJyB0aGVuCiAgICBjYWxs
-X2Vycm9yX2V2ZW50IChvbl9lcnJvciwgdGhyZWFkLCAnc2V0dXBfZXJyb3JfZGlzcGxheS5sdWE6
-IF91cGRhdGUgYW5kIF9kcmF3IHNob3VsZG5cJ3QgeWllbGQnKQogIGVuZAogIGlmIG5vdCBzdWNj
-ZXNzIHRoZW4KICAgIGNhbGxfZXJyb3JfZXZlbnQgKG9uX2Vycm9yLCB0aHJlYWQsIG1lc3NhZ2Up
-CiAgZW5kCmVuZAoKaWYgdXNlcl9pbml0IHRoZW4KICBmdW5jdGlvbiBfaW5pdCAoKQogICAgY2Fs
-bF9wcm90ZWN0ZWQgKHVzZXJfaW5pdCkKICAgIGluaXRfZG9uZSA9IHRydWUKICBlbmQKZWxzZQog
-IGluaXRfZG9uZSA9IHRydWUKZW5kCgpmdW5jdGlvbiBfdXBkYXRlICgpCiAgaWYgZXJyb3JfdGhy
-ZWFkIHRoZW4KICAgIGNhbGxfZXJyb3JfZXZlbnQgKGVycm9yX3VwZGF0ZSkKICBlbHNlCiAgICBj
-YWxsX3Byb3RlY3RlZCAodXNlcl91cGRhdGUpCiAgZW5kCmVuZAoKZnVuY3Rpb24gX2RyYXcgKCkK
-ICBpZiBlcnJvcl90aHJlYWQgdGhlbgogICAgY2FsbF9lcnJvcl9ldmVudCAoZXJyb3JfZHJhdykK
-ICBlbHNlCiAgICBjYWxsX3Byb3RlY3RlZCAodXNlcl9kcmF3KQogIGVuZAplbmQ=
+b64$LS0gIyBwaWNvdHJvbiBlcnJvciBleHBsb3JlcgotLQotLSBieSBraXJhCi0tCi0tIHZlcnNp
+b24gMC4wLjQKLS0KLS0gYW4gaW50ZXJhY3RpdmUgZXJyb3Igc2NyZWVuIGZvciBwaWNvdHJvbi4K
+LS0gb24gZXJyb3IsIHNob3dzIHRoZSBzdGFjaywgbG9jYWwgdmFyaWFibGVzLAotLSBhbmQgdGhl
+IHNvdXJjZSBjb2RlIHdoZW4gYXZhaWxhYmxlLgotLQotLSAjIyB1c2FnZQotLQotLSBgaW5jbHVk
+ZWAgb3IgYHJlcXVpcmVgIGBlcnJvcl9leHBsb3Jlci5sdWFgCi0tIGluIHlvdXIgcHJvZ3JhbSBf
+YWZ0ZXJfIGRlZmluaW5nIHlvdXIgYF9pbml0YCwKLS0gYF91cGRhdGVgLCBhbmQgYF9kcmF3YCBm
+dW5jdGlvbnMuCi0tCi0tIHByZXNzIGB1cGAgYW5kIGBkb3duYCB0byBtb3ZlIHVwIGFuZCBkb3du
+IG9uCi0tIHRoZSBzdGFjaywgcHJlc3MgYHhgIG9yIGBzcGFjZWAgdG8gdG9nZ2xlIGZvbnQKLS0g
+c2l6ZS4gY2xpY2sgb24gdGFibGVzIGluIHRoZSB2YXJpYWJsZSB2aWV3IHRvCi0tIGV4cGFuZCB0
+aGVtLgotLQotLSAjIyBob3cgaXQgd29ya3MKLS0KLS0gaW4gb3JkZXIgdG8gY2F0Y2ggZXJyb3Jz
+IGFuZCBpbnNwZWN0IHJ1bnRpbWUKLS0gc3RhdGUsIHRoaXMgc2NyaXB0IHJlcGxhY2VzIGBfaW5p
+dGAsIGBfdXBkYXRlYAotLSBhbmQgYF9kcmF3YCBmdW5jdGlvbnMgd2l0aCBvbmVzIHRoYXQgY2Fs
+bCB0aGUKLS0gb3JpZ2luYWwgb25lcyBpbnNpZGUgYSBjb3JvdXRpbmUuCi0tCi0tIHdoZW4gdGhl
+cmUncyBhbiBlcnJvciwgaXQgdXNlcyBsdWEncyBkZWJ1ZwotLSBsaWJyYXJ5IHRvIGluc3BlY3Qg
+dGhlIGNvcm91dGluZS4gYSBjb3B5Ci0tIG9mIHRoZSBlcnJvciBpcyBhbHNvIHByaW50ZWQgdG8g
+dGhlIGNvbnNvbGUKLS0gd2l0aCBwcmludGggaWYgeW91J3JlIHJ1bm5pbmcgcGljb3Ryb24gZnJv
+bQotLSB0aGUgY29tbWFuZCBsaW5lLgotLQotLSB0aGUgZm9sbG93aW5nIGRlYnVnIGFwaXMgYXJl
+IHVzZWQ6Ci0tCi0tIC0gYGRlYnVnLmdldGluZm9gCi0tIC0gYGRlYnVnLmdldGxvY2FsYAotLSAt
+IGBkZWJ1Zy5nZXR1cHZhbHVlYAotLSAtIGBkZWJ1Zy50cmFjZWJhY2tgCi0tCi0tICMjIHZlcnNp
+b24gaGlzdG9yeSAKLS0KLS0gdmVyc2lvbiAwLjAuNAotLQotLSAtIGFsc28gY2F0Y2ggZXJyb3Jz
+IGluIGBfaW5pdGAKLS0KLS0gdmVyc2lvbiAwLjAuMwotLQotLSAtIGF1dG9tYXRpY2FsbHkgY2hv
+b3NlIHRoZSByaWdodCBzdGFjayBmcmFtZQotLSAgIGJhc2VkIG9uIHRoZSBlcnJvciBtZXNzYWdl
+Ci0tIC0gbW9yZSB0aG9yb3VnaGx5IHByb3RlY3QgZnJvbSBlcnJvcnMgaW4gZXJyb3IKLS0gICBl
+eHBsb3JlciBpdHNlbGYKLS0KLS0gdmVyc2lvbiAwLjAuMgotLQotLSAtIGRvbid0IHJlZ2VuZXJh
+dGUgc3RhY2sgaW5mbyBldmVyeSBkcmF3Ci0tIC0gc2Nyb2xsIHN0YWNrIGFuZCB2YXJpYWJsZXMg
+bGlzdCB3aXRoIG1vdXNld2hlZWwKLS0gLSBjbGljayBvbiBzdGFjayB0byBzd2l0Y2ggc3RhY2sg
+ZnJhbWVzCi0tIC0gY2xpY2sgb24gdGFibGVzIGluIHZhcmlhYmxlcyB2aWV3IHRvIGV4cGFuZCB0
+aGVtCi0tIC0gZXNjYXBlIHN0cmluZ3Mgd2hlbiBwcmludGluZyB0aGVtCi0tCi0tIHZlcnNpb24g
+MC4wLjEKLS0KLS0gLSBhZGp1c3QgY29sb3JzCi0tIC0gY29kZSBjbGVhbnVwCi0tIC0gdXNlIGBi
+dG5wYCBpbnN0ZWFkIG9mIGBrZXlwYAotLSAtIHNsaWdodGx5IG1vcmUgdGhvcm91Z2ggYHJlc2V0
+YAotLSAtIGRvbid0IHNob3cgdGVtcG9yYXJpZXMKLS0KLS0gdmVyc2lvbiAwLjAuMCAocHJlcmVs
+ZWFzZSkKLS0KLS0gLSBpbml0aWFsIGRpc2NvcmQgYmV0YQoKLS0gIyMgbGljZW5zZQotLQotLSBD
+b3B5cmlnaHQgMjAyNCBLaXJhIEJvb20KLS0gCi0tIFBlcm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50
+ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29uIG9idGFpbmluZyBhIGNvcHkKLS0gb2Yg
+dGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUg4oCc
+U29mdHdhcmXigJ0pLCB0bwotLSBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0
+aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uIHRoZQotLSByaWdodHMgdG8gdXNlLCBj
+b3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNlLCBhbmQv
+b3IKLS0gc2VsbCBjb3BpZXMgb2YgdGhlIFNvZnR3YXJlLCBhbmQgdG8gcGVybWl0IHBlcnNvbnMg
+dG8gd2hvbSB0aGUgU29mdHdhcmUgaXMKLS0gZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRv
+IHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKLS0KLS0gVGhlIGFib3ZlIGNvcHlyaWdodCBub3Rp
+Y2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwgYmUgaW5jbHVkZWQgaW4KLS0gYWxs
+IGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0aGUgU29mdHdhcmUuCi0tIAotLSBU
+SEUgU09GVFdBUkUgSVMgUFJPVklERUQg4oCcQVMgSVPigJ0sIFdJVEhPVVQgV0FSUkFOVFkgT0Yg
+QU5ZIEtJTkQsIEVYUFJFU1MKLS0gT1IgSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRF
+RCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCi0tIEZJVE5FU1MgRk9SIEEg
+UEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1FTlQuIElOIE5PIEVWRU5UIFNIQUxM
+Ci0tIFRIRSBBVVRIT1JTIE9SIENPUFlSSUdIVCBIT0xERVJTIEJFIExJQUJMRSBGT1IgQU5ZIENM
+QUlNLCBEQU1BR0VTIE9SIE9USEVSCi0tIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04g
+T0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLCBBUklTSU5HCi0tIEZST00sIE9VVCBPRiBP
+UiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IgT1RIRVIKLS0g
+REVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgoKLS0tLSB1dGlsIC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0KCmxvY2FsIGZ1bmN0aW9uIGZpbGVuYW1lX29mIChwYXRoKQog
+IHJldHVybiBwYXRoOm1hdGNoICgnW14vXSokJykKZW5kCgpsb2NhbCBmdW5jdGlvbiBzYWZlX3Rv
+c3RyaW5nICh2YWx1ZSkKICBpZiB0eXBlICh2YWx1ZSkgPT0gJ3N0cmluZycgdGhlbgogICAgcmV0
+dXJuIHN0cmluZy5mb3JtYXQgKCclcScsIHZhbHVlKQogIGVsc2UKICAgIGxvY2FsIHN1Y2Nlc3Ms
+IHZhbHVlX3N0cmluZyA9IHBjYWxsICh0b3N0cmluZywgdmFsdWUpCiAgICByZXR1cm4gc3VjY2Vz
+cyBhbmQgdmFsdWVfc3RyaW5nCiAgICAgICAgICAgICAgICAgICBvciAoJ2Vycm9yIGR1cmluZyB0
+b3N0cmluZzogJyAuLiB0b3N0cmluZyAodmFsdWVfc3RyaW5nKSkKICBlbmQKZW5kCgpsb2NhbCBm
+dW5jdGlvbiBnZXRfbGluZXMgKHRleHQpCiAgbG9jYWwgbGluZXMgPSB7fQogIGZvciBsaW5lIGlu
+IHRleHQ6Z21hdGNoICgiKC4tKVxyP1xuIikgZG8KICAgIHRhYmxlLmluc2VydCAobGluZXMsIGxp
+bmUpCiAgZW5kCiAgbG9jYWwgbGFzdF9saW5lID0gdGV4dDptYXRjaCAoJyhbXlxuXSopJCcpCiAg
+aWYgbGFzdF9saW5lIGFuZCBsYXN0X2xpbmUgfj0gJycgdGhlbgogICAgdGFibGUuaW5zZXJ0IChs
+aW5lcywgbGFzdF9saW5lKQogIGVuZAogIHJldHVybiBsaW5lcwplbmQKCmxvY2FsIGZ1bmN0aW9u
+IGNvbXBhcmVfa2V5cyAoYSwgYikKICBsb2NhbCB0YSA9IHR5cGUgKGEua2V5KQogIGxvY2FsIHRi
+ID0gdHlwZSAoYi5rZXkpCiAgaWYgdGEgfj0gdGIgdGhlbgogICAgcmV0dXJuIHRhIDwgdGIKICBl
+bmQKICBpZiB0YSA9PSAnbnVtYmVyJyBvciB0YSA9PSAnc3RyaW5nJyB0aGVuCiAgICByZXR1cm4g
+YS5rZXkgPCBiLmtleQogIGVsc2UKICAgIHJldHVybiBzYWZlX3Rvc3RyaW5nIChhLmtleSkgPCBz
+YWZlX3Rvc3RyaW5nIChiLmtleSkKICBlbmQKZW5kCgpsb2NhbCBmdW5jdGlvbiBzb3J0ICh0LCBm
+KQogIC0tIGluc2VydGlvbiBzb3J0CiAgZiA9IGYgb3IgZnVuY3Rpb24gKGEsIGIpIHJldHVybiBh
+IDwgYiBlbmQKICBmb3IgaSA9IDEsICN0LTEgZG8KICAgIGxvY2FsIHZhbCA9IHRbaSsxXQogICAg
+bG9jYWwgaiA9IGkKICAgIHdoaWxlIGogPj0gMSBhbmQgbm90IGYodFtqXSwgdmFsKSBkbwogICAg
+ICB0W2orMV0gPSB0W2pdCiAgICAgIGogPSBqIC0gMQogICAgZW5kCiAgICB0W2orMV0gPSB2YWwK
+ICBlbmQKZW5kCgpsb2NhbCBmdW5jdGlvbiBhcHByb2FjaCAoZnJvbSwgdG8pCiAgcmV0dXJuIGZy
+b20gKyAodG8gLSBmcm9tKSAqIDAuMjUKZW5kCgpsb2NhbCBmdW5jdGlvbiByb3VuZCAodmFsdWUp
+CiAgcmV0dXJuIG1hdGguZmxvb3IgKHZhbHVlICsgMC41KQplbmQKCmxvY2FsIGZ1bmN0aW9uIHBh
+cnNlX21lc3NhZ2VfZm9yX2xvY2F0aW9uIChtc2cpCiAgbG9jYWwgcGF0aCwgbGluZSwgZXJyID0g
+bXNnOm1hdGNoICgnXihbXjpdKyk6KCVkKyk6KC4qKSQnKQogIHJldHVybiBwYXRoLCB0b251bWJl
+ciAobGluZSksIGVycgplbmQKCi0tLS0gc3RhdGUgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tCgpsb2NhbCBfRyA9IF9HCmxvY2FsIGVycm9yX21lc3NhZ2UKbG9jYWwgZXJy
+b3JfdGhyZWFkCmxvY2FsIGVycm9yX3RyYWNlYmFjawpsb2NhbCBpbml0X2RvbmUgPSBmYWxzZQps
+b2NhbCB1c2Vfc21hbGxfZm9udCA9IGZhbHNlCmxvY2FsIG1vdXNlX3dhc19jbGlja2VkID0gZmFs
+c2UKCi0tIHN0YWNrIHZpZXcKbG9jYWwgc3RhY2tfZnJhbWVzID0ge30KbG9jYWwgY3VycmVudF9z
+dGFja19pbmRleCA9IDEKbG9jYWwgaG92ZXJlZF9zdGFja19pbmRleCA9IGZhbHNlCmxvY2FsIG1v
+dXNlX292ZXJfc3RhY2sgPSBmYWxzZQpsb2NhbCBzdGFja19tYXhfc2Nyb2xsID0gMApsb2NhbCBz
+dGFja19zY3JvbGwgPSAwCmxvY2FsIHN0YWNrX3Njcm9sbF9zbW9vdGggPSAwCgotLSB2YXJpYWJs
+ZXMgdmlldwpsb2NhbCB2YXJpYWJsZXMgPSB7fQpsb2NhbCBob3ZlcmVkX3ZhcmlhYmxlID0gZmFs
+c2UKbG9jYWwgdmFyaWFibGVzX21heF9zY3JvbGwgPSAwCmxvY2FsIHZhcmlhYmxlc19zY3JvbGwg
+PSAwCmxvY2FsIHZhcmlhYmxlc19zY3JvbGxfc21vb3RoID0gMApsb2NhbCBtb3VzZV9vdmVyX3Zh
+cmlhYmxlcyA9IGZhbHNlCgotLSBzb3VyY2Ugdmlldwpsb2NhbCBzb3VyY2VfbGluZXMgPSB7fQoK
+Ci0tLS0gbWFpbiBldmVudHMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgpsb2Nh
+bCBXID0gNDgwCmxvY2FsIEggPSAyNzAKCmxvY2FsIGZ1bmN0aW9uIHJlYnVpbGQgKCkKICAtLSBy
+ZWJ1aWxkIHN0YWNrIGZyYW1lIGluZm8KICBzdGFja19mcmFtZXMgPSB7fQogIHZhcmlhYmxlcyA9
+IHt9CiAgc291cmNlX2xpbmVzID0ge30KICB2YXJpYWJsZXNfc2Nyb2xsID0gMAogIHZhcmlhYmxl
+c19zY3JvbGxfc21vb3RoID0gMAoKICBmb3IgaSA9IDAsIDIwIGRvCiAgICBsb2NhbCBpbmZvID0g
+ZGVidWcuZ2V0aW5mbyAoZXJyb3JfdGhyZWFkLCBpKQogICAgaWYgbm90IGluZm8gdGhlbgogICAg
+ICBicmVhawogICAgZW5kCgogICAgaWYgaW5mby5zaG9ydF9zcmMgdGhlbgogICAgICB0YWJsZS5p
+bnNlcnQgKHN0YWNrX2ZyYW1lcywgewogICAgICAgIGZpbGVuYW1lID0gZmlsZW5hbWVfb2YgKGlu
+Zm8uc2hvcnRfc3JjKSwKICAgICAgICBwYXRoID0gaW5mby5zaG9ydF9zcmMsCiAgICAgICAgbGlu
+ZSA9IGluZm8uY3VycmVudGxpbmUsCiAgICAgICAgZGVwdGggPSBpLAogICAgICAgIGZuX25hbWUg
+PSAoaW5mby5uYW1lIG9yIChmaWxlbmFtZV9vZiAoaW5mby5zaG9ydF9zcmMpIC4uICc6JyAuLiB0
+b3N0cmluZyAoaW5mby5saW5lZGVmaW5lZCkpKSwKICAgICAgICBzb3VyY2UgPSBpbmZvLnNvdXJj
+ZSwKICAgICAgfSkKICAgIGVuZAogIGVuZAoKICBsb2NhbCBmcmFtZSA9IHN0YWNrX2ZyYW1lcyBb
+Y3VycmVudF9zdGFja19pbmRleF0KCiAgaWYgbm90IGZyYW1lIHRoZW4KICAgIHJldHVybgogIGVu
+ZAoKICAtLSByZWJ1aWxkIHZhcmlhYmxlcwogIGRvCiAgICBsb2NhbCBsb2NhbF9pbmRleCA9IDEK
+ICAgIHJlcGVhdAogICAgICBsb2NhbCBuYW1lLCB2YWx1ZSA9IGRlYnVnLmdldGxvY2FsIChlcnJv
+cl90aHJlYWQsIGZyYW1lLmRlcHRoLCBsb2NhbF9pbmRleCkKICAgICAgaWYgbmFtZSB0aGVuCiAg
+ICAgICAgaWYgbmFtZSB_PSAnKHRlbXBvcmFyeSknIHRoZW4KICAgICAgICAgIHRhYmxlLmluc2Vy
+dCAodmFyaWFibGVzLCB7CiAgICAgICAgICAgIGtleSA9IG5hbWUsCiAgICAgICAgICAgIHZhbHVl
+ID0gdmFsdWUsCiAgICAgICAgICB9KQogICAgICAgIGVuZAogICAgICAgIGxvY2FsX2luZGV4ID0g
+bG9jYWxfaW5kZXggKyAxCiAgICAgIGVuZAogICAgdW50aWwgbm90IG5hbWUKCiAgICBsb2NhbCBp
+bmZvID0gZGVidWcuZ2V0aW5mbyAoZXJyb3JfdGhyZWFkLCBmcmFtZS5kZXB0aCkKICAgIGlmIGlu
+Zm8gYW5kIGluZm8uZnVuYyB0aGVuCiAgICAgIGxvY2FsIHVwdmFsdWVfaW5kZXggPSAxCiAgICAg
+IHJlcGVhdAogICAgICAgIGxvY2FsIG5hbWUsIHZhbHVlID0gZGVidWcuZ2V0dXB2YWx1ZSAoaW5m
+by5mdW5jLCB1cHZhbHVlX2luZGV4KQogICAgICAgIGlmIG5hbWUgdGhlbgogICAgICAgICAgdGFi
+bGUuaW5zZXJ0ICh2YXJpYWJsZXMsIHsKICAgICAgICAgICAga2V5ID0gbmFtZSwKICAgICAgICAg
+ICAgdmFsdWUgPSB2YWx1ZSwKICAgICAgICAgIH0pCiAgICAgICAgICB1cHZhbHVlX2luZGV4ID0g
+dXB2YWx1ZV9pbmRleCArIDEKICAgICAgICBlbmQKICAgICAgdW50aWwgbm90IG5hbWUKICAgIGVu
+ZAogIGVuZAoKICAtLSByZWJ1aWxkIHNvdXJjZSBsaW5lcwogIGxvY2FsIHNvdXJjZSA9IGZyYW1l
+LnNvdXJjZQogIGlmIHNvdXJjZSB0aGVuCiAgICBpZiBzdHJpbmcuc3ViIChzb3VyY2UsIDEsIDEp
+ID09ICdAJyB0aGVuCiAgICAgIGxvY2FsIGZpbGVuYW1lID0gc3RyaW5nLnN1YiAoc291cmNlLCAy
+LCAjc291cmNlKQogICAgICBzb3VyY2UgPSBmZXRjaCAoZmlsZW5hbWUpCiAgICBlbmQKICAgIGlm
+IHNvdXJjZSBhbmQgdHlwZSAoc291cmNlKSA9PSAnc3RyaW5nJyB0aGVuCiAgICAgIHNvdXJjZV9s
+aW5lcyA9IGdldF9saW5lcyAoc291cmNlKQogICAgZW5kCiAgZW5kCmVuZAoKbG9jYWwgZnVuY3Rp
+b24gZXJyb3JfdXBkYXRlICgpCiAgbG9jYWwgbGFzdF9pbmRleCA9IGN1cnJlbnRfc3RhY2tfaW5k
+ZXgKICBpZiBidG5wICg1KSBvciBrZXlwICdzcGFjZScgdGhlbgogICAgdXNlX3NtYWxsX2ZvbnQg
+PSBub3QgdXNlX3NtYWxsX2ZvbnQKICBlbmQKICBpZiBidG5wICgyKSB0aGVuCiAgICBjdXJyZW50
+X3N0YWNrX2luZGV4ID0gbWF0aC5tYXggKDEsIGN1cnJlbnRfc3RhY2tfaW5kZXggLSAxKQogICAg
+c3RhY2tfc2Nyb2xsID0gbWF0aC5taW4gKGN1cnJlbnRfc3RhY2tfaW5kZXgtMSwgc3RhY2tfc2Ny
+b2xsKQogIGVuZAogIGlmIGJ0bnAgKDMpIHRoZW4KICAgIGN1cnJlbnRfc3RhY2tfaW5kZXggPSBt
+YXRoLm1pbiAoI3N0YWNrX2ZyYW1lcywgY3VycmVudF9zdGFja19pbmRleCArIDEpCiAgICBzdGFj
+a19zY3JvbGwgPSBtYXRoLm1heCAoKGN1cnJlbnRfc3RhY2tfaW5kZXgpIC0gKCNzdGFja19mcmFt
+ZXMgLSBzdGFja19tYXhfc2Nyb2xsKSwgc3RhY2tfc2Nyb2xsKQogIGVuZAoKICBsb2NhbCBfLCBf
+LCBjbGljaywgXywgd2hlZWwgPSBtb3VzZSAoKQogIGlmIG1vdXNlX292ZXJfc3RhY2sgdGhlbgog
+ICAgc3RhY2tfc2Nyb2xsID0gbWF0aC5tYXggKDAsIG1hdGgubWluIChzdGFja19zY3JvbGwgLSB3
+aGVlbCAqIDIsIHN0YWNrX21heF9zY3JvbGwpKQogIGVuZAogIHN0YWNrX3Njcm9sbF9zbW9vdGgg
+PSBhcHByb2FjaCAoc3RhY2tfc2Nyb2xsX3Ntb290aCwgc3RhY2tfc2Nyb2xsKQogIGlmIG1vdXNl
+X292ZXJfdmFyaWFibGVzIHRoZW4KICAgIHZhcmlhYmxlc19zY3JvbGwgPSBtYXRoLm1heCAoMCwg
+bWF0aC5taW4gKHZhcmlhYmxlc19zY3JvbGwgLSB3aGVlbCAqIDIsIHZhcmlhYmxlc19tYXhfc2Ny
+b2xsKSkKICBlbmQKICB2YXJpYWJsZXNfc2Nyb2xsX3Ntb290aCA9IGFwcHJvYWNoICh2YXJpYWJs
+ZXNfc2Nyb2xsX3Ntb290aCwgdmFyaWFibGVzX3Njcm9sbCkKCiAgY2xpY2sgPSBjbGljayB_PSAw
+CiAgaWYgY2xpY2sgYW5kIG5vdCBtb3VzZV93YXNfY2xpY2tlZCB0aGVuCiAgICBpZiBob3ZlcmVk
+X3N0YWNrX2luZGV4IHRoZW4KICAgICAgY3VycmVudF9zdGFja19pbmRleCA9IGhvdmVyZWRfc3Rh
+Y2tfaW5kZXgKICAgIGVuZAogICAgaWYgaG92ZXJlZF92YXJpYWJsZSBhbmQgdHlwZSAoaG92ZXJl
+ZF92YXJpYWJsZS52YWx1ZSkgPT0gJ3RhYmxlJyB0aGVuCiAgICAgIGlmIGhvdmVyZWRfdmFyaWFi
+bGUuY29udGVudHMgdGhlbgogICAgICAgIGhvdmVyZWRfdmFyaWFibGUuY29udGVudHMgPSBuaWwK
+ICAgICAgZWxzZQogICAgICAgIGxvY2FsIGNvbnRlbnRzID0ge30KICAgICAgICBob3ZlcmVkX3Zh
+cmlhYmxlLmNvbnRlbnRzID0gY29udGVudHMKICAgICAgICBmb3Igayx2IGluIHBhaXJzIChob3Zl
+cmVkX3ZhcmlhYmxlLnZhbHVlKSBkbwogICAgICAgICAgdGFibGUuaW5zZXJ0IChjb250ZW50cywg
+ewogICAgICAgICAgICBrZXkgPSBrLAogICAgICAgICAgICB2YWx1ZSA9IHYsCiAgICAgICAgICB9
+KQogICAgICAgIGVuZAogICAgICAgIHNvcnQgKGNvbnRlbnRzLCBjb21wYXJlX2tleXMpCiAgICAg
+IGVuZAogICAgZW5kCiAgZW5kCiAgbW91c2Vfd2FzX2NsaWNrZWQgPSBjbGljawoKICBpZiBjdXJy
+ZW50X3N0YWNrX2luZGV4IH49IGxhc3RfaW5kZXggdGhlbgogICAgcmVidWlsZCgpCiAgZW5kCmVu
+ZAoKbG9jYWwgZnVuY3Rpb24gZXJyb3JfZHJhdyAoKQogIGxvY2FsIHByZWZpeCA9IHVzZV9zbWFs
+bF9mb250IGFuZCAnXDAxNCcgb3IgJycKICBsb2NhbCBmb250X2hlaWdodCA9ICh1c2Vfc21hbGxf
+Zm9udCBhbmQgNiBvciAxMSkKICBsb2NhbCBteCwgbXkgPSBtb3VzZSgpCiAgbG9jYWwgb3Zlcl9z
+ZWN0aW9uID0gZmFsc2UKICBsb2NhbCB4MCwgeTAsIHgsIHkKCiAgbG9jYWwgZnVuY3Rpb24gZ29f
+dG8gKG5ld194LCBuZXdfeSkKICAgIHgwLCB5MCA9IG5ld194LCBuZXdfeQogICAgeCwgeSA9IHgw
+LCB5MAogIGVuZAoKICBsb2NhbCBmdW5jdGlvbiBzZWN0aW9uIChzeCwgc3ksIHN3LCBzaCkKICAg
+IG92ZXJfc2VjdGlvbiA9CiAgICAgIG14ID49IHN4IGFuZCBteCA8IHN4ICsgc3cgYW5kCiAgICAg
+IG15ID49IHN5IGFuZCBteSA8IHN5ICsgc2gKICAgIGNsaXAgKHN4LCBzeSwgc3csIHNoKQogICAg
+Z29fdG8oc3grMiwgc3krMikKICBlbmQKCiAgbG9jYWwgZnVuY3Rpb24gcHJpbnRfaG9yaXpvbnRh
+bCAodGV4dCwgY29sb3IpCiAgICBsb2NhbCBuZXdfeCwgX25ld195ID0gcHJpbnQgKHByZWZpeCAu
+LiB0ZXh0LCB4LCB5LCBjb2xvcikKICAgIHggPSBuZXdfeAogIGVuZAoKICBsb2NhbCBmdW5jdGlv
+biBwcmludF9saW5lICh0ZXh0LCBjb2xvcikKICAgIGxvY2FsIF9uZXdfeCwgbmV3X3kgPSBwcmlu
+dCAocHJlZml4IC4uIHRleHQsIHgsIHksIGNvbG9yKQogICAgeCA9IHgwCiAgICB5ID0gbmV3X3kK
+ICBlbmQKCiAgLS0gZHJhdyBzZXR1cAogIGNscyAoMCkKICAtLSBsaWdodGVyIGRhcmsgZ3JheSBm
+b3IgcmVhZGFiaWxpdHkKICBwYWwgKDUsIDB4ZmY3MDcwNzAsIDIpCiAgY29sb3IgKDUpCgogIC0t
+IGVycm9yIG1lc3NhZ2UKICBzZWN0aW9uICgwLCAwLCBXLCBILzIpCiAgbW91c2Vfb3Zlcl9zdGFj
+ayA9IG92ZXJfc2VjdGlvbgoKICBsb2NhbCBsb2NfcGF0aCwgbG9jX2xpbmUsIGVyciA9IHBhcnNl
+X21lc3NhZ2VfZm9yX2xvY2F0aW9uIChlcnJvcl9tZXNzYWdlKQogIGlmIGxvY19wYXRoIHRoZW4K
+ICAgIHByaW50X2xpbmUgKCdlcnJvciBhdCAnIC4uIGxvY19wYXRoIC4uICc6JyAuLiBsb2NfbGlu
+ZSAuLiAnOicsIDYpCiAgICBwcmludF9saW5lICgnICAnIC4uIGVyciwgOCkKICBlbHNlCiAgICBw
+cmludF9saW5lICgnZXJyb3I6JywgNikKICAgIHByaW50X2xpbmUgKCcgICcgLi4gZXJyb3JfbWVz
+c2FnZSwgOCkKICBlbmQKCiAgLS0gc3RhY2sgZnJhbWVzCiAgcHJpbnRfbGluZSAoJ3N0YWNrOics
+IDYpCiAgc2VjdGlvbiAoMCwgeSwgVywgSC8yLXkpCiAgbG9jYWwgc3RhY2tfdG9wX3kgPSB5CiAg
+eSA9IHkgLSByb3VuZCAoc3RhY2tfc2Nyb2xsX3Ntb290aCAqIGZvbnRfaGVpZ2h0KQogIGxvY2Fs
+IGxhc3RfaG92ZXJlZF9zdGFja19pbmRleCA9IGhvdmVyZWRfc3RhY2tfaW5kZXgKICBob3ZlcmVk
+X3N0YWNrX2luZGV4ID0gZmFsc2UKICBmb3IgaSwgZnJhbWUgaW4gaXBhaXJzIChzdGFja19mcmFt
+ZXMpIGRvCiAgICBjb2xvciAobGFzdF9ob3ZlcmVkX3N0YWNrX2luZGV4ID09IGkgYW5kIDcgb3IK
+ICAgICAgICAgICBjdXJyZW50X3N0YWNrX2luZGV4ID09IGkgYW5kIDYgb3IgNSkKCiAgIGxvY2Fs
+IHlfYmVmb3JlID0geQogICAgcHJpbnRfbGluZSAoc3RyaW5nLmZvcm1hdCAoJyAgJXM6JWQgaW4g
+ZnVuY3Rpb24gJXMnLAogICAgICBmcmFtZS5maWxlbmFtZSwgZnJhbWUubGluZSwgZnJhbWUuZm5f
+bmFtZSApKQogICAgaWYgb3Zlcl9zZWN0aW9uIHRoZW4KICAgICAgaWYgbXkgPj0geV9iZWZvcmUg
+YW5kIG15IDwgeSB0aGVuCiAgICAgICAgaG92ZXJlZF9zdGFja19pbmRleCA9IGkKICAgICAgZW5k
+CiAgICBlbmQKICBlbmQKICBzdGFja19tYXhfc2Nyb2xsID0gI3N0YWNrX2ZyYW1lcyAtIChILzIg
+LSBzdGFja190b3BfeSkgLyBmb250X2hlaWdodAoKICBsb2NhbCBmcmFtZSA9IHN0YWNrX2ZyYW1l
+cyBbY3VycmVudF9zdGFja19pbmRleF0KICBpZiBub3QgZnJhbWUgdGhlbgogICAgcmV0dXJuCiAg
+ZW5kCgogIC0tIHZhcmlhYmxlcwogIHNlY3Rpb24gKDAsIEgvMiwgVy8yLCBILzIpCiAgbW91c2Vf
+b3Zlcl92YXJpYWJsZXMgPSBvdmVyX3NlY3Rpb24KICBwcmludF9saW5lICgndmFyaWFibGVzOics
+IDYpCiAgc2VjdGlvbiAoMCwgeSwgVy8yLCBILXkpCiAgbG9jYWwgdmFyaWFibGVzX3RvcF95ID0g
+eQogIHkgPSB5IC0gcm91bmQgKHZhcmlhYmxlc19zY3JvbGxfc21vb3RoICogZm9udF9oZWlnaHQp
+CiAgbG9jYWwgbGFzdF9ob3ZlcmVkX3ZhcmlhYmxlID0gaG92ZXJlZF92YXJpYWJsZQogIGhvdmVy
+ZWRfdmFyaWFibGUgPSBmYWxzZQogIGxvY2FsIHZhcmlhYmxlX2NvdW50ID0gMAogIGxvY2FsIGZ1
+bmN0aW9uIGRyYXdfdmFyaWFibGUgKHZhcmlhYmxlLCBpbmRlbnQpCiAgICB2YXJpYWJsZV9jb3Vu
+dCA9IHZhcmlhYmxlX2NvdW50ICsgMQogICAgbG9jYWwgaG92ZXJlZCA9IHZhcmlhYmxlID09IGxh
+c3RfaG92ZXJlZF92YXJpYWJsZQogICAgbG9jYWwgeV9iZWZvcmUgPSB5CiAgICBwcmludF9ob3Jp
+em9udGFsIChpbmRlbnQgLi4gdmFyaWFibGUua2V5LCBob3ZlcmVkIGFuZCA3IG9yIDYpCiAgICBw
+cmludF9ob3Jpem9udGFsICgnOiAnLCB2YXJpYWJsZSA9PSBsYXN0X2hvdmVyZWRfdmFyaWFibGUg
+YW5kIDcgb3IgNSkKICAgIHByaW50X2xpbmUgKHNhZmVfdG9zdHJpbmcodmFyaWFibGUudmFsdWUp
+KQoKICAgIGlmIG92ZXJfc2VjdGlvbiBhbmQgdHlwZSAodmFyaWFibGUudmFsdWUpID09ICd0YWJs
+ZScgdGhlbgogICAgICBpZiBteCA_PSAwIGFuZCBteCA8IFcvMiBhbmQgbXkgPj0geV9iZWZvcmUg
+YW5kIG15IDwgeSB0aGVuCiAgICAgICAgaG92ZXJlZF92YXJpYWJsZSA9IHZhcmlhYmxlCiAgICAg
+IGVuZAogICAgZW5kCgogICAgaWYgdmFyaWFibGUuY29udGVudHMgdGhlbgogICAgICBmb3IgXywg
+diBpbiBpcGFpcnMgKHZhcmlhYmxlLmNvbnRlbnRzKSBkbwogICAgICAgIGRyYXdfdmFyaWFibGUg
+KHYsIGluZGVudCAuLiAnICAnKQogICAgICBlbmQKICAgIGVuZAogIGVuZAogIGZvciBfLCB2YXJp
+YWJsZSBpbiBpcGFpcnMgKHZhcmlhYmxlcykgZG8KICAgIGRyYXdfdmFyaWFibGUgKHZhcmlhYmxl
+LCAnICAnKQogIGVuZAogIHZhcmlhYmxlc19tYXhfc2Nyb2xsID0gdmFyaWFibGVfY291bnQgLSAo
+SCAtIHZhcmlhYmxlc190b3BfeSkgLyBmb250X2hlaWdodAoKICAtLSBzb3VyY2UKICBzZWN0aW9u
+IChXLzIsIEgvMiwgVy8yLCBILzIpCiAgcHJpbnRfbGluZSAoJ3NvdXJjZSBvZiAnIC4uIGZyYW1l
+LnBhdGggLi4gJzonLCA2KQogIGxvY2FsIGNvbnRleHQgPSB1c2Vfc21hbGxfZm9udCBhbmQgMTAg
+b3IgNQogIGxvY2FsIGlfbWluID0gbWF0aC5tYXggKDEsIGZyYW1lLmxpbmUgLSBjb250ZXh0KQog
+IGxvY2FsIGlfbWF4ID0gbWF0aC5taW4gKCNzb3VyY2VfbGluZXMsIGZyYW1lLmxpbmUgKyBjb250
+ZXh0KQogIGZvciBpID0gaV9taW4sIGlfbWF4IGRvCiAgICBjb2xvciAoaSA9PSBmcmFtZS5saW5l
+IGFuZCA2IG9yIDUpCiAgICBwcmludF9ob3Jpem9udGFsIChzdHJpbmcuZm9ybWF0ICgnJTRkICcs
+IGkpKQogICAgcHJpbnRfbGluZSAoc291cmNlX2xpbmVzIFtpXSkKICBlbmQKCiAgY2xpcCAoKQpl
+bmQKCi0tLS0gdGFraW5nIG92ZXIgZHVyaW5nIGVycm9ycyAtLS0tLS0tLS0tLS0tLS0tLS0tCgps
+b2NhbCBmdW5jdGlvbiByZXNldCAoKQogIC0tIGJhc2VkIG9uIHJlc2V0KCkgZnJvbSAvc3lzdGVt
+L2xpYi9oZWFkLmx1YQogIC0tIHNlZSB0aGF0IGZuIGZvciBpbmZvCiAgbm90ZSAoKQogIC0tIHBp
+Y290cm9uIHNlZ2ZhdWx0cyBpZiB3ZSBjYWxsIGNsaXAoKSBkdXJpbmcgaW5pdAogIGlmIGluaXRf
+ZG9uZSB0aGVuCiAgICBjbGlwICgpCiAgZW5kCiAgY2FtZXJhICgpCiAgcGFsICgpCiAgcGFsdCAo
+KQogIG1lbXNldCAoMHg1NTFmLCAwLCA5KQogIHBva2UgKDB4NTUwOCwgMHgzZikKICBwb2tlICgw
+eDU1MDksIDB4M2YpCiAgcG9rZSAoMHg1NTBhLCAweDNmKQogIHBva2UgKDB4NTUwYiwgMHgwMCkK
+ICBjb2xvciAoNikKICBmaWxscCAoKQogIHBva2UgKDB4NWY1NiwgMHg0MCkKICBwb2tlICgweDVm
+NTcsIDB4NTYpCiAgcG9rZSAoMHg0MDAwLCBnZXQgKGZldGNoIi9zeXN0ZW0vZm9udHMvbGlsLmZv
+bnQiKSkKICBwb2tlICgweDU2MDAsIGdldCAoZmV0Y2giL3N5c3RlbS9mb250cy9wOC5mb250Iikp
+CiAgcG9rZSAoMHg1NjA2LCBwZWVrICgweDU2MDApICogNCkKICBwb2tlICgweDU2MDUsIDB4MikK
+ICBwb2tlICgweDVmMjgsIDY0KQogIHBva2UgKDB4NWYyOSwgNjQpCmVuZAoKbG9jYWwgZnVuY3Rp
+b24gb25fZXJyb3IgKHRocmVhZCwgbWVzc2FnZSkKICAtLSBkbyB0aGlzIGZpcnN0IGluIGNhc2Ug
+d2UgaGl0IGFub3RoZXIgZXJyb3IKICBlcnJvcl90cmFjZWJhY2sgPSBkZWJ1Zy50cmFjZWJhY2sg
+KHRocmVhZCwgbWVzc2FnZSkKICBwcmludGggKGVycm9yX3RyYWNlYmFjaykKCiAgZXJyb3JfdGhy
+ZWFkID0gdGhyZWFkCiAgZXJyb3JfbWVzc2FnZSA9IHRvc3RyaW5nIChtZXNzYWdlKQogIHJlc2V0
+ICgpCiAgcmVidWlsZCAoKQogIC0tIGp1bXAgdG8gdGhlIHByb3BlciBzdGFjayBmcmFtZSBpZiB3
+ZSBjYW4KICBsb2NhbCBsb2NfcGF0aCwgbG9jX2xpbmUgPSBwYXJzZV9tZXNzYWdlX2Zvcl9sb2Nh
+dGlvbiAoZXJyb3JfbWVzc2FnZSkKICBmb3IgaSwgZnJhbWUgaW4gaXBhaXJzIChzdGFja19mcmFt
+ZXMpIGRvCiAgICBpZiBmcmFtZS5wYXRoID09IGxvY19wYXRoIGFuZCBmcmFtZS5saW5lID09IGxv
+Y19saW5lIHRoZW4KICAgICAgY3VycmVudF9zdGFja19pbmRleCA9IGkKICAgICAgcmVidWlsZCAo
+KQogICAgICBicmVhawogICAgZW5kCiAgZW5kCmVuZAoKLS0tLSBpbnN0YWxsIG1haW4gZXZlbnRz
+IHRoYXQgY2F0Y2ggZXJyb3JzIC0tLS0tLS0KCmxvY2FsIHVzZXJfaW5pdCA9IHJhd2dldCAoX0cs
+ICdfaW5pdCcpCmxvY2FsIHVzZXJfdXBkYXRlID0gcmF3Z2V0IChfRywgJ191cGRhdGUnKQpsb2Nh
+bCB1c2VyX2RyYXcgPSByYXdnZXQgKF9HLCAnX2RyYXcnKQoKYXNzZXJ0ICh1c2VyX2RyYXcgYW5k
+IHVzZXJfdXBkYXRlLAogICdwbGVhc2UgaW5jbHVkZSBpbnN0YWxsX2Vycm9yX2hhbmRsZXIgYWZ0
+ZXIgZGVmaW5pbmcgYm90aCBfdXBkYXRlIGFuZCBfZHJhdycpCgpsb2NhbCBmdW5jdGlvbiBjYWxs
+X2Vycm9yX2V2ZW50IChmbiwgLi4uKQogIC0tIGlmIHRoZXJlJ3MgYW4gZXJyb3IgaW4gb3VyIHVw
+ZGF0ZSBvciBkcmF3LCB0aHJvdyB0aGUKICAtLSBvcmlnaW5hbCBlcnJvciBhcyB3ZWxsIGFzIHRo
+ZSBuZXcgZXJyb3IKICBsb2NhbCBzdWNjZXNzLCBlcnIgPSBwY2FsbCAoZm4sIC4uLikKICBpZiBu
+b3Qgc3VjY2VzcyB0aGVuCiAgICBlcnJvciAoZXJyb3JfdHJhY2ViYWNrIC4uICdcblxuZXJyb3Ig
+ZHVyaW5nIGVycm9yIGhhbmRsaW5nOiAnIC4uIHRvc3RyaW5nIChlcnIpKQogIGVuZAplbmQKCmxv
+Y2FsIGZ1bmN0aW9uIGNhbGxfcHJvdGVjdGVkIChmbikKICAtLSBuZWVkIHRvIHVzZSBjb3Jlc3Vt
+ZSBldGMuIGFuZCBub3QgY29yb3V0aW5lLnJlc3VtZSBldGMuCiAgLS0gZm9yIHBpY290cm9uIGNv
+bXBhdGliaWxpdHkKICBsb2NhbCB0aHJlYWQgPSBjb2NyZWF0ZSAoZm4pCiAgbG9jYWwgc3VjY2Vz
+cywgbWVzc2FnZSA9IGNvcmVzdW1lKHRocmVhZCkKICBpZiBjb3N0YXR1cyAodGhyZWFkKSB_PSAn
+ZGVhZCcgdGhlbgogICAgY2FsbF9lcnJvcl9ldmVudCAob25fZXJyb3IsIHRocmVhZCwgJ3NldHVw
+X2Vycm9yX2Rpc3BsYXkubHVhOiBfdXBkYXRlIGFuZCBfZHJhdyBzaG91bGRuXCd0IHlpZWxkJykK
+ICBlbmQKICBpZiBub3Qgc3VjY2VzcyB0aGVuCiAgICBjYWxsX2Vycm9yX2V2ZW50IChvbl9lcnJv
+ciwgdGhyZWFkLCBtZXNzYWdlKQogIGVuZAplbmQKCmlmIHVzZXJfaW5pdCB0aGVuCiAgZnVuY3Rp
+b24gX2luaXQgKCkKICAgIGNhbGxfcHJvdGVjdGVkICh1c2VyX2luaXQpCiAgICBpbml0X2RvbmUg
+PSB0cnVlCiAgZW5kCmVsc2UKICBpbml0X2RvbmUgPSB0cnVlCmVuZAoKZnVuY3Rpb24gX3VwZGF0
+ZSAoKQogIGlmIGVycm9yX3RocmVhZCB0aGVuCiAgICBjYWxsX2Vycm9yX2V2ZW50IChlcnJvcl91
+cGRhdGUpCiAgZWxzZQogICAgY2FsbF9wcm90ZWN0ZWQgKHVzZXJfdXBkYXRlKQogIGVuZAplbmQK
+CmZ1bmN0aW9uIF9kcmF3ICgpCiAgaWYgZXJyb3JfdGhyZWFkIHRoZW4KICAgIGNhbGxfZXJyb3Jf
+ZXZlbnQgKGVycm9yX2RyYXcpCiAgZWxzZQogICAgY2FsbF9wcm90ZWN0ZWQgKHVzZXJfZHJhdykK
+ICBlbmQKZW5kCg==
 :: lib/gavel/
 :: lib/gavel/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDAxOjM4OjA2Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: lib/gavel/algebra.lua
 b64$LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLQotLSBHQVZFTDogR0VPTUVUUklDIEFMR0VCUkEgVkVDVE9SIExJQlJBUlkK
@@ -753,11 +1780,11 @@ YXJlcykKICAgICAgcmV0dXJuIGNyZWF0ZV9hbGdlYnJhX29iamVjdChkaW0sIHtwLCBuLCB6fSwg
 bXVsdF90YmwpCiAgIGVuZAplbmQKCi0tIEVORCBHZW9tZXRyaWMgQWxnZWJyYQotLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCi0tIEVO
 RCBHQVZFTDogR0VPTUVUUklDIEFMR0VCUkEgVkVDVE9SIExJQlJBUlkKLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ==
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo=
 :: lib/pgui/
 :: lib/pgui/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDAxOjM4OjA2Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: lib/pgui/pgui.lua
 --[[pod_format="raw",author="Sergio Rodriguez Gomez",created="2024-04-17 13:28:56",icon=userdata("u8",16,16,"000000010101010101010101010000000000010d0d0d0d0d0d0d0d0d0d01000000010d0d0d060606060606060d0d0100010d0d0d0606060606060606060d0d01010d0d06060607070707070706060d01010d0d06060707070101070707060d01010d0d06060707070101070707060d01010d0d06060707070101070707060d01010d0d06060607070707070706060d01010d0d06060606060606060606060d01010d0d0d0606060606060606060d0d0101010d0d0d060606060606060d0d0d010101010d0d0d0d0d0d0d0d0d0d0d0101000101010d0d0d0d0d0d0d0d0d0101000000010101010101010101010101000000000001010101010101010101000000"),modified="2024-05-06 01:05:21",notes="An Immediate Mode GUI Library",revision=11342,title="pgui",version="1.0.1"]]
 --[[
@@ -1501,7 +2528,7 @@ pgui = setmetatable({
 :: lib/vgfx/
 :: lib/vgfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDAxOjM4OjA2Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: lib/vgfx/vgfx.lua
 --[[pod_format="raw",created="2024-03-22 09:38:38",modified="2024-05-05 22:34:01",revision=9584]]
 --[[ vgfx.lua
@@ -2004,28 +3031,433 @@ function one_d_point_list(t)
 	end
 	return l
 end
+:: lib/debug.lua
+--[[pod_format="raw",created="2024-05-05 04:43:06",modified="2024-05-13 23:48:58",revision=2924]]
+width = width or 480
+height = height or 270
+
+debug = {
+	enabled = true, -- if false, logging will not work
+	visible = true, -- whether to display logged lines on screen
+	
+	log_file = "/log.txt", -- default filepath to save log file to -- TODO make relative to cart?
+	save_when_logged = true, -- if true, save when log is made
+	save_every_x_tick = 0, -- if > 0, save after this many ticks
+	lines = {}, -- auto regenerated when log changes
+	
+	key_toggle_visible = "`",
+	key_save_log = "f11",
+
+	enable_print_info = true,
+	enable_print_warn = true,
+	enable_print_err = true,
+}
+
+store(debug.log_file, "") -- fresh log file on init
+
+function debug:_draw()	
+	if not self.visible then return end
+	for i = 0, 9 do
+		if #self.lines-i <= 0 then
+			break
+		end
+		local newline = self.lines[#self.lines-i]
+		local pre = newline:sub(23,27)
+		local col = 7
+		if pre == "[INFO" then col = 12
+		elseif pre == "[WARN" then col = 10
+		elseif pre == "[ERR!" then col = 8 end
+
+		local c = count(newline, "\n") or 1 -- TODO doesnt work ):
+
+		print("\014"..self.lines[#self.lines-i], 3, (height-((8*c)+8*i)), col)
+	end
+end
+
+local ticks_since_save = 0
+function debug:_update()
+	if not self.enabled then return end
+	if keyp(self.key_toggle_visible) then
+		self.visible = not self.visible
+	end
+	if keyp(self.key_save_log) then
+		self:info("Manually saved log file to "..self.log_file)
+		self:save_to_file(self.log_file)
+	end
+	if self.save_every_x_tick > 0 then
+		if ticks_since_save == debug.save_every_x_tick then
+			self:save_to_file(self.log_file)
+			ticks_since_save = 0
+		else
+			ticks_since_save += 1
+		end
+	end
+end
+
+function debug:info(text)
+	if debug.enable_print_info then
+		debug:log_line("[INFO] " .. text)
+	end
+end
+
+function debug:warn(text)
+	if debug.enable_print_warn then
+		debug:log_line("[WARN] " .. text)
+	end
+end
+
+function debug:err(text)
+	if debug.enable_print_err then
+		debug:log_line("[ERR!] " .. text)
+	end
+end
+
+-- info 12
+-- warn 10
+-- err 8
+function debug:log_line(text)
+	if not debug.enabled then return end
+	local timestamp = date("%Y-%m-%d %H:%M:%S > ")
+	local newline = timestamp..text.."\n"
+	add(debug.lines, newline)
+	if debug.save_when_logged then
+		self:save_to_file(self.log_file)
+	end
+	-- local t = fetch(debug.log_file)..newline
+	-- store(debug.log_file, t)
+	-- debug.lines = split(t, "\n", false)
+end
+
+function debug:save_to_file(file)
+	local lines = ""
+	for l in all(self.lines) do
+		lines = lines..l
+	end
+	store(file, lines)
+end	
+
+
+-- Misc Functions --
+function stringify_table(t,offset)
+	if type(t) ~= "table" then
+		debug:warn("Cannot stringify non-table")
+		return ""
+	end
+	offset = offset or 0
+	local str = ""
+	if offset == 0 then
+		str = str.."{"
+	end
+	for k,v in pairs(t) do
+		newstr = "\n"
+		for i = 0, offset do
+			newstr = newstr.."\t"
+		end
+		newstr = newstr..k.." = "
+		if type(v) == "table" then
+			--newstr = newstr.."TABLE"
+			newstr = newstr.."{"..stringify_table(v,offset+1).."\n"
+			for i = 0, offset do
+				newstr = newstr.."\t"
+			end
+			newstr = newstr.."}"
+		else
+			newstr = newstr..tostring(v)
+		end
+		str = str..newstr..","
+	end
+	if offset == 0 then
+		str = str.."\n}"
+	end
+	return str
+end
+
+function contains(t, v)
+	for f in all(t) do
+		if f == v then
+			return true
+		end
+	end
+	return false
+end
+:: lib/dialogue.lua
+--[[pod_format="raw",created="2024-05-13 17:14:41",modified="2024-05-13 23:48:58",revision=1169]]
+-- TODO make ent
+dialogue = {
+	advance_key = "space", -- TODO allow multiple
+	
+	active_dialogue = nil,
+	line_num = 1,
+	
+	can_advance = true,
+	current_text = "",
+	chars_shown = 0,
+	line_chars = 0,
+	wait_time = 0,
+	wait_time_elapsed = 0,
+}
+
+
+-- dg		 - dialogue data
+-- start	 - line number of the dialogue to start on
+function dialogue:start(dg, start)
+	if not dg then return end
+	start = start or 1
+	
+	self.active_dialogue = dg
+	self.line_num = start
+	self:process_line(dg.lines[start])
+end
+
+function dialogue:next()
+	if self.line_num == #self.active_dialogue.lines then
+		-- end of dialogue
+		self.active_dialogue = nil
+		-- TODO maybe we send an event?
+	else
+		self.line_num += 1
+		self:process_line(self.active_dialogue.lines[self.line_num])
+	end
+end
+
+function dialogue:process_line(l)
+	if not (type(l) == "string" or type(l) == "table") then
+		debug:err("Invalid dialogue line")
+		-- TODO allow raw function 
+		return nil
+	end
+	
+	if type(l) == "string" then
+		self.can_advance = true
+		self.chars_shown = 0
+		self.line_chars = #l -- strings are easy
+		self.current_text = l
+	else
+		self.can_advance = false
+		local cmd = l[1]
+		local args = l[2]
+		if type(cmd) == "function" then
+			cmd(nil,args)
+		end
+		-- leave current_text as is unless a command changes it
+	end
+end
+
+function dialogue:_draw()
+	print(sub(self.current_text, 1, self.chars_shown),0,0,24)
+end
+
+function dialogue:_update()
+	if self.chars_shown < self.line_chars then
+		self.chars_shown += 1 -- reveal more of line
+	end
+	
+	if self.wait_time > 0 then
+		if self.wait_time_elapsed < self.wait_time then
+			self.wait_time_elapsed += 1
+			debug:info("elapsed "..self.wait_time_elapsed)
+		else
+			self.wait_time = 0
+			self.wait_time_elapsed = 0
+			self:next()
+		end
+	elseif keyp(self.advance_key) and self.can_advance then
+		if self.chars_shown < self.line_chars then
+			self.chars_shown = self.line_chars -- show whole line if we're still writing it
+		else
+			self:next() -- otherwise advance
+		end
+	end
+end
+
+dgcmd = {}
+
+-- arg 1 - wait time
+function dgcmd:wait(args)
+	dialogue.wait_time_elapsed = 0
+	dialogue.wait_time = args[1]
+end
+
+function dgcmd:choice(args)
+	
+	-- TODO
+end
+
+function dgcmd:sfx(args)
+	-- TODO
+end
+
+dg_test01 = {
+	lines = {
+		"line of dialogueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\neeeeeeeeeeeee!",
+		"auto line breaks thanks!",
+		{dgcmd.wait, {30}},       -- to run func, first arg func, second is args
+		"new line",
+		{dgcmd.choice, {
+			{"choice 1", 12}, -- choice name, line num
+			{"choice 2", 16},
+		}}
+	}
+}
+:: lib/saveload.lua
+--[[pod_format="raw",created="2024-05-13 17:53:44",modified="2024-05-13 23:48:58",revision=845]]
+include "lib/debug.lua"
+
+save = {
+	appdata_folder = "dev", -- name of subfolder in /appdata to save to
+	version = 1, -- increment when migrations are needed
+	data = {
+		-- can put in defaults here
+	},
+	
+	file_ext = ".sav",
+	
+	quicksave_pre = "quick",
+	num_quicksaves = 3,
+	
+	presave_callback = function()
+	
+	end,
+	postload_callback = function() -- function called on load, it should reset state
+		debug:err("Load callback not implemented")
+	end,
+}
+-- TODO use revision metadata to track num of times save overwritten?
+
+-- Returns metadata of all save files
+function save:get_all_saves()
+	local path = "/appdata/"..self.appdata_folder.."/"
+	local files = ls(path)
+	local save_meta = {}
+	for file in all(files) do
+		if file:sub(-1 * #self.file_ext) == self.file_ext then
+			local m = fetch_metadata(path..file)
+			m.path = path..file
+			add(save_meta, m)
+		end
+	end	
+	return save_meta
+end
+
+function save:save(file_name)
+	-- trim file extension if provided one
+	if file_name:sub(-1 * #self.file_ext) == self.file_ext then
+		file_name = file_name:sub(1, -1 * #self.file_ext - 1)
+	end
+	local path = "/appdata/"..self.appdata_folder.."/"..file_name..self.file_ext
+	local folders = ls("/appdata/")	
+	
+	local make_dir = true
+	if folders ~= nil then
+		for i,v in pairs(folders) do
+			if v == self.appdata_folder then
+				make_dir = false
+				break
+			end
+		end
+	end
+	if make_dir then
+		mkdir("/appdata/"..self.appdata_folder)
+	end
+	self.presave_callback()
+	store(path,save.data,{save_version = save.version})
+	debug:info("Saved to "..path)
+end
+
+function save:quicksave()
+	local path = "/appdata/"..self.appdata_folder.."/"
+	local files = ls(path)
+	-- rename old quicksaves and delete oldest if at max
+	for i = self.num_quicksaves, 1, -1 do
+		f = self.quicksave_pre..tostring(i)..self.file_ext
+		if contains(files, f) then
+			if i == self.num_quicksaves then
+				rm(path..f)
+			else
+				mv(path..f,path..self.quicksave_pre..tostring(i+1)..self.file_ext)
+			end
+		end
+	end
+	self:save(self.quicksave_pre.."1")
+end
+
+function save:load(file_name)
+	-- trim file extension if provided one
+	if file_name:sub(-1 * #self.file_ext) == self.file_ext then
+		file_name = file_name:sub(1, -1 * #self.file_ext - 1)
+	end
+	local path = "/appdata/"..self.appdata_folder.."/"..file_name..self.file_ext
+	local files = ls("/appdata/"..self.appdata_folder.."/")
+
+	local d = nil
+	if files ~= nil then
+		for i,v in pairs(files) do
+			if v == file_name..self.file_ext then
+				d = fetch(path)
+				break
+			end
+		end
+	end
+
+	if d ~= nil then
+		for k,v in pairs(d) do
+			self.data[k] = v
+		end
+		debug:info("Loaded from "..path)
+	else
+		debug:warn("Unable to load. No file at "..path)
+	end
+	self.postload_callback()
+end
+
+function save:quickload()
+	local path = "/appdata/"..self.appdata_folder.."/"
+	local files = ls(path)
+	local file = self.quicksave_pre.."1"..self.file_ext
+	if contains(files, file) then 
+		self:load(file)
+	else
+		debug:info("No quicksave found.")
+	end
+end
+
+-- Helpers --
+function write_props(obj, proplist)
+	local data = {}
+	for prop in all(proplist) do
+		data[prop] = obj[prop]
+	end
+	return data
+end
+
+function set_props(obj, data)
+	for prop, v in pairs(data) do
+		obj[prop] = v
+	end
+end
+	
 :: lib/yottafile.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDAxOjM3OjMzIixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwMTozODowNiIscmV2aXNpb249MTJdXWx6NADtAAAA_QEAAPYoe195Zl92ZXJzaW9uPTEs
+NS0xMyAyMjoyNjoyOCIscmV2aXNpb249MTZdXWx6NADtAAAA_QEAAPYoe195Zl92ZXJzaW9uPTEs
 ZGVwcz17Ii9kZXYvbGliL2Vycm9yX2V4cGxvcmVyLnA2NC5wbmciLCIAX2dhdmVsGQABT3BndWkY
 AAFFdmdmeBgA8BV9LHRhZ3M9e2NyZWF0ZWQ9IjIwMjQtMDUtMDYgMDE6Mzc6MzMlAM9yYWNrZWQ9
 e19yZWahAFwKYgBPPXsiLnkAAC8iLBcAAgsPAHEubHVhIn0skgAFSQABoAAoIiwOAIMvYWxnZWJy
 YTAAAKkABS8AAA0AJyIsDQABBQADKgAAuwAFKgAADQAnIiwNAAEFAIAubHVhIn19fQ==
 :: lib/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDAxOjM3OjMzIixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSIscmV2aXNpb249MjEwOF1dbHo0ALoAAACvIAAA8Ah7e2JtcD11c2VyZGF0
+NS0xMyAyMzo0ODo1OCIscmV2aXNpb249MzIyOF1dbHo0ALoAAACvIAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMALyIwAQD-------_9HjIEAA8BAFYfMgQABg8BAFMfMgQAAg8BAE8fMgQACg8B
 AFMfMgQAAg8BAF8XMgQADwEA--------nPEIIiksaGlkZGVuPWZhbHNlLHBhbl94PTAIANJ5PTAs
 dGlsZV9oPTE2CgAQdwoAj3pvb209MX0sVxALHzEEAP--------------------gPVxAkUG09MX19
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE0Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSIscmV2aXNpb249MjEwNV1dbHo0ABUBAACiDAAA8CdweHUAAygAAAQABA9A
+NS0xMyAyMzo0ODo1OCIscmV2aXNpb249MzIyNl1dbHo0ABUBAACiDAAA8CdweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8QAPAADQ8RDxIPEw8UDxUP
 Fg8XEwDxAQ8YDxkPGg8bDxwPHQ8eDx8UAPEAIA8hDyIPIw8kDyUPJg8nFADxACgPKQ8qDysPLA8t
 Dy4PLxQA8QAwDzEPMg8zDzQPNQ82DzcUAP8FOA85DzoPOw88Dz0PPg8-AA--8P8BAOv-J1oBEAYP
@@ -2033,7 +3465,7 @@ IBABIAEgAfAAAhACDBABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDDAA------_9
 H-8BAKy-yA9AAA1A--_w8HAKAP--ZB--AQD-mVD-----IA==
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI1OjE0Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: vgfx/0.vgfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIyOjMwOjQ5Iixtb2RpZmllZD0iMjAyNC0w
 NC0yOSAyMzowMTo0NSIscmV2aXNpb249MjJdXWx6NAAhAQAAXQEAALB7e3tjb2xfYT0xLAgA8CRi
@@ -2044,156 +3476,7 @@ Njc3MDc5JADwETUwLjYxODk2NjUzMTIwMiwtMzcuMjQ1NzgzOTc5MzYyJADwEDQwLjAyOTQ0NzU1
 OTA2OSwzLjQ1ODc4Njg2ODg3MTMjAEA4OCw3CABfMTIxLDbrAANQciJ9fX0=
 :: vgfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIyOjMwOjQ5Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSJdXWx6NAAEAAAAAwAAADBuaWw=
-:: behaviors.lua
---[[pod_format="raw",created="2024-05-05 05:54:19",modified="2024-05-06 05:10:51",revision=1674]]
---[[----------- TODO -----------))--
-
-- Have an event system that propogates through entities and behaviors
-- Better way for default values for variables a behavior might use, instead of having
-  all the defaults on the prototype
-
---((--------- END TODO ---------]]--
-include "protos.lua"
-
--- List of Behaviors
-beh_velocity = behavior_proto:new()
-beh_acceleration = behavior_proto:new()
-beh_bounce = behavior_proto:new()
-beh_flip_with_velocity = behavior_proto:new()
-beh_display_sprite = behavior_proto:new()
-
-
-------------------
--- beh_velocity --
-------------------
-function beh_velocity._update(self, parent)
-	if parent.vx == nil or parent.vy == nil then
-		return nil
-	end
-	parent.x += parent.vx / 60.0
-	parent.y += parent.vy / 60.0
-end
-
-
-----------------------
--- beh_acceleration --
-----------------------
-function beh_acceleration._update(self, parent)
-	if parent.ax == nil or parent.ay == nil
-	or parent.vx == nil or parent.vy == nil then
-		return nil
-	end
-	parent.vx += parent.ax / 30.0
-	parent.vy += parent.ay / 30.0
-end
-
-
-----------------
--- beh_bounce --
-----------------
-function beh_bounce._update(self, parent)
-	if parent.vx == nil or parent.vy == nil then
-		return nil
-	end
-	
-	if (parent.x < 0 and parent.vx < 0)
-	or (parent.x > width and parent.vx > 0) then
-		parent.vx = -parent.vx
-	end
-	if (parent.y < 0 and parent.vy < 0)
-	or (parent.y > height and parent.vy > 0) then
-		parent.vy = -parent.vy
-	end
-end
-
-
----------------------------
--- beh_flip_with_velocity --
----------------------------
-function beh_flip_with_velocity.setup(self, parent)
-	parent.flip = parent.flip or {}
-	
-	parent.flip.with_vel_x = true
-	parent.flip.with_vel_y = true
-	parent.flip.invert_x = false
-	parent.flip.invert_y = false
-	
-	return self
-end
-
-function beh_flip_with_velocity._update(self, parent)
-	if parent.vx == nil or parent.vy == nil
-	or parent.flip.x == nil or parent.flip.y == nil then
-		return nil
-	end
-	
-	if with_vel_x then
-		if invert_x then
-			parent.flip.x = parent.vx > 0
-		else
-			parent.flip.x = parent.vx < 0
-		end
-	end
-	if with_vel_y then
-		if invert_y then
-			parent.flip.y = parent.vy > 0
-		else
-			parent.flip.y = parent.vy < 0
-		end
-	end
-end
-
-
----------------------------
--- beh_display_sprite --
----------------------------
-function beh_display_sprite.setup(self, parent)
-	parent.sprite = parent.sprite or {}
-	parent.flip = parent.flip or {}
-	
-	parent.sprite.sheet = fetch("./gfx/0.gfx")
-	parent.sprite.i = 0
-	
-	parent.flip.x = false
-	parent.flip.y = false
-	
-	return self
-end
-
-	
-function beh_display_sprite._draw(self, parent)
-	spr(parent.sprite.sheet[parent.sprite.i].bmp, parent.x, parent.y, parent.flip.x, parent.flip.y)
-end
-:: entities.lua
---[[pod_format="raw",created="2024-04-29 21:34:20",modified="2024-05-06 05:10:51",revision=2363]]
-include "protos.lua"
-include "behaviors.lua"
-
--- List of Entities --
-ent_player = entity_proto:new()
-
-
-----------------
--- ent_player --
-----------------
-ent_player.behaviors = {
-	beh_display_sprite:setup(ent_player),
-	beh_flip_with_velocity:setup(ent_player),
-	
-	beh_acceleration,
-	beh_velocity,
-	beh_bounce,
-}
-
-ent_player.sprite.sheet = fetch("./gfx/characters.gfx")
-ent_player.sprite.i = 0
-
-ent_player.flip.with_vel_y = false
-
-function ent_player._update(self)
-
-end
+NS0xMyAyMzo0ODo1OSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: label.png
 b64$iVBORw0KGgoAAAANSUhEUgAAAeAAAAEOCAIAAADe_FMwAAAa50lEQVR4Ae3dsYvjSNrHcZXH
 oZlLj6ZxNpMszQTKOtlNjWeyngFh6OSgMXR04Gjv6MDcu5HhIoMZuNAoGGU7c5PuJs6U9f4DTnrT
@@ -2318,121 +3601,163 @@ tpsbC5xsQEsuSHzs8yOsNEru6xkW-jeqNHOD_euzqqJF6vjzXLD5jqo_Zskot9FdZBsbW-IvJ18F
 65_P1lj3viUPZXXec2N1WR7QTHnPzy2-ZJx_QOdG8M4f_c5y1ZnLx1aa2fqdF-UsiQOfgNjzicrn
 yV1bvfuWP29Rtvq8vj031vN-w53N-6MIAADQmP8HZN76M6p2NqoAAAAQdEVYdExvZGVQTkcAMjAx
 MTAyMjHjWbbBAAAAAElFTkSuQmCC
+:: log.txt
+--[[pod_format="raw",created="2024-05-13 19:17:30",modified="2024-05-13 23:48:52",revision=15003]]
+2024-05-13 17:48:48 > [INFO] Loaded scene Sandbox Scene
+2024-05-13 17:48:48 > [INFO] Loaded scene GUI Main
+2024-05-13 17:48:49 > [INFO] elapsed 1
+2024-05-13 17:48:49 > [INFO] elapsed 2
+2024-05-13 17:48:49 > [INFO] elapsed 3
+2024-05-13 17:48:49 > [INFO] elapsed 4
+2024-05-13 17:48:49 > [INFO] elapsed 5
+2024-05-13 17:48:49 > [INFO] elapsed 6
+2024-05-13 17:48:49 > [INFO] elapsed 7
+2024-05-13 17:48:49 > [INFO] elapsed 8
+2024-05-13 17:48:49 > [INFO] elapsed 9
+2024-05-13 17:48:49 > [INFO] elapsed 10
+2024-05-13 17:48:49 > [INFO] elapsed 11
+2024-05-13 17:48:49 > [INFO] elapsed 12
+2024-05-13 17:48:49 > [INFO] elapsed 13
+2024-05-13 17:48:50 > [INFO] elapsed 14
+2024-05-13 17:48:50 > [INFO] elapsed 15
+2024-05-13 17:48:50 > [INFO] elapsed 16
+2024-05-13 17:48:50 > [INFO] elapsed 17
+2024-05-13 17:48:50 > [INFO] elapsed 18
+2024-05-13 17:48:50 > [INFO] elapsed 19
+2024-05-13 17:48:50 > [INFO] elapsed 20
+2024-05-13 17:48:50 > [INFO] elapsed 21
+2024-05-13 17:48:50 > [INFO] elapsed 22
+2024-05-13 17:48:50 > [INFO] elapsed 23
+2024-05-13 17:48:50 > [INFO] Saved to /appdata/lilykp_testrpg/quick1.sav
+2024-05-13 17:48:50 > [INFO] elapsed 24
+2024-05-13 17:48:50 > [INFO] elapsed 25
+2024-05-13 17:48:50 > [INFO] elapsed 26
+2024-05-13 17:48:50 > [INFO] elapsed 27
+2024-05-13 17:48:50 > [INFO] elapsed 28
+2024-05-13 17:48:50 > [INFO] elapsed 29
+2024-05-13 17:48:50 > [INFO] elapsed 30
+2024-05-13 17:48:52 > [INFO] Loaded from /appdata/lilykp_testrpg/quick1.sav
+2024-05-13 17:48:52 > [INFO] Loaded scene Sandbox Scene
+2024-05-13 17:48:52 > [INFO] Loaded scene GUI Main
+
 :: main.lua
---[[pod_format="raw",created="2024-04-29 20:25:15",modified="2024-05-06 05:10:51",revision=2573]]
+--[[pod_format="raw",created="2024-04-29 20:25:15",modified="2024-05-13 23:48:58",revision=3970]]
 include "protos.lua"
-include "scenes.lua"
-include "util.lua"
+include "lib/saveload.lua"
+include "lib/debug.lua"
+include "lib/dialogue.lua"
+include "gui/scenes.lua"
+include "content/scenes.lua"
 
 -- Game Settings --
 game = {
-	name          	= "Test RPG",
-	author 			= "lilykp",
-	version 			= "0.0.1",
+	name          			= "Test RPG",
+	author 					= "lilykp",
+	version 					= "0.0.1",
 }
 
-save = {
-	appdata_folder = "lilykp_testrpg", -- name of subfolder in /appdata to save to
-	version = 1, -- increment when migrations are needed
+debug = inherit(debug,
+{
+	log_file 					= "/ram/cart/log.txt",
+	save_when_logged 		= true
+})
+
+save = inherit(save,
+{
+	appdata_folder 			= "lilykp_testrpg",
+	version 					= 1,
 	data = {
-		-- can put in defaults here
+		-- put in defaults here
 	},
-}
-
-width=480
-height=270
-
--- TODO make a thing to easily make shortcuts (like menu but without menu)
--- then make Ctrl+5 and Ctrl+9 quicksave and quickload
+})
 
 -- Main Functions --
 function _init()
 	window{
-		title = "rpg"
+		title = game.name
 	}
 	
 	menuitem{
-		id = 0,                   -- unique identifier. integer ids are used to sort items (otherwise in order added)
-		shortcut = "CTRL-Q",      -- drawn right justified in menu
-		action = function(b)
-			stop("Application force closed",0,0,8)
-		  end
+		id = 0,
+		label = "Quicksave",
+		action = function() save:quicksave() end
 	}
-	
+	menuitem{
+		id = 1,
+		label = "Quickload",
+		action = function() save:quickload() end
+	}
 	world = world_proto:new_named("World")
+	gui = world_proto:new_named("GUI")
 	--gui = create_gui()
 
-	debug:info("test")
-
 	world:start(sce_sandbox)
+	gui:start(gui_main)
+	
+	dialogue:start(dg_test01) -- TODO removeme, testing only
 end
 
 function _draw()
+	cls(0)
 	world:_draw()
-	debug:_draw() -- TODO move out to main
+	gui:_draw()
+	debug:_draw()
+	
+	dialogue:_draw() -- TODO removeme, testing only
 end
 
 function _update()
 	game:_update()
 	world:_update()
+	gui:_update()
 	debug:_update()
+	
+	dialogue:_update() -- TODO removeme, testing only
 end
 
 
 -- Game Functions --
 function game:_update()
-	if keyp({"ctrl","q"}) then
-	  -- TODO cant yet detect multiple, lib/events comments say it will accept table
-	  -- but its unimplemented, so for now use menuitems
+	if key("ctrl") and keyp("q") then
+		stop("Application force closed",0,0,8)
 	end
-end
-
--- Save Functions --
-function save:save(file_name)
-	local path = "/appdata/"..self.appdata_folder.."/"..file_name..".sav"	
-	local folders = ls("/appdata/")	
-	
-	local make_dir = true
-	if folders ~= nil then
-		for i,v in pairs(folders) do
-			if v == self.appdata_folder then
-				make_dir = false
-				break
-			end
-		end
+	if keyp("f5") then
+		save:quicksave()
 	end
-	if make_dir then
-		mkdir("/appdata/"..self.appdata_folder)
+	if keyp("f9") then
+		save:quickload()
 	end
-	
-	store(path,save.data)
-	debug:info("Saved to "..path)
-end
-
-function save:load(file_name)
-	local path = "/appdata/"..self.appdata_folder.."/"..file_name..".sav"
-	local files = ls("/appdata/"..self.appdata_folder.."/")
-
-	local d = nil
-	if files ~= nil then
-		for i,v in pairs(files) do
-			if v == file_name..".sav" then
-				d = fetch(path)
-				break
-			end
-		end
+	if keyp("f10") then
+		debug:info(stringify_table(save:get_all_saves()))
 	end
-
-	if d ~= nil then
-		for k,v in pairs(d) do
-			self.data[k] = v
-		end
-	else
-		debug:warn("Unable to load. No file at "..path)
+	if keyp("=") then
+		--debug:info(stringify_table(ws_gui))
+		notify("butts")
 	end
 end
 
 
+-- Save/Load Callbacks --
+save.presave_callback = function()
+	save.data.loaded_scene = world.active_scene.id
+	for i,ent in pairs(world.scene_ents) do
+		ent:_save()
+	end
+	for i,ent in pairs(world.pers_ents) do
+		ent:_save()
+	end
+end
+
+save.postload_callback = function()
+	world:start(_G[save.data.loaded_scene])
+	gui:start(gui_main)
+	for i,ent in pairs(world.scene_ents) do
+		ent:_load()
+	end
+	for i,ent in pairs(world.pers_ents) do
+		ent:_load()
+	end
+end
 
 --include "./lib/error_explorer/error_explorer.lua"
 --[[-------------- DOCUMENTATION --------------))--
@@ -2456,8 +3781,8 @@ when doing for loops use
 
 --((------------ END DOCUMENTATION ------------]]--
 :: protos.lua
---[[pod_format="raw",created="2024-05-05 04:59:35",modified="2024-05-06 05:10:51",revision=1867]]
-include "util.lua"
+--[[pod_format="raw",created="2024-05-05 04:59:35",modified="2024-05-13 23:48:58",revision=3047]]
+include "lib/debug.lua"
 
 -- List of Protos --
 world_proto = {}
@@ -2465,13 +3790,23 @@ scene_proto = {}
 entity_proto = {}
 behavior_proto = {}
 
+
+-------------------
+-- Misc Functions --
+--------------------
+function inherit(superobj, obj) -- superobj first for cleaner syntax
+	setmetatable(obj, superobj)
+	superobj.__index = superobj
+	return obj
+end
+
 -----------------
 -- world_proto --
 -----------------
--- TODO support for multiple scenes loaded at once? or maybe just use multiple
--- worlds for that
 world_proto.name = "world"
 
+world_proto.pause_draw = false
+world_proto.pause_update = false
 world_proto.active_scene = {} -- currently active scene
 
 world_proto.scene_ents = {} -- ents from the active scene will go in here
@@ -2484,6 +3819,9 @@ function world_proto:new(o)
 	o = o or {}
 	setmetatable(o,self)
 	self.__index = self
+	o.active_scene = {}
+	o.scene_ents = {}
+	o.pers_ents = {}
 	return o
 end
 
@@ -2493,14 +3831,16 @@ function world_proto:new_named(n)
 end
 
 function world_proto:start(starting_scene)
+	self.scene_ents = {}
+	self.pers_ents = {}
 	self:set_active_scene(starting_scene)
 end
 
 function world_proto:set_active_scene(scene)
 	self.active_scene = scene
-	world.scene_ents = scene:create_ents()
-	scene:_init()
-	for i,ent in ipairs(world.scene_ents) do
+	self.scene_ents = scene:create_ents()
+	scene:_init(self)
+	for i,ent in ipairs(self.scene_ents) do
 		ent:_init()
 		ent:init_behaviors()
 	end
@@ -2509,6 +3849,11 @@ end
 
 function world_proto:reload_scene()
 	self:set_active_scene(self.active_scene)
+end
+
+function world_proto:set_paused(v)
+	self.pause_draw = v
+	self.pause_update = v
 end
 
 function world_proto:add_pers_ent(id, ent)
@@ -2533,20 +3878,25 @@ function world_proto:pers(id)
 	return self:get_pers_ent(id)
 end
 
+function world_proto:clear_pers()
+	self.pers_ents = {}
+end
+
 function world_proto:_draw()
-	cls(1) -- TODO change
+	if self.pause_draw then return end
 	self.active_scene:_draw()
 	for i,ent in ipairs(self.scene_ents) do
 		ent:_draw()
 		ent:draw_behaviors()
 	end
-	for i,ent in pairs(self.pers_ents)	 do
+	for i,ent in pairs(self.pers_ents) do
 		ent:_draw()
 		ent:draw_behaviors()
 	end
 end
 
 function world_proto:_update()
+	if self.pause_update then return end
 	self.active_scene:_update()
 	for i,ent in ipairs(self.scene_ents) do
 		ent:_update()
@@ -2562,6 +3912,7 @@ end
 -----------------
 -- scene_proto --
 -----------------
+scene_proto.id = ""
 scene_proto.name = ""
 
 function scene_proto.new(self, o)
@@ -2571,8 +3922,8 @@ function scene_proto.new(self, o)
 	return o
 end
 
-function scene_proto.new_named(self, n)
-	o = {name = n}
+function scene_proto.quick(self, i, n)
+	o = {id = i, name = n}
 	return scene_proto:new(o)
 end
 
@@ -2581,7 +3932,7 @@ function scene_proto.create_ents()
 	return {}
 end
 
-function scene_proto._init(self)
+function scene_proto._init(self, w)
 end
 
 function scene_proto._draw(self)
@@ -2631,6 +3982,17 @@ end
 function entity_proto._init(self)
 end
 
+-- override to tell the entity what to save
+function entity_proto._save(self)
+
+end
+
+-- override to tell the entity what to load
+function entity_proto._load(self)
+
+end
+
+-- do NOT override
 function entity_proto.init_behaviors(self)
 	for i,beh in ipairs(self.behaviors) do
 		beh:_init(self) -- pass in self as parent
@@ -2693,122 +4055,18 @@ function behavior_proto._update(self,parent)
 end
 
 
-:: scenes.lua
---[[pod_format="raw",created="2024-05-05 04:37:49",modified="2024-05-06 05:10:51",revision=1878]]
---[[----------- TODO -----------))--
-
-- Have scenes able to define a .map file and a section of that .map file to serve as
-  the scene.
-
---((--------- END TODO ---------]]--
-include "protos.lua"
-include "entities.lua"
-
--- List of Scene Names --
-sce_sandbox = scene_proto:new_named("Sandbox Scene")
-
-
------------------
--- sce_sandbox --
------------------
-function sce_sandbox.create_ents(self)
-	return {
-		-- can do like conditional entity creation, for example if smthn shouldnt spawn
-		-- based on a bool in save data
-	}
-end
-
-function sce_sandbox._init(self)
-	if not world:has_pers_ent("player") then
-		world:add_pers_ent("player",
-			ent_player:new({
-				x=0,y=height/2,
-				vx=30,vy=0,
-				ax=0,ay=9.8
-			}))
-	end
-end
-
-function sce_sandbox._draw(self)
-	map()
-end
-
-:: util.lua
---[[pod_format="raw",created="2024-05-05 04:43:06",modified="2024-05-06 05:10:51",revision=1957]]
-debug = {
-	enabled = true,
-	visible = true,
-	log_file = "/log.txt",
-	lines = {}, -- auto regenerated when log changes
-	
-	enable_print_info = true,
-	enable_print_warn = true,
-	enable_print_err = true,
-}
-
-store(debug.log_file, "") -- fresh log file on init
-
-function debug:_draw()	
-	if not self.visible then return end
-	for i=0, 9 do
-		if #self.lines-i <= 0 then
-			break
-		end
-		local newline = self.lines[#self.lines-i]
-		local pre = newline:sub(23,27)
-		local col = 7
-		if pre == "[INFO" then col = 12
-		elseif pre == "[WARN" then col = 10
-		elseif pre == "[ERR]" then col = 8 end
-		
-		print("\014"..self.lines[#self.lines-i], 3, (height-(8*i)), col)
-	end
-end
-
-function debug:_update()
-	if not self.enabled then return end
-	if keyp("`") then
-		self.visible = not self.visible
-	end 
-end
-
-function debug:info(text)
-	if debug.enable_print_info then
-		debug:log_line("[INFO] " .. text)
-	end
-end
-
-function debug:warn(text)
-	if debug.enable_print_warn then
-		debug:log_line("[WARN] " .. text)
-	end
-end
-
-function debug:err(text)
-	if debug.enable_print_err then
-		debug:log_line("[ERR] " .. text)
-	end
-end
-
--- info 12
--- warn 10
--- err 8
-function debug:log_line(text)
-	local timestamp = date("%Y-%m-%d %H:%M:%S > ")
-	local newline = timestamp..text.."\n"
-	local t = fetch(debug.log_file)..newline
-	store(debug.log_file, t)
-	debug.lines = split(t, "\n", false)
-end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTI5IDIwOjI4OjE1Iixtb2RpZmllZD0iMjAyNC0w
-NS0wNiAwNToxMDo1MSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
-MzYiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249InV0aWwubHVhIzE0Iix3b3Jrc3BhY2Vf
-aW5kZXg9MX0se2xvY2F0aW9uPSJwcm90b3MubHVhIzg3Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xv
-Y2F0aW9uPSJiZWhhdmlvcnMubHVhIzE3Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJl
-bnRpdGllcy5sdWEjMjEiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249InNjZW5lcy5sdWEj
-NCIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5k
-ZXg9Mn0se2xvY2F0aW9uPSJnZngvY2hhcmFjdGVycy5nZngiLHdvcmtzcGFjZV9pbmRleD0yfSx7
-bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNlX2luZGV4PTN9LHtsb2NhdGlvbj0ic2Z4LzAu
-c2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV1sejQABAAAAAMAAAAwbmls
+NS0xMyAyMzo0ODo1OSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+NyIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iY29udGVudC9iZWhhdmlvcnMubHVhIzEy
+MyIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iY29udGVudC9lbnRpdGllcy5sdWEjMzQi
+LHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImNvbnRlbnQvc2NlbmVzLmx1YSMzOCIsd29y
+a3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0ibGliL2RpYWxvZ3VlLmx1YSMxNCIsd29ya3NwYWNl
+X2luZGV4PTF9LHtsb2NhdGlvbj0icHJvdG9zLmx1YSMxMTEiLHdvcmtzcGFjZV9pbmRleD0xfSx7
+bG9jYXRpb249ImxpYi9zYXZlbG9hZC5sdWEjMTM1Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0
+aW9uPSJsaWIvZGVidWcubHVhIzEzMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4
+LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5kZXg9Mn0se2xvY2F0aW9uPSJnZngvY2hhcmFjdGVycy5nZngi
+LHdvcmtzcGFjZV9pbmRleD0yfSx7bG9jYXRpb249Im1hcC8wLm1hcCIsd29ya3NwYWNlX2luZGV4
+PTN9LHtsb2NhdGlvbj0ic2Z4LzAuc2Z4Iix3b3Jrc3BhY2VfaW5kZXg9NH19XV1sejQABAAAAAMA
+AAAwbmls
 :: [eoc]
