@@ -7,7 +7,7 @@ version 2
 :: pal/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiIscmV2aXNpb249MjAzMl1dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
+NS0xNCAwMDo1NjoxOSIscmV2aXNpb249MjI0NV1dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
 AEMgEBAE8PAsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTR9LDEA8A4gIATwoXfwBdfwAPcCwPcE
 oPcGgPcHcPcIYEfdVwQAU1BX-QA3BQBzlh0XHTdAZwcANV03XQYAABIAF1YIACT9AAUAUBbdN1BX
 BQAhd9YEAM9g9wlg9wlw9wiA9wepABn-KRgYBPcobfcBffcARg0HDfcALRct9wANBw0XJvcAffcA
@@ -31,15 +31,15 @@ B0AHAAcQJWcAdwBXAAVngGUoADAFdzV0ABFAKAAxBUA3eAAwJ0BnggCfQAVXBXcAVRBnwAEeDzEA
 ------------------------------------------------vFBtPTJ9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xNCAwMDo1NjoxOSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiIscmV2aXNpb249MTk4M11dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
+NS0xNCAwMDo1NjoxOSIscmV2aXNpb249MjE5Nl1dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMALyIwAQD--------------------78QgiKSxoaWRkZW49ZmFsc2UscGFuX3g9
 MAgA0nk9MCx0aWxlX2g9MTYKABB3CgCAem9vbT0xfX0=
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xNCAwMDo1NjoxOSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: pal/0.pal
 b64$LS1bW3BvZCxiZ19jb2xvcj0wLGhpZGRlbj17WzBdPWZhbHNlLGZhbHNlLGZhbHNlLGZhbHNl
 LGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZh
@@ -70,18 +70,18 @@ NTAwYzMwMDRjMDBlYjZiRgBgOTBlYzQyCgAgYjLAAKA2NGRmZjYwMGJkiQAAlgBAMGRhYkAAXzg1
 NmQwAQDpUDAwMCIp
 :: pal/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA3IDA3OjUzOjUzIixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xNCAwMDo1NjoxOSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiIscmV2aXNpb249MTk2M11dbHo0ALoAAACCFAAA-yxweHUAAygAAAQABA9A
+NS0xNCAwMDo1NjoxOSIscmV2aXNpb249MjE3Nl1dbHo0ALoAAACCFAAA-yxweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8AD--w-wEA6-8n0gEQBg8g
 EAEgASAB8AACEAIMEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYMMAD------70f
 -wEArPEHyA9AAA1A--8TDy3--y8B-i8M-gzwcBUAX-6w8HADCAD---------------9cUP6w8P85
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xNCAwMDo1NjoxOSJdXWx6NAAEAAAAAwAAADBuaWw=
 :: bbox.lua
---[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-11 19:09:02",revision=1524]]
+--[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-14 00:56:19",revision=1738]]
 -- TODO move to be a lib
 -- TODO change to use userdata for efficiency
 
@@ -111,7 +111,7 @@ function bbox_from_xywh(o)
 	return {o.x, o.y, o.x+o.w, o.y+o.h}
 end
 :: debug.lua
---[[pod_format="raw",created="2024-05-07 03:54:57",modified="2024-05-11 19:09:02",revision=851]]
+--[[pod_format="raw",created="2024-05-07 03:54:57",modified="2024-05-14 00:56:19",revision=1067]]
 -- TODO move to be a lib
 -- TODO make not dependent on a global height/width thing
 height = 270
@@ -182,7 +182,7 @@ function log_line(text)
 	debug.lines = split(t, "\n", false)
 end
 :: main.lua
---[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-11 19:09:02",revision=2650]]
+--[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-14 00:56:19",revision=2958]]
 include "debug.lua"
 include "mouse.lua"
 include "bbox.lua"
@@ -197,7 +197,7 @@ all done (:
 
 - Priority 2
 TODO menuitem with shortcut to close process
-TODO search bar (:
+TODO visual for search
 TODO change cursor on hover
 TODO ability to change vertical and horizontal spacing seperately, and ability to change list height(/width when hor. basically the shorter side length)
 TODO close menu on app launch (but have setting toggle to not) (also if it does, holding shift will make it not, or middle clicking)
@@ -282,7 +282,7 @@ settings = {
 	spacing_minor = 4, -- TODO implement -- icon spacing along shorter length of list (y if horizontal, x if vertical)
 
 	corner = env().corner or 3, -- 1 topleft, 2 topright, 3 botright, 4 botleft
-	horizontal = env().horizontal or false, -- whether to open the bar horizontally
+	horizontal = env().horizontal or true, -- whether to open the bar horizontally
 	
 	open_speed = .2, -- seconds to fully open
 	scroll_sens = 4, -- num of pixels per scroll value
@@ -488,6 +488,25 @@ function applist_btn:_update()
 	-- Handle Scroll
 	scroll.cur += wy * settings.scroll_sens
 	scroll.cur = mid(scroll.min, scroll.cur, scroll.max)
+	
+	-- Handle Search
+	if bbox_point({mx,my}, applist_btn.bbox) then
+		if keyp("backspace") and #applist.search_str != 0 then
+			applist.search_str = sub(applist.search_str,1,#applist.search_str-1)
+		end
+		while (peektext()) do
+			c = readtext()
+			debug:info(c)
+			applist.search_str = applist.search_str..c
+		end
+		filter_visible_apps(applist.search_str)
+		debug:info(applist.search_str)
+	else
+		-- throw away text typed while not hovering
+		while peektext() do
+			readtext()
+		end
+	end
 end
 
 -------------
@@ -518,6 +537,7 @@ applist = {
 	pull_speed = .2, -- sec to go from min to max or vice versa
 	current_clip = {0,0,0,0},
 
+	search_str = "",
 	app_buttons = {},
 }
 applist.x = win_w-applist.w
@@ -599,7 +619,7 @@ function applist:_draw()
 	
 	clip(self.current_clip[1], self.current_clip[2], self.current_clip[3], self.current_clip[4])
 	local i = 1
-	for k,v in pairs(apps) do
+	for k,v in pairs(visible_apps) do
 		if hor then
 			y1 = st_y
 			y2 = st_y + self.ico_h - 1
@@ -679,7 +699,7 @@ function applist:_update()
 
 	tooltip.visible = false
 	if valid then
-		for k,v in pairs(apps) do
+		for k,v in pairs(visible_apps) do
 			if bbox_point({mx,my}, v.bbox) then
 				--debug:info(v.path)
 				tooltip:set_text(v.title)
@@ -745,10 +765,10 @@ end
 -- Apps --
 ----------
 apps = {}
+visible_apps = {}
 app_count = 0
 
--- TODO save/load from pod in appdata
--- TODO order entries by this, auto add and remove entries
+-- TODO custom sorting that save/load from pod in appdata
 saved_data = {
 	order = {}
 }
@@ -767,16 +787,40 @@ function fill_apps()
 			o.path = p
 			o.icon = get_file_icon(file,p)
 			
-			apps[p] = app_entry:new(o)
+			--apps[p] = app_entry:new(o)
+			add(apps, app_entry:new(o))
 			app_count += 1
-			--debug:info(apps[p].title)
 		end
 	end
 	--debug:info(tostring(#apps))
 	debug:info("what the fuck")
+	sort_apps()
+	filter_visible_apps()
 	scroll:calculate_max()
 end
 
+function sort_apps()
+	sort(apps, function(a, b)
+		local ta = string.lower(a.title)
+		local tb = string.lower(b.title)
+		
+		return tb < ta
+	end)
+end
+
+function filter_visible_apps(str)
+	visible_apps = {}
+	if str == nil or str == "" then
+		visible_apps = apps
+		return
+	end
+	local n = #str
+	for k,v in pairs(apps) do
+		if string.lower(sub(v.title, 1, n)) == string.lower(str) then
+			add(visible_apps, v)
+		end
+	end
+end
 
 ---------------
 -- App Entry --
@@ -892,12 +936,12 @@ function scroll:calculate_max()
 	--debug:info("calc scroll")
 	if hor then
 		if left then
-			scroll.max = (app_count * 20) - (applist.w - applist_btn.w) + applist.ico_s
+			scroll.max = (#visible_apps * 20) - (applist.w - applist_btn.w) + applist.ico_s
 		else
-			scroll.max = (app_count * 20) - (applist.w - applist_btn.w) + applist.ico_s
+			scroll.max = (#visible_apps * 20) - (applist.w - applist_btn.w) + applist.ico_s
 		end
 	else
-		scroll.max = (app_count * 20) - (applist.h - applist_btn.h) + applist.ico_s
+		scroll.max = (#visible_apps * 20) - (applist.h - applist_btn.h) + applist.ico_s
 	end
 	--debug:info(scroll.max)
 end
@@ -914,8 +958,54 @@ end
 2024-05-06 22:04:49 > [INFO] author | zep
 2024-05-06 22:04:49 > [INFO] runtime | 5
 ]]--
+
+
+function qsort(a,c,l,r)
+    c,l,r=c or ascending,l or 1,r or #a
+    c("a","b")
+    if l<r then
+        if c(a[r],a[l]) then
+            a[l],a[r]=a[r],a[l]
+        end
+        local lp,rp,k,p,q=l+1,r-1,l+1,a[l],a[r]
+        while k<=rp do
+            if c(a[k],p) then
+                a[k],a[lp]=a[lp],a[k]
+                lp+=1
+            elseif not c(a[k],q) then
+                while c(q,a[rp]) and k<rp do
+                    rp-=1
+                end
+                a[k],a[rp]=a[rp],a[k]
+                rp-=1
+                if c(a[k],p) then
+                    a[k],a[lp]=a[lp],a[k]
+                    lp+=1
+                end
+            end
+            k+=1
+        end
+        lp-=1
+        rp+=1
+        a[l],a[lp]=a[lp],a[l]
+        a[r],a[rp]=a[rp],a[r]
+        qsort(a,c,l,lp-1       )
+        qsort(a,c,  lp+1,rp-1  )
+        qsort(a,c,       rp+1,r)
+    end
+end
+
+function sort(a,cmp)
+  for i=1,#a do
+    local j = i
+    while j > 1 and cmp(a[j-1],a[j]) do
+        a[j],a[j-1] = a[j-1],a[j]
+    j = j - 1
+    end
+  end
+end
 :: mouse.lua
---[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-11 19:09:02",revision=1561]]
+--[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-14 00:56:19",revision=1775]]
 -- TODO move to be a lib
 -- TODO add hold repeat
 -- TODO add locked mouse shit (and make mx,my use it correctly)
@@ -957,8 +1047,8 @@ function mbtnp(i)
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjQwOjI1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAxOTowOTowMiIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
-MTM1Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJtb3VzZS5sdWEjNSIsd29ya3NwYWNl
+NS0xNCAwMDo1NjoxOSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+MzExIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJtb3VzZS5sdWEjNSIsd29ya3NwYWNl
 X2luZGV4PTF9LHtsb2NhdGlvbj0iYmJveC5sdWEjMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2Nh
 dGlvbj0iZGVidWcubHVhIzgiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImdmeC8wLmdm
 eCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3b3Jrc3BhY2VfaW5k
