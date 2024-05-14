@@ -7,7 +7,7 @@ version 2
 :: pal/
 :: gfx/0.gfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiIscmV2aXNpb249MjAyM11dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
+NS0xMSAxOTowOTowMiIscmV2aXNpb249MjAzMl1dbHo0AK4EAAD1OQAA8xR7WzBdPXtibXA9cHh1
 AEMgEBAE8PAsZmxhZ3M9MCxwYW5feAgAx3k9MCx6b29tPTR9LDEA8A4gIATwoXfwBdfwAPcCwPcE
 oPcGgPcHcPcIYEfdVwQAU1BX-QA3BQBzlh0XHTdAZwcANV03XQYAABIAF1YIACT9AAUAUBbdN1BX
 BQAhd9YEAM9g9wlg9wlw9wiA9wepABn-KRgYBPcobfcBffcARg0HDfcALRct9wANBw0XJvcAffcA
@@ -31,15 +31,15 @@ B0AHAAcQJWcAdwBXAAVngGUoADAFdzV0ABFAKAAxBUA3eAAwJ0BnggCfQAVXBXcAVRBnwAEeDzEA
 ------------------------------------------------vFBtPTJ9fQ==
 :: gfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
 :: map/0.map
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiIscmV2aXNpb249MTk3NF1dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
+NS0xMSAxOTowOTowMiIscmV2aXNpb249MTk4M11dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
 YSgiaTE2IiwzMgMALyIwAQD--------------------78QgiKSxoaWRkZW49ZmFsc2UscGFuX3g9
 MAgA0nk9MCx0aWxlX2g9MTYKABB3CgCAem9vbT0xfX0=
 :: map/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
 :: pal/0.pal
 b64$LS1bW3BvZCxiZ19jb2xvcj0wLGhpZGRlbj17WzBdPWZhbHNlLGZhbHNlLGZhbHNlLGZhbHNl
 LGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZhbHNlLGZh
@@ -70,18 +70,18 @@ NTAwYzMwMDRjMDBlYjZiRgBgOTBlYzQyCgAgYjLAAKA2NGRmZjYwMGJkiQAAlgBAMGRhYkAAXzg1
 NmQwAQDpUDAwMCIp
 :: pal/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA3IDA3OjUzOjUzIixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
 :: sfx/0.sfx
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiIscmV2aXNpb249MTk1NF1dbHo0ALoAAACCFAAA-yxweHUAAygAAAQABA9A
+NS0xMSAxOTowOTowMiIscmV2aXNpb249MTk2M11dbHo0ALoAAACCFAAA-yxweHUAAygAAAQABA9A
 EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8AD--w-wEA6-8n0gEQBg8g
 EAEgASAB8AACEAIMEAEgDyEgATAPQPDDDygP--DGD-gKD-8PgA-3Dw0B8AkBEAYMMAD------70f
 -wEArPEHyA9AAA1A--8TDy3--y8B-i8M-gzwcBUAX-6w8HADCAD---------------9cUP6w8P85
 :: sfx/.info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjM0OjU0Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiJdXWx6NAAEAAAAAwAAADBuaWw=
+NS0xMSAxOTowOTowMiJdXWx6NAAEAAAAAwAAADBuaWw=
 :: bbox.lua
---[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-11 03:52:12",revision=1513]]
+--[[pod_format="raw",created="2024-05-06 21:27:20",modified="2024-05-11 19:09:02",revision=1524]]
 -- TODO move to be a lib
 -- TODO change to use userdata for efficiency
 
@@ -111,7 +111,7 @@ function bbox_from_xywh(o)
 	return {o.x, o.y, o.x+o.w, o.y+o.h}
 end
 :: debug.lua
---[[pod_format="raw",created="2024-05-07 03:54:57",modified="2024-05-11 03:52:12",revision=837]]
+--[[pod_format="raw",created="2024-05-07 03:54:57",modified="2024-05-11 19:09:02",revision=851]]
 -- TODO move to be a lib
 -- TODO make not dependent on a global height/width thing
 height = 270
@@ -182,7 +182,7 @@ function log_line(text)
 	debug.lines = split(t, "\n", false)
 end
 :: main.lua
---[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-13 17:46:44",revision=2639]]
+--[[pod_format="raw",created="2024-05-06 19:34:55",modified="2024-05-11 19:09:02",revision=2650]]
 include "debug.lua"
 include "mouse.lua"
 include "bbox.lua"
@@ -197,7 +197,7 @@ all done (:
 
 - Priority 2
 TODO menuitem with shortcut to close process
-TODO search bar :)
+TODO search bar (:
 TODO change cursor on hover
 TODO ability to change vertical and horizontal spacing seperately, and ability to change list height(/width when hor. basically the shorter side length)
 TODO close menu on app launch (but have setting toggle to not) (also if it does, holding shift will make it not, or middle clicking)
@@ -310,11 +310,11 @@ function settings:apply_changes()
 	-- set win size based on horizontal
 	if self.horizontal then
 		win_w = 480
-		win_h = 120
+		win_h = 40
 		applist.w = win_w
 		applist.h = 24
 	else
-		win_w = 120
+		win_w = 80
 		win_h = 259
 		applist.w = 24
 		applist.h = win_h
@@ -915,7 +915,7 @@ end
 2024-05-06 22:04:49 > [INFO] runtime | 5
 ]]--
 :: mouse.lua
---[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-11 03:52:12",revision=1550]]
+--[[pod_format="raw",created="2024-05-06 21:07:29",modified="2024-05-11 19:09:02",revision=1561]]
 -- TODO move to be a lib
 -- TODO add hold repeat
 -- TODO add locked mouse shit (and make mx,my use it correctly)
@@ -957,10 +957,10 @@ function mbtnp(i)
 end
 :: .info.pod
 b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA1LTA2IDE5OjQwOjI1Iixtb2RpZmllZD0iMjAyNC0w
-NS0xMSAwMzo1MjoxMiIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
-NTkiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249Im1vdXNlLmx1YSM1Iix3b3Jrc3BhY2Vf
-aW5kZXg9MX0se2xvY2F0aW9uPSJiYm94Lmx1YSMxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0
-aW9uPSJkZWJ1Zy5sdWEjMzQiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImdmeC8wLmdm
+NS0xMSAxOTowOTowMiIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+MTM1Iix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSJtb3VzZS5sdWEjNSIsd29ya3NwYWNl
+X2luZGV4PTF9LHtsb2NhdGlvbj0iYmJveC5sdWEjMSIsd29ya3NwYWNlX2luZGV4PTF9LHtsb2Nh
+dGlvbj0iZGVidWcubHVhIzgiLHdvcmtzcGFjZV9pbmRleD0xfSx7bG9jYXRpb249ImdmeC8wLmdm
 eCIsd29ya3NwYWNlX2luZGV4PTJ9LHtsb2NhdGlvbj0ibWFwLzAubWFwIix3b3Jrc3BhY2VfaW5k
 ZXg9M30se2xvY2F0aW9uPSJzZngvMC5zZngiLHdvcmtzcGFjZV9pbmRleD00fX1dXWx6NAAEAAAA
 AwAAADBuaWw=
